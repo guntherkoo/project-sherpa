@@ -1,0 +1,39 @@
+{
+  "presets": [
+    [
+      "next/babel",
+      {
+        "preset-env": {
+          "targets": {
+            "android": "4.2",
+            "chrome": "58",
+            "edge": "14",
+            "firefox": "52",
+            "ie": "11",
+            "ios": "8",
+            "safari": "9.0"
+          },
+          "useBuiltIns": "usage",
+          "debug": true
+        }
+      },
+    ]
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "components": "./components",
+          "pages": "./pages",
+          "config": "./config",
+          "actions": "./redux/actions",
+          "utils": "./utils",
+          "styles": "./styles",
+        }
+      }
+    ],
+    "inline-react-svg",
+  ]
+}

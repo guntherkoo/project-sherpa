@@ -1,0 +1,12 @@
+{
+	"version": 2,
+	"name": "project-sherpa",
+	"builds": [{
+		"src": "package.json",
+		"use": "@now/next"
+	}]
+	// "routes": [{ 
+	// 	"src": "/movie/(?<id>[^/]+)", 
+	// 	"dest": "detail-page/DetailPage?id=$id"
+	// }]
+}
