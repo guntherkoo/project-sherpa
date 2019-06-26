@@ -24,7 +24,6 @@
         "next-compose": "0.0.2",
         "next-routes": "^1.4.2",
         "normalize-scss": "^7.0.1",
-        "now": "^15.4.0",
         "react": "^16.7.0",
         "react-dom": "^16.7.0",
         "react-redux": "^7.0.3",
