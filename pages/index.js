@@ -1,9 +1,20 @@
+import dynamic from 'next/dynamic';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Action } from 'redux-store/actions';
 
 import GlobalStyles from 'styles/styles.scss';
+
+const MapComponent = dynamic(()=>
+	import('../components/MapComponent'),
+	{
+		loading: () => <div></div>,
+		ssr:false
+	}
+)
+
+
 
 class Index extends Component {
 	static getInitialProps ({ reduxStore, req }) {
@@ -36,6 +47,7 @@ class Index extends Component {
 
 		return (
 			<section>
+				<MapComponent />
 				<h1>
 					This is my Next.js Boilerplate.
 				</h1>
