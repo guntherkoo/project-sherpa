@@ -13,6 +13,7 @@ const MapComponent = dynamic(()=>
 		ssr:false
 	}
 )
+import Video from '../components/VideoPlayer';
 
 
 
@@ -48,22 +49,9 @@ class Index extends Component {
 		return (
 			<section>
 				<MapComponent />
-				<h1>
-					This is my Next.js Boilerplate.
-				</h1>
-				<h2>
-					{this.props.count}
-				    <button onClick={this.increment}>+1</button>
-				    <button onClick={this.decrement}>-1</button>
-				</h2>
-				<button onClick={this.toggle}>
-					{tap ? 'Toggle Off' : 'Toggle On'}
-				</button>
-				{tap && 
-					<h2>
-						Toggler is ON
-					</h2>
-				}
+				<div className="video-container">
+					<Video />
+				</div>	
 			</section>
 		)
 	}
