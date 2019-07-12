@@ -20,7 +20,16 @@ export default function reducer(state = {}, action) {
 				...state,
 				count: state.count - 1
 			}
-
+		case Type.PROGRESS:
+			return {
+				...state,
+				progress: action.payload
+			}
+		case Type.MAP:
+			return {
+				...state,
+				map: action.payload
+			}
 		default:
 			return state
 	}

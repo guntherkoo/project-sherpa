@@ -28,29 +28,14 @@ class Index extends Component {
 		count: 0
 	}
 
-	toggle = () => {
-		const { toggleTap } = this.props
-		toggleTap()
-	}
-
-	increment = () => {
-		const { incrementCount } = this.props
-		incrementCount()
-	}
-
-	decrement = () => {
-		const { decrementCount } = this.props
-		decrementCount()
-	}
 
 	render() {
-		const { tap, count } = this.props;
-
+		let { map, progress } = this.props;
 		return (
 			<section>
 				<MapComponent />
 				<div className="video-container">
-					<Video />
+					<Video map = { map } />
 				</div>	
 			</section>
 		)
@@ -58,22 +43,20 @@ class Index extends Component {
 }
 
 const mapStateToProps = state => {
+	console.log(state)
 	return {
-		tap: state.tap,
-		count: state.count
+		map: state.map,
+		progress: state.progress
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		toggleTap() {
-			dispatch(Action.toggleTap());
+		trackVideoProgress(time) {
+			dispatch(Action.trackVideoProgress(time));
 		},
-		incrementCount() {
-			dispatch(Action.incrementCount());
-		},
-		decrementCount() {
-			dispatch(Action.decrementCount());
+		setMapToProps(map) {
+			dispatch(Action.setMapToProps(map));
 		}
 	}
 }

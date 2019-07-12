@@ -1,0 +1,30 @@
+[
+	{
+		"id": 1,
+		"coordinates": [-71.23057344853935,46.81236648045876],
+		"name" : "L’Affaire Est Ketchup",
+		"time_start": 54,
+		"time_end" : 87
+	},
+	{
+		"id": 2,
+		"coordinates": [-71.2470713458635,46.850403606911016],
+		"name" : "Chez Biceps BBQ",
+		"time_start": 88,
+		"time_end" : 136
+	},
+	{
+		"id": 3,
+		"coordinates": [-71.22824551808151,46.81293305246004],
+		"name" : "Le Café Du Clocher Penché",
+		"time_start": 139,
+		"time_end" : 166
+	},
+	{
+		"id": 4,
+		"coordinates": [-71.22766127160341,46.811286836083866],
+		"name" : "Maelstrøm Saint-Roch",
+		"time_start": 200,
+		"time_end" : 229
+	}
+]

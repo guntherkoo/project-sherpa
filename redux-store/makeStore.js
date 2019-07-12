@@ -20,7 +20,8 @@ export default function initializeStore(initial_state = {}) {
 
 	initial_state = {
 		tap: false,
-		count: 0
+		count: 0,
+		progress: 0
 	}
 
 	// return createStore(
