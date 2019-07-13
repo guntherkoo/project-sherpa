@@ -1,11 +1,12 @@
 // ACTIONS
 const Type = {
-	TOGGLE: 'TOGGLE',
-	INCREMENT: 'INCREMENT',
-	DECREMENT: 'DECREMENT',
-	PROGRESS : 'PROGRESS',
-	COORD 	 : 'COORD',
-	MAP   : 'MAP'
+	TOGGLE 			:'TOGGLE',
+	INCREMENT 		: 'INCREMENT',
+	DECREMENT 		: 'DECREMENT',
+	PROGRESS 		: 'PROGRESS',
+	COORD 	 		: 'COORD',
+	MAP   	 		: 'MAP',
+	LOCATION_ACTIVE : 'LOCATION_ACTIVE'
 };
 
 const Action = {
@@ -31,7 +32,11 @@ const Action = {
 			type: Type.MAP,
 			payload: map
 		}
+	},
+	toggleLocationActive: () => {
+		return { type: Type.LOCATION_ACTIVE }
 	}
+
 }
 
 export { Type, Action };

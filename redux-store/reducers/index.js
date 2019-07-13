@@ -30,6 +30,11 @@ export default function reducer(state = {}, action) {
 				...state,
 				map: action.payload
 			}
+		case Type.LOCATION_ACTIVE:
+			return {
+				...state,
+				location_active: !state.location_active
+			}
 		default:
 			return state
 	}
