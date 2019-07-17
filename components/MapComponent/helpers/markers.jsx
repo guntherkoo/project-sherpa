@@ -5,7 +5,7 @@ function Markers(props) {
 	return(
 		<div>
 			{
-				locations.map((location, index) => {
+				locations[0].locations.map((location, index) => {
 					return (
 						<Layer
 						  type="symbol"

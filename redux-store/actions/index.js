@@ -1,18 +1,12 @@
 // ACTIONS
 const Type = {
-	TOGGLE 			:'TOGGLE',
-	INCREMENT 		: 'INCREMENT',
-	DECREMENT 		: 'DECREMENT',
 	PROGRESS 		: 'PROGRESS',
 	COORD 	 		: 'COORD',
 	MAP   	 		: 'MAP',
-	LOCATION_ACTIVE : 'LOCATION_ACTIVE'
+	ACTIVE_LOCATION : 'ACTIVE_LOCATION'
 };
 
 const Action = {
-	toggleTap: () => {
-		return { type: Type.TOGGLE }
-	},
 
 	incrementCount: () => {
 		return { type: Type.INCREMENT }
@@ -33,8 +27,11 @@ const Action = {
 			payload: map
 		}
 	},
-	toggleLocationActive: () => {
-		return { type: Type.LOCATION_ACTIVE }
+	setActiveLocation: (location) => {
+		return {
+			type: Type.ACTIVE_LOCATION,
+			payload: location
+		}
 	}
 
 }

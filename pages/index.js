@@ -36,11 +36,10 @@ class Index extends Component {
 		return (
 			<section>
 				<MapComponent />
-				<div className="video-container">
-					<Video 
+			
+				<Video 
 					map = { map } 
-					location_active = { location_active } />
-				</div>	
+					location_active = { location_active } />	
 			</section>
 		)
 	}

@@ -16,35 +16,39 @@ class VideoPlayer extends Component {
 	render() {
 		if(!this.props.map) return <div></div>
 		return(
-			<ReactPlayer 
-				url={'https://www.youtube.com/watch?v=sBLvzupw6BI'} 
-				playing = { false } 
-				width='30%' 
-				height='30%'
-				controls= { true }
-				onProgress = { (e)=> {
-					let round_sec = Math.round(e.playedSeconds);
-					this.props.trackVideoProgress(round_sec);
-					console.log(this.state.location_id);
-					locations.map(location => {
-						if(round_sec >= location.time_start && round_sec < location.time_end) {
-							if(this.state.location_id !== location.id) {
-								this.setState({
-									location_id : location.id
-								})
-								this.props.map.flyTo({
-									center: location.coordinates,
-									zoom: 19
-								})
+			<div className={s("player-wrapper")}>
+
+				<ReactPlayer 
+					url={locations[0].video} 
+					playing = { false } 
+					width='50%' 
+					height='50%'
+					controls= { true }
+					onProgress = { (e)=> {
+						let round_sec = Math.round(e.playedSeconds);
+						this.props.trackVideoProgress(round_sec);
+						console.log(this.state.location_id);
+						locations[0].locations.map(location => {
+							if(round_sec >= location.time_start && round_sec < location.time_end) {
+								if(this.state.location_id !== location.id) {
+									this.setState({
+										location_id : location.id
+									})
+									this.props.setActiveLocation(location);
+									this.props.map.flyTo({
+										center: location.coordinates,
+										zoom: 19
+									})
+								}
+								
 							}
 							
-						}
-						
-						
-					})
+							
+						})
 
-				}}
-				className={s('VideoPlayer')}/>
+					}}
+					className={s('VideoPlayer')}/>
+			</div>
 		)
 	}
 
@@ -59,6 +63,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		toggleLocationActive(time) {
 			dispatch(Action.toggleLocationActive(time));
+		},
+		setActiveLocation(location) {
+			dispatch(Action.setActiveLocation(location));
 		}
 	}
 }

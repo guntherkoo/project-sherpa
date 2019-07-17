@@ -13,7 +13,7 @@ import { Action } from 'redux-store/actions';
 
 function MapComponent({map, progress, setMapToProps}) {
 	let { bounds, center, zoom, style } = mapDefault
-	// console.log(props, locations);
+	console.log();
 	return(
 		<Map
 			className = {s('MapComponent')}
@@ -30,12 +30,13 @@ function MapComponent({map, progress, setMapToProps}) {
 	)
 }
 
-// const mapStateToProps = state => {
-// 	return {
-// 		progress: state.progress,
-// 		map: state.map
-// 	}
-// }
+const mapStateToProps = state => {
+	console.log(state)
+	return {
+		progress: state.progress,
+		map: state.map
+	}
+}
 
 const mapDispatchToProps = dispatch => {
 	return {
@@ -49,6 +50,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(MapComponent);
