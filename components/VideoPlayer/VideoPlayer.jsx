@@ -13,6 +13,7 @@ class VideoPlayer extends Component {
 		location_id 	: 0
 	}
 
+
 	render() {
 		if(!this.props.map) return <div></div>
 		return(
@@ -20,11 +21,16 @@ class VideoPlayer extends Component {
 
 				<ReactPlayer 
 					url={locations[0].video} 
-					playing = { false } 
-					width='50%' 
-					height='50%'
+					ref = {p => {this.p = p}}
+					playing = { this.props.playing }
+					width='100%' 
+					height='100%'
 					controls= { true }
+					onReady = { () => {
+						this.props.setVideoControls(this.p);
+					}}
 					onProgress = { (e)=> {
+						console.log(this.p)
 						let round_sec = Math.round(e.playedSeconds);
 						this.props.trackVideoProgress(round_sec);
 						console.log(this.state.location_id);
@@ -37,24 +43,26 @@ class VideoPlayer extends Component {
 									this.props.setActiveLocation(location);
 									this.props.map.flyTo({
 										center: location.coordinates,
-										zoom: 19
+										zoom: 15
 									})
-								}
-								
-							}
-							
-							
+								}	
+							}	
 						})
-
 					}}
+
 					className={s('VideoPlayer')}/>
 			</div>
 		)
 	}
-
-	
 }
 
+
+const mapStateToProps = state => {
+	console.log(state)
+	return {
+		playing: state.playing
+	}
+}
 
 const mapDispatchToProps = dispatch => {
 	return {
@@ -66,10 +74,13 @@ const mapDispatchToProps = dispatch => {
 		},
 		setActiveLocation(location) {
 			dispatch(Action.setActiveLocation(location));
+		},
+		setVideoControls(player) {
+			dispatch(Action.setVideoControls(player));
 		}
 	}
 }
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(VideoPlayer);

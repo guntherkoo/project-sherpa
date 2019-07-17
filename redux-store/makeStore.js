@@ -22,7 +22,8 @@ export default function initializeStore(initial_state = {}) {
 		progress: 0,
 		location: {
 			id:0
-		}
+		},
+		playing: false
 	}
 
 	// return createStore(

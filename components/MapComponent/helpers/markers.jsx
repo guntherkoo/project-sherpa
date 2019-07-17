@@ -15,7 +15,13 @@ function Markers(props) {
 						  	"icon-size" : 1.3,
 						  	"text-allow-overlap": true,
 						  	'icon-allow-overlap': true,
-						   }}>
+						   }}
+						   onClick = {(e) =>{
+						   	props.video_player.seekTo(location.time_start)
+						   	props.setActiveLocation(location);
+						   	props.playVideo();
+						   }}
+						   >
 						  	<Feature 
 						  	coordinates={location.coordinates}
 						  	/>

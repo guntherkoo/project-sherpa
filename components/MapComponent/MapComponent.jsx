@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 // Helpers
 import Map from './helpers/map';
 import { mapDefault } from './helpers/default';
@@ -11,30 +12,39 @@ import { bindActionCreators } from 'redux';
 import { Action } from 'redux-store/actions';
 
 
-function MapComponent({map, progress, setMapToProps}) {
-	let { bounds, center, zoom, style } = mapDefault
-	console.log();
-	return(
-		<Map
-			className = {s('MapComponent')}
-			style={ style }
-			center = { center } 
-			maxBounds = { bounds }
-			zoom = { zoom }
-			onStyleLoad= { map => {
-			  	setMapToProps(map);
-		  	}}
-			>
-				<Markers />
-		</Map>
-	)
+class MapComponent extends Component {
+
+	render() {
+		let { map, progress, setMapToProps} = this.props
+		let { bounds, center, zoom, style } = mapDefault
+
+		return(
+			<Map
+				className = {s('MapComponent')}
+				style={ style }
+				center = { center } 
+				maxBounds = { bounds }
+				zoom = { zoom }
+				onStyleLoad= { map => {
+				  	setMapToProps(map);
+			  	}}
+				>
+					<Markers 
+						setActiveLocation = { this.props.setActiveLocation }
+						video_player = { this.props.player }
+						playVideo = { this.props.playVideo }/>
+			</Map>
+		)
+	}
 }
 
 const mapStateToProps = state => {
 	console.log(state)
 	return {
 		progress: state.progress,
-		map: state.map
+		map 	: state.map,
+		location: state.location,
+		player	: state.player 
 	}
 }
 
@@ -45,6 +55,12 @@ const mapDispatchToProps = dispatch => {
 		},
 		setMapToProps(map) {
 			dispatch(Action.setMapToProps(map));
+		},
+		setActiveLocation(location) {
+			dispatch(Action.setActiveLocation(location));
+		},
+		playVideo() {
+			dispatch(Action.playVideo());	
 		}
 	}
 }

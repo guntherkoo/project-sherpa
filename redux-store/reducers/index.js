@@ -18,6 +18,16 @@ export default function reducer(state = {}, action) {
 				...state,
 				location: action.payload
 			}
+		case Type.VIDEO_CONTROLS:
+			return {
+				...state,
+				player: action.payload
+			}
+		case Type.VIDEO_PLAY:
+			return {
+				...state,
+				playing: true
+			}
 		default:
 			return state
 	}

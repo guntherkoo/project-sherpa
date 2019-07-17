@@ -3,7 +3,9 @@ const Type = {
 	PROGRESS 		: 'PROGRESS',
 	COORD 	 		: 'COORD',
 	MAP   	 		: 'MAP',
-	ACTIVE_LOCATION : 'ACTIVE_LOCATION'
+	ACTIVE_LOCATION : 'ACTIVE_LOCATION',
+	VIDEO_CONTROLS 	: 'VIDEO_CONTROLS',
+	VIDEO_PLAY		: 'VIDEO_PLAY'
 };
 
 const Action = {
@@ -31,6 +33,17 @@ const Action = {
 		return {
 			type: Type.ACTIVE_LOCATION,
 			payload: location
+		}
+	},
+	setVideoControls: (player) => {
+		return {
+			type: Type.VIDEO_CONTROLS,
+			payload: player
+		}
+	},
+	playVideo: () => {
+		return {
+			type: Type.VIDEO_PLAY
 		}
 	}
 
