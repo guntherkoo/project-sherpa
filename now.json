@@ -6,6 +6,6 @@
 		"use": "@now/next"
 	}],
 	"env": {
-		"mapbox_key": "@MAPBOX_KEY"
+		"MAPBOX_KEY": "@mapbox_key"
 	}
 }
