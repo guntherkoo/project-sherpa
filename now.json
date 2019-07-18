@@ -4,5 +4,8 @@
 	"builds": [{
 		"src": "package.json",
 		"use": "@now/next"
-	}]
+	}],
+	"env": {
+		"mapbox_key": "@MAPBOX_KEY"
+	}
 }
