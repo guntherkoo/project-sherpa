@@ -23,14 +23,9 @@ export default function initializeStore(initial_state = {}) {
 		location: {
 			id:0
 		},
-		playing: false
+		playing: false,
+		content: null
 	}
-
-	// return createStore(
-	// 	reducer,
-	// 	initial_state,
-	// 	composeWithDevTools(applyMiddleware(apiMiddleware))
-	// )
 
 	const store = createStoreWithMiddleware(reducer, initial_state);
 

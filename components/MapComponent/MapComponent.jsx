@@ -5,6 +5,7 @@ import { mapDefault } from './helpers/default';
 import Markers from './helpers/markers';
 import s from './MapComponent.scss';
 import locations from '../dummy_data/locations.json';
+import Geocoder from './helpers/geocoder';
 
 // Redux
 import { connect } from 'react-redux';
@@ -14,10 +15,33 @@ import { Action } from 'redux-store/actions';
 
 class MapComponent extends Component {
 
-	render() {
-		let { map, progress, setMapToProps} = this.props
-		let { bounds, center, zoom, style } = mapDefault
+	activeMarkers({ setActiveLocation, player, playVideo, content }) {
+		if(content) {
+			return(
+				<Markers 
+					setActiveLocation = { setActiveLocation }
+					video_player = { player }
+					playVideo = { playVideo }
+					content = { content } />
+			)
+		}		
+	}
 
+	addGeocoder({ content, map, fetchContentLocation, content_location }) {
+		if(!content && map) {
+			return(
+				<Geocoder 
+					map= { map } 
+					fetchContentLocation= { fetchContentLocation }
+					content_location = { content_location }/>
+			)
+		}
+	}
+
+	render() {
+		let { setMapToProps} = this.props
+		let { bounds, center, zoom, style } = mapDefault
+		console.log(this.props)
 		return(
 			<Map
 				className = {s('MapComponent')}
@@ -29,30 +53,25 @@ class MapComponent extends Component {
 				  	setMapToProps(map);
 			  	}}
 				>
-					<Markers 
-						setActiveLocation = { this.props.setActiveLocation }
-						video_player = { this.props.player }
-						playVideo = { this.props.playVideo }/>
+					{this.addGeocoder(this.props)}
+					{this.activeMarkers(this.props)}
 			</Map>
 		)
 	}
 }
 
 const mapStateToProps = state => {
-	console.log(state)
+	console.log(state);
 	return {
-		progress: state.progress,
-		map 	: state.map,
-		location: state.location,
-		player	: state.player 
+		map 			: state.map,
+		location 		: state.location,
+		player			: state.player,
+		content_location: state.content_location
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		trackVideoProgress(time) {
-			dispatch(Action.trackVideoProgress(time));
-		},
 		setMapToProps(map) {
 			dispatch(Action.setMapToProps(map));
 		},
@@ -61,6 +80,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		playVideo() {
 			dispatch(Action.playVideo());	
+		},
+		fetchContentLocation(location) {
+			dispatch(Action.fetchContentLocation(location))
 		}
 	}
 }

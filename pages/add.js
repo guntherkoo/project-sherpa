@@ -14,7 +14,6 @@ const MapComponent = dynamic(()=>
 	}
 )
 import Video from '../components/VideoPlayer';
-import locations from '../components/dummy_data/locations.json';
 
 
 
@@ -26,23 +25,17 @@ class Index extends Component {
 	}
 
 	static defaultProps = {
-		count: 0,
-		location_active: false,
-		content: locations[0]
+		content: null,
+		location_active: false
 	}
 
 
 	render() {
-		let { map, progress, location_active, content } = this.props;
-		console.log(this.props)
+		let { map, progress, location_active } = this.props;
+		console.log(location_active)
 		return (
 			<section>
-				<MapComponent 
-					content = { content } />
-			
-				<Video 
-					map = { map } 
-					location_active = { location_active } />	
+				<MapComponent />	
 			</section>
 		)
 	}
@@ -63,9 +56,6 @@ const mapDispatchToProps = dispatch => {
 		},
 		setMapToProps(map) {
 			dispatch(Action.setMapToProps(map));
-		},
-		setContent(content) {
-			dispatch(Action.setContent(content));	
 		}
 	}
 }
