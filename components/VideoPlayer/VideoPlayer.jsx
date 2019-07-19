@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,7 +17,7 @@ class VideoPlayer extends Component {
 	render() {
 		if(!this.props.map) return <div></div>
 		return(
-			<div className={s("player-wrapper")}>
+			<div className={s('player-wrapper')}>
 
 				<ReactPlayer 
 					url={locations[0].video} 
@@ -30,10 +30,8 @@ class VideoPlayer extends Component {
 						this.props.setVideoControls(this.p);
 					}}
 					onProgress = { (e)=> {
-						console.log(this.p)
 						let round_sec = Math.round(e.playedSeconds);
 						this.props.trackVideoProgress(round_sec);
-						console.log(this.state.location_id);
 						locations[0].locations.map(location => {
 							if(round_sec >= location.time_start && round_sec < location.time_end) {
 								if(this.state.location_id !== location.id) {
@@ -58,7 +56,6 @@ class VideoPlayer extends Component {
 
 
 const mapStateToProps = state => {
-	console.log(state)
 	return {
 		playing: state.playing
 	}

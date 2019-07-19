@@ -2,10 +2,12 @@ import { Marker, Layer, Feature } from "react-mapbox-gl";
 import locations from '../../dummy_data/locations.json';
 
 function Markers(props) {
+	console.log(props)
+	let { content, video_player, setActiveLocation, playVideo } = props
 	return(
 		<div>
 			{
-				locations[0].locations.map((location, index) => {
+				content.locations.map((location, index) => {
 					return (
 						<Layer
 						  type="symbol"
@@ -17,9 +19,12 @@ function Markers(props) {
 						  	'icon-allow-overlap': true,
 						   }}
 						   onClick = {(e) =>{
-						   	props.video_player.seekTo(location.time_start)
-						   	props.setActiveLocation(location);
-						   	props.playVideo();
+						   	video_player.seekTo(location.time_start)
+						   	setActiveLocation(location);
+						   	playVideo();
+						   }}
+						   onHover = { e =>{
+						   	console.log(e)
 						   }}
 						   >
 						  	<Feature 

@@ -1,13 +1,16 @@
 import { Type } from '../actions';
 
+const handleFetchContentLocationSuccess = (state, action) => {
+	return {
+		...state,
+		content_location: action.payload
+	}
+}
+
 // REDUCERS
 export default function reducer(state = {}, action) {
 	switch (action.type) {
-		case Type.PROGRESS:
-			return {
-				...state,
-				progress: action.payload
-			}
+		// Map Reducers
 		case Type.MAP:
 			return {
 				...state,
@@ -18,6 +21,12 @@ export default function reducer(state = {}, action) {
 				...state,
 				location: action.payload
 			}
+		// Video Reducers
+		case Type.PROGRESS:
+			return {
+				...state,
+				progress: action.payload
+			}
 		case Type.VIDEO_CONTROLS:
 			return {
 				...state,
@@ -27,6 +36,18 @@ export default function reducer(state = {}, action) {
 			return {
 				...state,
 				playing: true
+			}
+		// Content Reducers
+		case Type.CONTENT:
+			return {
+				...state,
+				content: action.payload
+			}
+		case Type.FETCH_CONTENT_LOCATION_SUCCESS:
+			return {
+				...state,
+				content_location: action.payload,
+				content_location_cities: action.cities
 			}
 		default:
 			return state
