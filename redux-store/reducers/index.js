@@ -49,6 +49,11 @@ export default function reducer(state = {}, action) {
 				content_location: action.payload,
 				content_location_cities: action.cities
 			}
+		case Type.CURRENT_CITY: 
+			return {
+				...state,
+				current_city: action.payload
+			}
 		default:
 			return state
 	}

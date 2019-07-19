@@ -2,11 +2,23 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import s from '../MapComponent.scss';
 
-function yieldedCities(content_location) {
+function yieldedCities({content_location, map, getCurrentCity}) {
+
 	if(content_location) {
-		let cities =content_location.features.map(feature => {
+		let cities = content_location.features.map((feature, key) => {
+			let { center, bbox } = feature
+
 			return(
-				<a href="#" data-place-name= { feature.place_name }>{ feature.place_name }</a>
+				<a href="#" 
+					key= {key}
+					className={s('location_results')} 
+					data-place-name= { feature.place_name }
+					onClick={()=> {
+						map.jumpTo({
+							center: center
+						})
+						getCurrentCity(feature);
+					}}>{ feature.place_name }</a>
 			)
 		}) 
 		return cities
@@ -15,31 +27,32 @@ function yieldedCities(content_location) {
 }
 
 function Geocoder(props) {
-	// props.map.addControl(
-	// 	new MapboxGeocoder({
-	// 		accessToken: process.env.MAPBOX_KEY,
-	// 		zoom: 4,
-	// 		placeholder: "Where did you go?",
+
+	
+	let { map, fetchContentLocation, content_location,  current_city } = props;
+	console.log(current_city)
+	if(!current_city){
+		return (
+			<div className={s('search_results')}>
+				<input className={s('init_location')} 
+					type="text" 
+					placeholder="What city did you visit?" 
+					onChange = { e => {
+						if(e.target.value) {
+							fetchContentLocation(e.target.value)
+						}
+					}}
+					/>
+				{ yieldedCities(props) }
+			</div>
 			
-	// 	})
-	// );
-	let { map, fetchContentLocation, content_location } = props;
-
-
-	return (
-		<div className={s('search_results')}>
-			<input className={s('init_location')} 
-				type="text" 
-				placeholder="What city did you visit?" 
-				onChange = { e => {
-					if(e.target.value) {
-						fetchContentLocation(e.target.value)
-					}
-				}}/>
-			{ yieldedCities(content_location) }
-		</div>
-		
-	)
+		)
+	} else {
+		return(
+			<div></div>
+		)
+	}
+	
 }
 
 export default Geocoder;

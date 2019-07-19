@@ -27,13 +27,15 @@ class MapComponent extends Component {
 		}		
 	}
 
-	addGeocoder({ content, map, fetchContentLocation, content_location }) {
+	addGeocoder({ content, map, fetchContentLocation, getCurrentCity, content_location, current_city }) {
 		if(!content && map) {
 			return(
 				<Geocoder 
 					map= { map } 
 					fetchContentLocation= { fetchContentLocation }
-					content_location = { content_location }/>
+					content_location = { content_location }
+					getCurrentCity = { getCurrentCity } 
+					current_city = { current_city }/>
 			)
 		}
 	}
@@ -66,7 +68,8 @@ const mapStateToProps = state => {
 		map 			: state.map,
 		location 		: state.location,
 		player			: state.player,
-		content_location: state.content_location
+		content_location: state.content_location,
+		current_city 	: state.current_city
 	}
 }
 
@@ -83,6 +86,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		fetchContentLocation(location) {
 			dispatch(Action.fetchContentLocation(location))
+		},
+		getCurrentCity(city) {
+			dispatch(Action.getCurrentCity(city))
 		}
 	}
 }

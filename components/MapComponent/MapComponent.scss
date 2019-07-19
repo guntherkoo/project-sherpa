@@ -13,6 +13,7 @@
 		top: 50%;
 		left: 50%;
 		width: 500px;
+		transform: translateX(-50%);
 	
 		.init_location {
 			width: 100%;
@@ -20,13 +21,22 @@
 			font-family: 'Helvetica';
 			font-size: 24px;
 			border: none;
-			transform: translateX(-50%);
 			z-index: 2;
 			border-radius: 5px;
 			padding: 10px;
 			-webkit-box-shadow: 0px 7px 19px -4px rgba(179,179,179,1);
 			-moz-box-shadow: 0px 7px 19px -4px rgba(179,179,179,1);
 			box-shadow: 0px 7px 19px -4px rgba(179,179,179,1);
+		}
+
+		.location_results {
+			width: 100%;
+			display: block;
+			text-align: center;
+			background: white;
+			font-family: 'Helvetica Neue';
+			padding: 10px 0;
+			border-bottom: 1px solid #D3D3D3;
 		}
 	}
 	

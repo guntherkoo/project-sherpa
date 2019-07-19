@@ -10,7 +10,8 @@ const Type = {
 	VIDEO_PLAY			: 'VIDEO_PLAY',
 	CONTENT 			: 'CONTENT',
 	FETCH_CONTENT_LOCATION: 'FETCH_CONTENT_LOCATION',
-	FETCH_CONTENT_LOCATION_SUCCESS: 'FETCH_CONTENT_LOCATION_SUCCESS'
+	FETCH_CONTENT_LOCATION_SUCCESS: 'FETCH_CONTENT_LOCATION_SUCCESS',
+	CURRENT_CITY		: 'CURRENT_CITY'
 };
 
 const Action = {
@@ -66,9 +67,13 @@ const Action = {
 		return {
 			type: Type.FETCH_CONTENT_LOCATION_SUCCESS,
 			payload: res
+		}	
+	},
+	getCurrentCity: (city) => {
+		return {
+			type: Type.CURRENT_CITY,
+			payload: city
 		}
-		
-		
 	}
 
 }
