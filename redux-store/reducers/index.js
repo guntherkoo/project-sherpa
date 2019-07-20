@@ -16,17 +16,12 @@ export default function reducer(state = {}, action) {
 				...state,
 				map: action.payload
 			}
-		case Type.ACTIVE_LOCATION:
+		case Type.ACTIVE_PIN:
 			return {
 				...state,
 				location: action.payload
 			}
 		// Video Reducers
-		case Type.PROGRESS:
-			return {
-				...state,
-				progress: action.payload
-			}
 		case Type.VIDEO_CONTROLS:
 			return {
 				...state,

@@ -2,10 +2,10 @@ import fetch from 'cross-fetch';
 
 // ACTIONS
 const Type = {
+	MAP   	 			: 'MAP',
+	ACTIVE_PIN 			: 'ACTIVE_PIN',
 	PROGRESS 			: 'PROGRESS',
 	COORD 	 			: 'COORD',
-	MAP   	 			: 'MAP',
-	ACTIVE_LOCATION 	: 'ACTIVE_LOCATION',
 	VIDEO_CONTROLS 		: 'VIDEO_CONTROLS',
 	VIDEO_PLAY			: 'VIDEO_PLAY',
 	CONTENT 			: 'CONTENT',
@@ -16,25 +16,20 @@ const Type = {
 
 const Action = {
 	// Map Actions
+		// adds map functionality across components
 	setMapToProps: (map) => {
 		return {
 			type: Type.MAP,
 			payload: map
 		}
 	},
-	setActiveLocation: (location) => {
+	setActivePin: (location, map) => {
 		return {
-			type: Type.ACTIVE_LOCATION,
+			type: Type.ACTIVE_PIN,
 			payload: location
 		}
 	},
 	// Video Actions
-	trackVideoProgress: (time) => {
-		return { 
-			type: Type.PROGRESS,
-			payload : time
-		}
-	},
 	setVideoControls: (player) => {
 		return {
 			type: Type.VIDEO_CONTROLS,

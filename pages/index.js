@@ -16,6 +16,7 @@ const MapComponent = dynamic(()=>
 import Video from '../components/VideoPlayer';
 import locations from '../components/dummy_data/locations.json';
 
+import s from '../styles/_index.scss';
 
 
 class Index extends Component {
@@ -33,16 +34,20 @@ class Index extends Component {
 
 
 	render() {
-		let { map, progress, location_active, content } = this.props;
-		console.log(this.props)
+		let { map, location_active, content } = this.props;
 		return (
 			<section>
 				<MapComponent 
 					content = { content } />
 			
-				<Video 
-					map = { map } 
-					location_active = { location_active } />	
+				<div className={s('player-wrapper')}>
+					<Video 
+						map = { map } 
+						location_active = { location_active } 
+						video_url = { locations[0].video }
+						add_content= { false } />	
+				</div>
+				
 			</section>
 		)
 	}
@@ -51,16 +56,12 @@ class Index extends Component {
 const mapStateToProps = state => {
 	return {
 		map: state.map,
-		progress: state.progress,
 		location_active: state.location_active
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		trackVideoProgress(time) {
-			dispatch(Action.trackVideoProgress(time));
-		},
 		setMapToProps(map) {
 			dispatch(Action.setMapToProps(map));
 		},

@@ -14,6 +14,7 @@ const MapComponent = dynamic(()=>
 	}
 )
 import Video from '../components/VideoPlayer';
+import AddForm from '../components/AddForm';
 
 
 
@@ -31,11 +32,14 @@ class Index extends Component {
 
 
 	render() {
-		let { map, progress, location_active } = this.props;
+		let { map, location_active } = this.props;
 		console.log(location_active)
 		return (
 			<section>
-				<MapComponent />	
+				<MapComponent />
+				<AddForm 
+					map = { map }
+					location_active = { location_active }/>
 			</section>
 		)
 	}
@@ -50,16 +54,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-	return {
-		trackVideoProgress(time) {
-			dispatch(Action.trackVideoProgress(time));
-		},
-		setMapToProps(map) {
-			dispatch(Action.setMapToProps(map));
-		}
-	}
+	
 }
 export default connect(
 	mapStateToProps,
-	mapDispatchToProps
+	null
 )(Index);

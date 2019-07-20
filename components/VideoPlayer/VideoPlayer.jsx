@@ -9,47 +9,69 @@ import locations from '../dummy_data/locations.json';
 
 class VideoPlayer extends Component {
 	state = {
-		location_active	: false,
 		location_id 	: 0
 	}
 
+	activePin({ location_id }, location, { setActivePin, map, }) {
+		if(location_id !== location.id) {
+			console.log(location_id, location.id)
+			this.setState({
+				location_id : location.id
+			})
+			setActivePin(location, map);
+			map.flyTo({
+				center: location.coordinates,
+				zoom: 15
+			})
+		}
+	}
 
 	render() {
-		if(!this.props.map) return <div></div>
-		return(
-			<div className={s('player-wrapper')}>
+		let { 
+			map,
+			playing, 
+			setVideoControls, 
+			setActivePin,
+			video_url,
+			add_content
+		} = this.props;
 
-				<ReactPlayer 
-					url={locations[0].video} 
-					ref = {p => {this.p = p}}
-					playing = { this.props.playing }
-					width='100%' 
-					height='100%'
-					controls= { true }
-					onReady = { () => {
-						this.props.setVideoControls(this.p);
-					}}
-					onProgress = { (e)=> {
-						let round_sec = Math.round(e.playedSeconds);
-						this.props.trackVideoProgress(round_sec);
+		let { 
+			location_id 
+		} = this.state;
+
+		if(!map) return <div></div>
+		return(
+
+
+			<ReactPlayer 
+				url={ video_url } 
+				ref = {p => {this.p = p}}
+				playing = { playing }
+				width='100%' 
+				height='100%'
+				controls= { true }
+				onReady = { () => {
+					// Adds video control throughout components
+					setVideoControls(this.p);
+				}}
+				onProgress = { (e)=> {
+					let round_sec = Math.round(e.playedSeconds);
+					if(!add_content)
+						// This is for pages with established content
 						locations[0].locations.map(location => {
 							if(round_sec >= location.time_start && round_sec < location.time_end) {
-								if(this.state.location_id !== location.id) {
-									this.setState({
-										location_id : location.id
-									})
-									this.props.setActiveLocation(location);
-									this.props.map.flyTo({
-										center: location.coordinates,
-										zoom: 15
-									})
-								}	
+									this.activePin(this.state, location, this.props)
 							}	
-						})
-					}}
+					})
 
-					className={s('VideoPlayer')}/>
-			</div>
+					if(add_content) {
+						// Insert actions for adding content here 
+						console.log(round_sec)
+					}
+				}}
+
+				className={s('video-player')}/>
 		)
 	}
 }
@@ -63,14 +85,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		trackVideoProgress(time) {
-			dispatch(Action.trackVideoProgress(time));
-		},
-		toggleLocationActive(time) {
-			dispatch(Action.toggleLocationActive(time));
-		},
-		setActiveLocation(location) {
-			dispatch(Action.setActiveLocation(location));
+		setActivePin(location) {
+			dispatch(Action.setActivePin(location));
 		},
 		setVideoControls(player) {
 			dispatch(Action.setVideoControls(player));

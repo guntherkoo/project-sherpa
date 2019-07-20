@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 // Helpers
 import Map from './helpers/map';
 import { mapDefault } from './helpers/default';
@@ -15,14 +15,15 @@ import { Action } from 'redux-store/actions';
 
 class MapComponent extends Component {
 
-	activeMarkers({ setActiveLocation, player, playVideo, content }) {
+	activeMarkers({ setActivePin, player, playVideo, content, map }) {
 		if(content) {
 			return(
 				<Markers 
-					setActiveLocation = { setActiveLocation }
+					setActivePin = { setActivePin }
 					video_player = { player }
 					playVideo = { playVideo }
-					content = { content } />
+					content = { content } 
+					map = { map }/>
 			)
 		}		
 	}
@@ -40,6 +41,7 @@ class MapComponent extends Component {
 		}
 	}
 
+
 	render() {
 		let { setMapToProps} = this.props
 		let { bounds, center, zoom, style } = mapDefault
@@ -55,8 +57,8 @@ class MapComponent extends Component {
 				  	setMapToProps(map);
 			  	}}
 				>
-					{this.addGeocoder(this.props)}
-					{this.activeMarkers(this.props)}
+					{ this.addGeocoder(this.props) }
+					{ this.activeMarkers(this.props) }
 			</Map>
 		)
 	}
@@ -78,8 +80,8 @@ const mapDispatchToProps = dispatch => {
 		setMapToProps(map) {
 			dispatch(Action.setMapToProps(map));
 		},
-		setActiveLocation(location) {
-			dispatch(Action.setActiveLocation(location));
+		setActivePin(location) {
+			dispatch(Action.setActivePin(location));
 		},
 		playVideo() {
 			dispatch(Action.playVideo());	

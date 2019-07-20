@@ -34,7 +34,7 @@ function Geocoder(props) {
 	if(!current_city){
 		return (
 			<div className={s('search_results')}>
-				<input className={s('init_location')} 
+				<input className={s(['add_input'])} 
 					type="text" 
 					placeholder="What city did you visit?" 
 					onChange = { e => {
