@@ -9,7 +9,7 @@ import locations from '../dummy_data/locations.json';
 
 class VideoPlayer extends Component {
 	state = {
-		location_id 	: 0
+		location_id : 0
 	}
 
 	activePin({ location_id }, location, { setActivePin, map, }) {
@@ -33,7 +33,8 @@ class VideoPlayer extends Component {
 			setVideoControls, 
 			setActivePin,
 			video_url,
-			add_content
+			add_content,
+			updateVideoTime
 		} = this.props;
 
 		let { 
@@ -61,13 +62,14 @@ class VideoPlayer extends Component {
 						// This is for pages with established content
 						locations[0].locations.map(location => {
 							if(round_sec >= location.time_start && round_sec < location.time_end) {
+								// The pin in the center of the map is the active location
 									this.activePin(this.state, location, this.props)
 							}	
 					})
 
 					if(add_content) {
 						// Insert actions for adding content here 
-						console.log(round_sec)
+						updateVideoTime(round_sec);
 					}
 				}}
 

@@ -5,7 +5,8 @@ import { mapDefault } from './helpers/default';
 import Markers from './helpers/markers';
 import s from './MapComponent.scss';
 import locations from '../dummy_data/locations.json';
-import Geocoder from './helpers/geocoder';
+// import Geocoder from './helpers/geocoder';
+import Geocoder from '../Geocoder';
 
 // Redux
 import { connect } from 'react-redux';
@@ -15,37 +16,26 @@ import { Action } from 'redux-store/actions';
 
 class MapComponent extends Component {
 
-	activeMarkers({ setActivePin, player, playVideo, content, map }) {
-		if(content) {
-			return(
-				<Markers 
-					setActivePin = { setActivePin }
-					video_player = { player }
-					playVideo = { playVideo }
-					content = { content } 
-					map = { map }/>
-			)
-		}		
-	}
-
-	addGeocoder({ content, map, fetchContentLocation, getCurrentCity, content_location, current_city }) {
-		if(!content && map) {
-			return(
-				<Geocoder 
-					map= { map } 
-					fetchContentLocation= { fetchContentLocation }
-					content_location = { content_location }
-					getCurrentCity = { getCurrentCity } 
-					current_city = { current_city }/>
-			)
-		}
-	}
-
-
 	render() {
-		let { setMapToProps} = this.props
-		let { bounds, center, zoom, style } = mapDefault
-		console.log(this.props)
+		let { 
+			setMapToProps, 
+			fetchInputLocation,
+			input_location,
+			getCurrentCity,
+			current_city,
+			setActivePin, 
+			player, 
+			playVideo, 
+			content, 
+			map, 
+			updateExperience,
+			progress_stage,
+			business } = this.props
+		let { 
+			bounds, 
+			center, 
+			zoom, 
+			style } = mapDefault
 		return(
 			<Map
 				className = {s('MapComponent')}
@@ -57,20 +47,36 @@ class MapComponent extends Component {
 				  	setMapToProps(map);
 			  	}}
 				>
-					{ this.addGeocoder(this.props) }
-					{ this.activeMarkers(this.props) }
+
+					<Geocoder 
+						map= { map } 
+						fetchInputLocation= { fetchInputLocation }
+						input_location = { input_location }
+						getCurrentCity = { getCurrentCity } 
+						current_city = { current_city }
+						content = { content } 
+						updateExperience = { updateExperience }
+						progress_stage = { progress_stage }/>
+				
+					<Markers 
+						setActivePin = { setActivePin }
+						video_player = { player }
+						playVideo = { playVideo }
+						content = { content } 
+						map = { map }
+						business = { business }/>
+
 			</Map>
 		)
 	}
 }
 
 const mapStateToProps = state => {
-	console.log(state);
 	return {
 		map 			: state.map,
 		location 		: state.location,
 		player			: state.player,
-		content_location: state.content_location,
+		input_location	: state.input_location,
 		current_city 	: state.current_city
 	}
 }
@@ -86,8 +92,8 @@ const mapDispatchToProps = dispatch => {
 		playVideo() {
 			dispatch(Action.playVideo());	
 		},
-		fetchContentLocation(location) {
-			dispatch(Action.fetchContentLocation(location))
+		fetchInputLocation(location) {
+			dispatch(Action.fetchInputLocation(location))
 		},
 		getCurrentCity(city) {
 			dispatch(Action.getCurrentCity(city))

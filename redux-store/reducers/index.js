@@ -1,6 +1,6 @@
 import { Type } from '../actions';
 
-const handleFetchContentLocationSuccess = (state, action) => {
+const handleFetchInputLocationSuccess = (state, action) => {
 	return {
 		...state,
 		content_location: action.payload
@@ -38,16 +38,26 @@ export default function reducer(state = {}, action) {
 				...state,
 				content: action.payload
 			}
-		case Type.FETCH_CONTENT_LOCATION_SUCCESS:
+		case Type.FETCH_INPUT_LOCATION_SUCCESS:
 			return {
 				...state,
-				content_location: action.payload,
-				content_location_cities: action.cities
+				input_location: action.payload
 			}
 		case Type.CURRENT_CITY: 
 			return {
 				...state,
 				current_city: action.payload
+			}
+		case Type.CREATE_EXPERIENCE:
+			return {
+				...state,
+				experience: action.payload
+			}
+
+		case Type.FETCH_BUSINESS_LOCATION_SUCCESS:
+			return {
+				...state,
+				input_business: action.payload
 			}
 		default:
 			return state

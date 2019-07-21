@@ -17,7 +17,6 @@ import Video from '../components/VideoPlayer';
 import AddForm from '../components/AddForm';
 
 
-
 class Index extends Component {
 	static getInitialProps ({ reduxStore, req }) {
 		const isServer = !!req
@@ -25,21 +24,78 @@ class Index extends Component {
 		return {}
 	}
 
+	state = {
+		experience: null,
+		business: {
+			coordinates	: '',
+			name 		: '',
+			time_start 	: '',
+			time_end 	: ''
+		},
+		businesses: [],
+		progress_stage: 1,
+		video_time: 0,
+	}
+
 	static defaultProps = {
-		content: null,
+		content: false,
 		location_active: false
+	}
+
+	updateExperience(experience) {
+		if(this.state.experience === null) {
+			this.setState({ 
+				experience: experience,
+				progress_stage: 2
+			})
+		} else {
+			this.setState(() => {
+	 			let newExperience = Object.assign(this.state.experience, experience);
+	 			return newExperience
+			})
+		}
+	}
+	updateBusiness(business) {
+		if(this.state.business === null) {
+			this.setState({ 
+				business: business
+			})
+		} else {
+			this.setState(() => {
+	 			let newExperience = Object.assign(this.state.business, business);
+	 			return newExperience
+			})
+		}
+	}
+
+	updateVideoTime(sec) {
+		this.setState({
+			video_time : sec
+		})
 	}
 
 
 	render() {
-		let { map, location_active } = this.props;
-		console.log(location_active)
+		let { map, location_active, content } = this.props;
+		let { progress_stage, experience, video_time, timestamp, business } = this.state;
 		return (
 			<section>
-				<MapComponent />
+				<MapComponent 
+					updateExperience = { this.updateExperience.bind(this) }
+					progress_stage= { progress_stage } 
+					business = { business }
+					/>
 				<AddForm 
 					map = { map }
-					location_active = { location_active }/>
+					location_active = { location_active }
+					updateExperience = { this.updateExperience.bind(this) }
+					progress_stage= { progress_stage } 
+					experience = { experience } 
+					updateVideoTime = { this.updateVideoTime.bind(this) }
+					video_time = { video_time }
+					updateBusiness = { this.updateBusiness.bind(this) }
+					business = { business }
+					/>
 			</section>
 		)
 	}

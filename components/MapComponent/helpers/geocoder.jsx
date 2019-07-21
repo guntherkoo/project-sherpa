@@ -2,15 +2,14 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import s from '../MapComponent.scss';
 
-function yieldedCities({content_location, map, getCurrentCity}) {
+function yieldedCities({input_location, map, getCurrentCity, updateExperience}) {
 
-	if(content_location) {
-		let cities = content_location.features.map((feature, key) => {
-			let { center, bbox } = feature
-
+	if(input_location) {
+		let cities = input_location.features.map((feature, key) => {
+			let { center, bbox, place_name  } = feature
+			let init_experience = { "city": place_name, "coordinates": center }
 			return(
-				<a href="#" 
-					key= {key}
+				<a  key= {key}
 					className={s('location_results')} 
 					data-place-name= { feature.place_name }
 					onClick={()=> {
@@ -18,6 +17,8 @@ function yieldedCities({content_location, map, getCurrentCity}) {
 							center: center
 						})
 						getCurrentCity(feature);
+						updateExperience(init_experience)
+
 					}}>{ feature.place_name }</a>
 			)
 		}) 
@@ -27,11 +28,16 @@ function yieldedCities({content_location, map, getCurrentCity}) {
 }
 
 function Geocoder(props) {
+	let { 
+		map, 
+		fetchInputLocation, 
+		input_location,  
+		current_city, 
+		content, 
+		updateExperience, 
+		progress_stage } = props;
 
-	
-	let { map, fetchContentLocation, content_location,  current_city } = props;
-	console.log(current_city)
-	if(!current_city){
+	if(!current_city && !content && progress_stage === 1) {
 		return (
 			<div className={s('search_results')}>
 				<input className={s(['add_input'])} 
@@ -39,7 +45,7 @@ function Geocoder(props) {
 					placeholder="What city did you visit?" 
 					onChange = { e => {
 						if(e.target.value) {
-							fetchContentLocation(e.target.value)
+							fetchInputLocation(e.target.value)
 						}
 					}}
 					/>
