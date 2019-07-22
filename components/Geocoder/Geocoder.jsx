@@ -32,11 +32,13 @@ class Geocoder extends Component {
 		
 	}
 
-	yieldedBusinesses = ({input_business, map,  updateBusiness}) => {
-		if(input_business) {
+	yieldedBusinesses = ({input_business, map,  updateBusiness, business}) => {
+		if(input_business  && business) {
 			let businesses = input_business.features.map((feature, key) => {
-				let { center, bbox, place_name  } = feature
-				let business_experience = { "name": place_name, "coordinates": center }
+				let { center, bbox, place_name  } = feature;
+				let { id } = business
+				let business_experience = { "name": place_name, "coordinates": center, "id": id+1 }
+				
 				return(
 					<a  key= {key}
 						className={s('location_results')} 

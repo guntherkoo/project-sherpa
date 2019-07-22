@@ -7,7 +7,6 @@ import s from './AddForm.scss';
 class AddForm extends Component {
 
 	state = {
-		locations: [],
 		video_time: 0,
 		location: null
 	}
@@ -20,7 +19,9 @@ class AddForm extends Component {
 			updateVideoTime,
 			video_time,
 			updateBusiness,
-			business } = this.props
+			business,
+			addToBusinesses,
+			addBusinessesToExperience } = this.props
 
 		let {
 			location 
@@ -58,7 +59,8 @@ class AddForm extends Component {
 						<Geocoder 
 							map= { map }
 							progress_stage = { progress_stage }
-							updateBusiness = { updateBusiness } />
+							updateBusiness = { updateBusiness } 
+							business = { business }/>
 					</div>
 					Current Time:
 					<input type="text" value= { video_time } disabled/>
@@ -80,7 +82,17 @@ class AddForm extends Component {
 									updateBusiness({'time_end': video_time})
 								}}>Stop Loc</a>
 						</div>
-					</div>	
+					</div>
+					<a 
+						className={s('submit_location')}
+						onClick= {()=> {
+							addToBusinesses();
+						}}>Submit Location</a>
+					<a 
+						className={s('submit_video')}
+						onClick = {() => {
+							addBusinessesToExperience()
+						}}>Submit Video</a>
 				</div>
 				): (<div></div>)}				
 			</div>

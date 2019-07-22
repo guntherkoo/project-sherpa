@@ -27,6 +27,7 @@ class Index extends Component {
 	state = {
 		experience: null,
 		business: {
+			id 			: 0,
 			coordinates	: '',
 			name 		: '',
 			time_start 	: '',
@@ -74,10 +75,28 @@ class Index extends Component {
 		})
 	}
 
+	addToBusinesses() {
+		let business = Object.assign({}, this.state.business)
+		this.setState(prevState => ({
+			businesses: this.state.businesses.concat(business)
+		}))	
+	}
+
+	addBusinessesToExperience() {
+		let businesses = [...this.state.businesses]
+		this.setState(() => {
+			let experience = Object.assign({}, this.state.experience)
+			experience.locations = businesses
+			return { experience }
+		})
+		let json = JSON.stringify(this.state.experience, null, 2);
+		console.log(json)
+	}
 
 	render() {
 		let { map, location_active, content } = this.props;
-		let { progress_stage, experience, video_time, timestamp, business } = this.state;
+		let { progress_stage, experience, video_time, timestamp, business, businesses } = this.state;
+		console.log(experience);
 		return (
 			<section>
 				<MapComponent 
@@ -95,6 +114,8 @@ class Index extends Component {
 					video_time = { video_time }
 					updateBusiness = { this.updateBusiness.bind(this) }
 					business = { business }
+					addToBusinesses = { this.addToBusinesses.bind(this) }
+					addBusinessesToExperience = { this.addBusinessesToExperience.bind(this) }
 					/>
 			</section>
 		)
