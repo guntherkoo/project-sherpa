@@ -40,7 +40,7 @@ class MapComponent extends Component {
 			<Map
 				className = {s('MapComponent')}
 				style={ style }
-				center = { center } 
+				center = { (content ? content.coordinates : center) } 
 				maxBounds = { bounds }
 				zoom = { zoom }
 				onStyleLoad= { map => {

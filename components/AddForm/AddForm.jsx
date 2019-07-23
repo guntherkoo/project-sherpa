@@ -87,11 +87,13 @@ class AddForm extends Component {
 						className={s('submit_location')}
 						onClick= {()=> {
 							addToBusinesses();
+							console.log(business)
 						}}>Submit Location</a>
 					<a 
 						className={s('submit_video')}
 						onClick = {() => {
 							addBusinessesToExperience()
+							console.log(experience);
 						}}>Submit Video</a>
 				</div>
 				): (<div></div>)}				

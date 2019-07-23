@@ -34,7 +34,8 @@ class VideoPlayer extends Component {
 			setActivePin,
 			video_url,
 			add_content,
-			updateVideoTime
+			updateVideoTime,
+			content
 		} = this.props;
 
 		let { 
@@ -60,7 +61,7 @@ class VideoPlayer extends Component {
 					let round_sec = Math.round(e.playedSeconds);
 					if(!add_content)
 						// This is for pages with established content
-						locations[0].locations.map(location => {
+						content.locations.map(location => {
 							if(round_sec >= location.time_start && round_sec < location.time_end) {
 								// The pin in the center of the map is the active location
 									this.activePin(this.state, location, this.props)

@@ -29,12 +29,13 @@ class Index extends Component {
 	static defaultProps = {
 		count: 0,
 		location_active: false,
-		content: locations[0]
+		content: locations[2]
 	}
 
 
 	render() {
 		let { map, location_active, content } = this.props;
+		console.log(content);
 		return (
 			<section>
 				<MapComponent 
@@ -44,8 +45,9 @@ class Index extends Component {
 					<Video 
 						map = { map } 
 						location_active = { location_active } 
-						video_url = { locations[0].video }
-						add_content= { false } />	
+						video_url = { content.video }
+						add_content= { false }
+						content= { content }/>	
 				</div>
 				
 			</section>
