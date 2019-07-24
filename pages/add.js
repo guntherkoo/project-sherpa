@@ -1,23 +1,24 @@
+// Packages
 import dynamic from 'next/dynamic';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Action } from 'redux-store/actions';
 
+// Styles
 import GlobalStyles from 'styles/styles.scss';
 
-const MapComponent = dynamic(()=>
+// Components
+import Video from '../components/VideoPlayer';
+import AddForm from '../components/AddForm';
+const MapComponent = dynamic( () =>
 	import('../components/MapComponent'),
 	{
 		loading: () => <div></div>,
 		ssr:false
 	}
 )
-import Video from '../components/VideoPlayer';
-import AddForm from '../components/AddForm';
 
 
-class Index extends Component {
+class Add extends Component {
 	static getInitialProps ({ reduxStore, req }) {
 		const isServer = !!req
 
@@ -25,7 +26,7 @@ class Index extends Component {
 	}
 
 	state = {
-		experience: null,
+		vlog: null,
 		business: {
 			id 			: 0,
 			coordinates	: '',
@@ -43,15 +44,15 @@ class Index extends Component {
 		location_active: false
 	}
 
-	updateExperience(experience) {
-		if(this.state.experience === null) {
+	updateVlog(vlog) {
+		if(this.state.vlog === null) {
 			this.setState({ 
-				experience: experience,
+				vlog: vlog,
 				progress_stage: 2
 			})
 		} else {
 			this.setState(() => {
-	 			let newExperience = Object.assign(this.state.experience, experience);
+	 			let newExperience = Object.assign(this.state.vlog, vlog);
 	 			return newExperience
 			})
 		}
@@ -85,31 +86,30 @@ class Index extends Component {
 	addBusinessesToExperience() {
 		let businesses = [...this.state.businesses]
 		this.setState(() => {
-			let experience = Object.assign({}, this.state.experience)
-			experience.locations = businesses
-			return { experience }
+			let vlog = Object.assign({}, this.state.vlog)
+			vlog.locations = businesses
+			return { vlog }
 		})
-		let json = JSON.stringify(this.state.experience, null, 2);
-		console.log(json)
+		let json = JSON.stringify(this.state.vlog, null, 2);
 	}
 
 	render() {
 		let { map, location_active, content } = this.props;
-		let { progress_stage, experience, video_time, timestamp, business, businesses } = this.state;
-		console.log(experience);
+		let { progress_stage, vlog, video_time, timestamp, business, businesses } = this.state;
+		console.log(this.props);
 		return (
 			<section>
 				<MapComponent 
-					updateExperience = { this.updateExperience.bind(this) }
+					updateExperience = { this.updateVlog.bind(this) }
 					progress_stage= { progress_stage } 
 					business = { business }
 					/>
 				<AddForm 
 					map = { map }
 					location_active = { location_active }
-					updateExperience = { this.updateExperience.bind(this) }
+					updateExperience = { this.updateVlog.bind(this) }
 					progress_stage= { progress_stage } 
-					experience = { experience } 
+					experience = { vlog } 
 					updateVideoTime = { this.updateVideoTime.bind(this) }
 					video_time = { video_time }
 					updateBusiness = { this.updateBusiness.bind(this) }
@@ -123,17 +123,16 @@ class Index extends Component {
 }
 
 const mapStateToProps = state => {
+	console.log(state)
 	return {
 		map: state.map,
-		progress: state.progress,
-		location_active: state.location_active
+		content: state.content,
+		video: state.video
 	}
 }
 
-const mapDispatchToProps = dispatch => {
-	
-}
+
 export default connect(
 	mapStateToProps,
 	null
-)(Index);
+)(Add);

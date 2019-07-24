@@ -12,14 +12,14 @@ class VideoPlayer extends Component {
 		location_id : 0
 	}
 
-	activePin({ location_id }, location, { setActivePin, map, }) {
+	activePin({ location_id }, location, { setActivePin, set_map, }) {
 		if(location_id !== location.id) {
 			console.log(location_id, location.id)
 			this.setState({
 				location_id : location.id
 			})
-			setActivePin(location, map);
-			map.flyTo({
+			setActivePin(location, set_map);
+			set_map.flyTo({
 				center: location.coordinates,
 				zoom: 15
 			})
@@ -28,7 +28,7 @@ class VideoPlayer extends Component {
 
 	render() {
 		let { 
-			map,
+			set_map,
 			playing, 
 			setVideoControls, 
 			setActivePin,
@@ -42,7 +42,7 @@ class VideoPlayer extends Component {
 			location_id 
 		} = this.state;
 
-		if(!map) return <div></div>
+		if(!set_map) return <div></div>
 		return(
 
 
@@ -57,7 +57,7 @@ class VideoPlayer extends Component {
 					// Adds video control throughout components
 					setVideoControls(this.p);
 				}}
-				onProgress = { (e)=> {
+				onProgress = { (e) => {
 					let round_sec = Math.round(e.playedSeconds);
 					if(!add_content)
 						// This is for pages with established content

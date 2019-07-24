@@ -28,8 +28,8 @@ class AddForm extends Component {
 		} =  this.state
 		if(progress_stage !=2) return <div></div>
 		return (
-			<div className={s('add-video-form', 'progress_stage')}>
-				<div className={s('player-container')}>
+			<div className={s('add_video_form', 'progress_stage')}>
+				<div className={s('player_container')}>
 					{ experience.video ? 
 						(<VideoPlayer 
 						add_content= { true }
@@ -69,7 +69,7 @@ class AddForm extends Component {
 							<input type="text" value= {(business ? business.time_start: '0')} disabled/>
 							<a  
 								className={s('time_stamp')} 
-								onClick={()=>{
+								onClick={() =>{
 									updateBusiness({'time_start': video_time})
 									console.log(location)
 								}}>Start Loc</a>
@@ -78,14 +78,14 @@ class AddForm extends Component {
 							<input type="text" value= {(business ? business.time_end :'0')} disabled />
 							<a 
 								className={s('time_stamp')}
-								onClick={()=>{
+								onClick={() =>{
 									updateBusiness({'time_end': video_time})
 								}}>Stop Loc</a>
 						</div>
 					</div>
 					<a 
 						className={s('submit_location')}
-						onClick= {()=> {
+						onClick= {() => {
 							addToBusinesses();
 							console.log(business)
 						}}>Submit Location</a>

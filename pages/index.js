@@ -6,7 +6,7 @@ import { Action } from 'redux-store/actions';
 
 import GlobalStyles from 'styles/styles.scss';
 
-const MapComponent = dynamic(()=>
+const MapComponent = dynamic(() =>
 	import('../components/MapComponent'),
 	{
 		loading: () => <div></div>,
@@ -34,7 +34,7 @@ class Index extends Component {
 
 
 	render() {
-		let { map, location_active, content } = this.props;
+		let { set_map, location_active, content } = this.props;
 		console.log(content);
 		return (
 			<section>
@@ -43,7 +43,7 @@ class Index extends Component {
 			
 				<div className={s('player-wrapper')}>
 					<Video 
-						map = { map } 
+						set_map = { set_map } 
 						location_active = { location_active } 
 						video_url = { content.video }
 						add_content= { false }
@@ -56,23 +56,15 @@ class Index extends Component {
 }
 
 const mapStateToProps = state => {
+	console.log(state)
 	return {
-		map: state.map,
+		set_map: state.set_map,
 		location_active: state.location_active
 	}
 }
 
-const mapDispatchToProps = dispatch => {
-	return {
-		setMapToProps(map) {
-			dispatch(Action.setMapToProps(map));
-		},
-		setContent(content) {
-			dispatch(Action.setContent(content));	
-		}
-	}
-}
+
 export default connect(
 	mapStateToProps,
-	mapDispatchToProps
+	null
 )(Index);
