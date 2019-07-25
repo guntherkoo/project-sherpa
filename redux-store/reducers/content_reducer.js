@@ -1,6 +1,13 @@
 import { Type } from '../actions';
 
-export default function (state = {}, action) {
+const handleFetchInputLocationSuccess = (state, action) => {
+	return {
+		...state,
+		content_location: action.payload
+	}
+}
+
+export default (state = {}, action) => {
 	switch (action.type) {
 		case Type.CONTENT:
 			return {

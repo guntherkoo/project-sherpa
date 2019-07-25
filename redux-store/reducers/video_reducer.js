@@ -1,6 +1,6 @@
 import { Type } from '../actions';
 
-export default function (state = {}, action) {
+export default (state = {}, action) => {
 	switch (action.type) {
 		case Type.VIDEO_CONTROLS:
 			return {

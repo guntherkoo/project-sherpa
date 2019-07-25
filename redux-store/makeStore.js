@@ -19,13 +19,14 @@ export default function initializeStore(initial_state = {}) {
 	const createStoreWithMiddleware = composeWithDevTools(applyMiddleware(...middlewares))(createStore);
 
 	initial_state = {
-		progress: 0,
-		location: {
-			id:0
-		},
-		playing: false,
-		content: null
+		// progress: 0,
+		// location: {
+		// 	id:0
+		// },
+		// playing: false,
+		// content: null
 	}
+	console.log(reducer)
 
 	const store = createStoreWithMiddleware(reducer, initial_state);
 

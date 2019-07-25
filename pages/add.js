@@ -96,7 +96,6 @@ class Add extends Component {
 	render() {
 		let { map, location_active, content } = this.props;
 		let { progress_stage, vlog, video_time, timestamp, business, businesses } = this.state;
-		console.log(this.props);
 		return (
 			<section>
 				<MapComponent 
@@ -123,7 +122,6 @@ class Add extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state)
 	return {
 		map: state.map,
 		content: state.content,

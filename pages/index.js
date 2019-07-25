@@ -27,25 +27,24 @@ class Index extends Component {
 	}
 
 	static defaultProps = {
-		count: 0,
 		location_active: false,
 		content: locations[2]
 	}
 
 
 	render() {
-		let { set_map, location_active, content } = this.props;
-		console.log(content);
+		let { map, location_active, content, vlogs } = this.props;
+
 		return (
 			<section>
 				<MapComponent 
-					content = { content } />
+					content = { vlogs[2] } />
 			
 				<div className={s('player-wrapper')}>
 					<Video 
-						set_map = { set_map } 
+						set_map = { map.set_map } 
 						location_active = { location_active } 
-						video_url = { content.video }
+						video_url = { vlogs[2].video }
 						add_content= { false }
 						content= { content }/>	
 				</div>
@@ -56,10 +55,10 @@ class Index extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state)
 	return {
-		set_map: state.set_map,
-		location_active: state.location_active
+		map: state.map,
+		vlogs: state.vlogs,
+		video: state.video
 	}
 }
 

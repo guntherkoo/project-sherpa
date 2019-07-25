@@ -14,7 +14,6 @@ class VideoPlayer extends Component {
 
 	activePin({ location_id }, location, { setActivePin, set_map, }) {
 		if(location_id !== location.id) {
-			console.log(location_id, location.id)
 			this.setState({
 				location_id : location.id
 			})
