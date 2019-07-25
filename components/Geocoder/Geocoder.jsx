@@ -17,7 +17,7 @@ class Geocoder extends Component {
 					<a  key= {key}
 						className={s('location_results')} 
 						data-place-name= { feature.place_name }
-						onClick={()=> {
+						onClick={ () => {
 							map.jumpTo({
 								center: center
 							})
@@ -29,7 +29,6 @@ class Geocoder extends Component {
 			}) 
 			return cities
 		}
-		
 	}
 
 	yieldedBusinesses = ({input_business, map,  updateBusiness, business}) => {
@@ -43,7 +42,7 @@ class Geocoder extends Component {
 					<a  key= {key}
 						className={s('location_results')} 
 						data-place-name= { feature.place_name }
-						onClick={()=> {
+						onClick={() => {
 							map.jumpTo({
 								center: center,
 								zoom: 15
@@ -106,7 +105,7 @@ class Geocoder extends Component {
 			)
 		}
 		return(
-			<div>hi</div>
+			<div></div>
 		)
 	}
 }

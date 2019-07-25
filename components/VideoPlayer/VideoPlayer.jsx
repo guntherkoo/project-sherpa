@@ -12,36 +12,41 @@ class VideoPlayer extends Component {
 		location_id : 0
 	}
 
-	activePin({ location_id }, location, { setActivePin, set_map, }) {
-		if(location_id !== location.id) {
-			this.setState({
-				location_id : location.id
-			})
-			setActivePin(location, set_map);
-			set_map.flyTo({
+	activePin( location, { map, setActivePin, pin_id, playVideo }) {
+		if(pin_id !== location.id) {
+			setActivePin(location.id);
+
+			playVideo()
+			map.flyTo({
 				center: location.coordinates,
 				zoom: 15
-			})
+			});
 		}
 	}
 
+	static defaultProps = {
+		pin_id: 0,
+		playing: false
+	}
+
 	render() {
+
 		let { 
-			set_map,
+			map,
 			playing, 
 			setVideoControls, 
-			setActivePin,
 			video_url,
 			add_content,
 			updateVideoTime,
-			content
+			vlogs,
+			pin_id
 		} = this.props;
+
 
 		let { 
 			location_id 
 		} = this.state;
-
-		if(!set_map) return <div></div>
+		if(!map) return <div></div>
 		return(
 
 
@@ -58,12 +63,13 @@ class VideoPlayer extends Component {
 				}}
 				onProgress = { (e) => {
 					let round_sec = Math.round(e.playedSeconds);
+					console.log(playing)
 					if(!add_content)
 						// This is for pages with established content
-						content.locations.map(location => {
+						vlogs.locations.map(location => {
 							if(round_sec >= location.time_start && round_sec < location.time_end) {
 								// The pin in the center of the map is the active location
-									this.activePin(this.state, location, this.props)
+									this.activePin( location, this.props)
 							}	
 					})
 
@@ -80,18 +86,23 @@ class VideoPlayer extends Component {
 
 
 const mapStateToProps = state => {
+	console.log(state);
 	return {
-		playing: state.playing
+		playing: state.video.playing,
+		pin_id: state.map.pin_id
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setActivePin(location) {
-			dispatch(Action.setActivePin(location));
-		},
 		setVideoControls(player) {
-			dispatch(Action.setVideoControls(player));
+			dispatch(Action.setVideoControls(player))
+		},
+		setActivePin(pin) {
+			dispatch(Action.setActivePin(pin))
+		},
+		playVideo() {
+			dispatch(Action.playVideo())
 		}
 	}
 }

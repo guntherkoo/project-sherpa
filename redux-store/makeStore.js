@@ -26,7 +26,6 @@ export default function initializeStore(initial_state = {}) {
 		// playing: false,
 		// content: null
 	}
-	console.log(reducer)
 
 	const store = createStoreWithMiddleware(reducer, initial_state);
 

@@ -8,10 +8,10 @@ export default (state = {}, action) => {
 				...state,
 				set_map: action.payload
 			}
-		case Type.ACTIVE_PIN:
+		case Type.SET_ACTIVE_PIN:
 			return {
 				...state,
-				location: action.payload
+				pin_id : action.payload,
 			}
 		default:
 			return state

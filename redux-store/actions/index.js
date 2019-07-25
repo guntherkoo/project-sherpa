@@ -4,9 +4,7 @@ import fetch from 'cross-fetch';
 const Type = {
 	// Map Actions
 	SET_MAP   	 		: 'SET_MAP',
-	ACTIVE_PIN 			: 'ACTIVE_PIN',
-	PROGRESS 			: 'PROGRESS',
-	COORD 	 			: 'COORD',
+	SET_ACTIVE_PIN			: 'SET_ACTIVE_PIN',
 	// Video Actions
 	VIDEO_CONTROLS 		: 'VIDEO_CONTROLS',
 	VIDEO_PLAY			: 'VIDEO_PLAY',
@@ -28,11 +26,10 @@ const Action = {
 			payload: map
 		}
 	},
-	// Sets the active pin compared to the video
-	setActivePin: (location, map) => {
+	setActivePin : (pin) => {
 		return {
-			type: Type.ACTIVE_PIN,
-			payload: location
+			type: Type.SET_ACTIVE_PIN,
+			payload: pin
 		}
 	},
 	// Video Actions

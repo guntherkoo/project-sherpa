@@ -1,13 +1,12 @@
 import { Marker, Layer, Feature } from "react-mapbox-gl";
-import locations from '../../dummy_data/locations.json';
 
 function Markers(props) {
-	let { content, video_player, setActivePin, playVideo, map, business } = props
-	if(content) {
+	let { vlogs, video_player, playVideo, map, business, playing, setActivePin } = props
+	if(vlogs) {
 		return(
 			<div>
 				{
-					content.locations.map((location, index) => {
+					vlogs.locations.map((location, index) => {
 						return (
 							<Layer
 								type="symbol"
@@ -19,9 +18,16 @@ function Markers(props) {
 									'icon-allow-overlap': true,
 								}}
 								onClick = {(e) =>{
-									video_player.seekTo(location.time_start)
-									setActivePin(location);
-									playVideo();
+									
+									console.log(location.time_start)
+									video_player.seekTo(location.time_start);
+									
+								}}
+								onMouseEnter={() =>{
+									map.getCanvas().style.cursor = 'pointer';
+								}}
+								onMouseLeave={() =>{
+									map.getCanvas().style.cursor = '';
 								}}
 							   >
 							  	<Feature 
@@ -49,10 +55,10 @@ function Markers(props) {
 					}}
 					onClick = {(e) =>{
 					}}
-					onMouseEnter={()=>{
+					onMouseEnter={() =>{
 						map.getCanvas().style.cursor = 'pointer';
 					}}
-					onMouseLeave={()=>{
+					onMouseLeave={() =>{
 						map.getCanvas().style.cursor = '';
 					}}
 				   >
@@ -64,7 +70,7 @@ function Markers(props) {
 			</div>
 		)
 	}
-	if(!content || !business) return <div></div>
+	if(!vlogs || !business) return <div></div>
 	
 }
 

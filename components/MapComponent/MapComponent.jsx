@@ -4,8 +4,6 @@ import Map from './helpers/map';
 import { mapDefault } from './helpers/default';
 import Markers from './helpers/markers';
 import s from './MapComponent.scss';
-import locations from '../dummy_data/locations.json';
-// import Geocoder from './helpers/geocoder';
 import Geocoder from '../Geocoder';
 
 // Redux
@@ -17,30 +15,35 @@ import { Action } from 'redux-store/actions';
 class MapComponent extends Component {
 
 	render() {
+
 		let { 
 			setMapToProps, 
 			fetchInputLocation,
 			input_location,
 			getCurrentCity,
 			current_city,
-			setActivePin, 
 			player, 
-			playVideo, 
-			content, 
-			map, 
+			playVideo,
+			vlogs, 
+			map,
 			updateExperience,
 			progress_stage,
-			business } = this.props
+			business,
+			playing,
+			setActivePin } = this.props
+
 		let { 
 			bounds, 
 			center, 
 			zoom, 
 			style } = mapDefault
+
+			console.log(player)
 		return(
 			<Map
 				className = {s('MapComponent')}
 				style={ style }
-				center = { (content ? content.coordinates : center) } 
+				center = { (vlogs ? vlogs.coordinates : center) } 
 				maxBounds = { bounds }
 				zoom = { zoom }
 				onStyleLoad= { map => {
@@ -54,17 +57,18 @@ class MapComponent extends Component {
 						input_location = { input_location }
 						getCurrentCity = { getCurrentCity } 
 						current_city = { current_city }
-						content = { content } 
+						vlogs = { vlogs } 
 						updateExperience = { updateExperience }
 						progress_stage = { progress_stage }/>
 				
 					<Markers 
-						setActivePin = { setActivePin }
 						video_player = { player }
 						playVideo = { playVideo }
-						content = { content } 
+						vlogs = { vlogs } 
 						map = { map }
-						business = { business }/>
+						business = { business }
+						playing = { playing }
+						setActivePin= { setActivePin }/>
 
 			</Map>
 		)
@@ -72,12 +76,12 @@ class MapComponent extends Component {
 }
 
 const mapStateToProps = state => {
+	console.log(state);
 	return {
-		map 			: state.map,
-		location 		: state.location,
-		player			: state.player,
+		player			: state.video.player,
 		input_location	: state.input_location,
-		current_city 	: state.current_city
+		current_city 	: state.current_city,
+		playing			: state.video.playing
 	}
 }
 
@@ -86,8 +90,8 @@ const mapDispatchToProps = dispatch => {
 		setMapToProps(map) {
 			dispatch(Action.setMapToProps(map));
 		},
-		setActivePin(location) {
-			dispatch(Action.setActivePin(location));
+		setActivePin(pin) {
+			dispatch(Action.setActivePin(pin))
 		},
 		playVideo() {
 			dispatch(Action.playVideo());	
