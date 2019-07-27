@@ -143,7 +143,7 @@ export default () => {
 						40.737683
 					],
 					"name": "The Box House Hotel, 77 Box St, New York, New York 11222, United States",
-					"time_start": 3,
+					"time_start": 1,
 					"time_end": 94
 			    },
 			    {
@@ -202,7 +202,7 @@ export default () => {
 					40.720851
 				],
 				"name": "Hoxton Hotel, 97 Wythe Ave, New York, New York 11249, United States",
-				"time_start": 0,
+				"time_start": 1,
 				"time_end": 121
 			},
 			{

@@ -42,7 +42,8 @@ class Index extends Component {
 			<section>
 				<MapComponent 
 					vlogs = { vlogs } 
-					map = { map } />
+					map = { map } 
+					center = { vlogs.coordinates }/>
 			
 				<div className={s('player-wrapper')}>
 					<Video 
@@ -60,7 +61,7 @@ class Index extends Component {
 const mapStateToProps = state => {
 	return {
 		map: state.map.set_map,
-		vlogs: state.vlogs[2],
+		vlogs: state.vlogs[2]
 	}
 }
 

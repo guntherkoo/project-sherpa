@@ -8,15 +8,12 @@ import s from './VideoPlayer.scss';
 import locations from '../dummy_data/locations.json';
 
 class VideoPlayer extends Component {
-	state = {
-		location_id : 0
-	}
 
 	activePin( location, { map, setActivePin, pin_id, playVideo }) {
+		console.log(pin_id, location.id, "before")
 		if(pin_id !== location.id) {
 			setActivePin(location.id);
-
-			playVideo()
+			console.log(pin_id, location.id, "after")
 			map.flyTo({
 				center: location.coordinates,
 				zoom: 15
@@ -43,9 +40,6 @@ class VideoPlayer extends Component {
 		} = this.props;
 
 
-		let { 
-			location_id 
-		} = this.state;
 		if(!map) return <div></div>
 		return(
 

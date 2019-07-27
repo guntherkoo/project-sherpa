@@ -18,10 +18,12 @@ function Markers(props) {
 									'icon-allow-overlap': true,
 								}}
 								onClick = {(e) =>{
-									
-									console.log(location.time_start)
+									playVideo()
 									video_player.seekTo(location.time_start);
-									
+									map.flyTo({
+										center: location.coordinates,
+										zoom: 15
+									});	
 								}}
 								onMouseEnter={() =>{
 									map.getCanvas().style.cursor = 'pointer';

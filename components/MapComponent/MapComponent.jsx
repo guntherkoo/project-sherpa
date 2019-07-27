@@ -30,26 +30,25 @@ class MapComponent extends Component {
 			progress_stage,
 			business,
 			playing,
-			setActivePin } = this.props
+			setActivePin,
+			center } = this.props
 
 		let { 
 			bounds, 
-			center, 
 			zoom, 
 			style } = mapDefault
 
-			console.log(player)
 		return(
 			<Map
 				className = {s('MapComponent')}
 				style={ style }
-				center = { (vlogs ? vlogs.coordinates : center) } 
+				center = { center } 
 				maxBounds = { bounds }
 				zoom = { zoom }
 				onStyleLoad= { map => {
 				  	setMapToProps(map);
 			  	}}
-				>
+			>
 
 					<Geocoder 
 						map= { map } 
