@@ -8,13 +8,13 @@ const Type = {
 	// Video Actions
 	VIDEO_CONTROLS 		: 'VIDEO_CONTROLS',
 	VIDEO_PLAY			: 'VIDEO_PLAY',
+	// Content Actions
 	CONTENT 			: 'CONTENT',
 	FETCH_INPUT_LOCATION: 'FETCH_INPUT_LOCATION',
 	FETCH_INPUT_LOCATION_SUCCESS: 'FETCH_INPUT_LOCATION_SUCCESS',
 	CURRENT_CITY		: 'CURRENT_CITY',
-	FETCH_BUSINESS_LOCATION_SUCCESS: 'FETCH_BUSINESS_LOCATION_SUCCESS'
-	// Content Actions
-
+	FETCH_BUSINESS_LOCATION_SUCCESS: 'FETCH_BUSINESS_LOCATION_SUCCESS',
+	UPDATE_NEW_BUSINESS : 'UPDATE_NEW_BUSINESS'
 };
 
 const Action = {
@@ -94,6 +94,13 @@ const Action = {
 			payload: res
 		}	
 	},
+	updateNewBusiness: (biz, update) => {
+		let newExperience = Object.assign(biz, update);
+		return {
+			type: Type.UPDATE_NEW_BUSINESS,
+			payload: newExperience
+		}
+	}
 
 }
 

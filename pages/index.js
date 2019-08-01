@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Action } from 'redux-store/actions';
 
 import GlobalStyles from 'styles/styles.scss';
+import Head from './_head';
 
 const MapComponent = dynamic(() =>
 	import('../components/MapComponent'),
@@ -40,6 +41,7 @@ class Index extends Component {
 
 		return (
 			<section>
+				<Head title= {'Eva In The City - Hoxton Hotel'} />
 				<MapComponent 
 					vlogs = { vlogs } 
 					map = { map } 

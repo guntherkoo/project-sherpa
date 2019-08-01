@@ -35,6 +35,11 @@ export default (state = {}, action) => {
 				...state,
 				input_business: action.payload
 			}
+		case Type.UPDATE_NEW_BUSINESS:
+			return {
+				...state,
+				new_business: action.payload
+			}
 		default:
 			return state
 	}
