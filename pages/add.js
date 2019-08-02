@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 // Styles
 import GlobalStyles from 'styles/styles.scss';
+import Head from './_head';
 
 // Components
 import Video from '../components/VideoPlayer';
@@ -99,6 +100,7 @@ class Add extends Component {
 		console.log(this.props)
 		return (
 			<section>
+				<Head title={"Add Experience"}></Head>
 				<MapComponent 
 					updateExperience = { this.updateVlog.bind(this) }
 					progress_stage= { progress_stage } 

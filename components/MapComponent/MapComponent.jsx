@@ -18,7 +18,6 @@ class MapComponent extends Component {
 
 		let { 
 			setMapToProps, 
-			fetchInputLocation,
 			input_location,
 			getCurrentCity,
 			current_city,
@@ -52,13 +51,10 @@ class MapComponent extends Component {
 
 					<Geocoder 
 						map= { map } 
-						fetchInputLocation= { fetchInputLocation }
-						input_location = { input_location }
-						getCurrentCity = { getCurrentCity } 
 						current_city = { current_city }
 						vlogs = { vlogs } 
 						updateExperience = { updateExperience }
-						progress_stage = { progress_stage }/>
+						progress_stage = { progress_stage } />
 				
 					<Markers 
 						video_player = { player }
@@ -94,12 +90,6 @@ const mapDispatchToProps = dispatch => {
 		},
 		playVideo() {
 			dispatch(Action.playVideo());	
-		},
-		fetchInputLocation(location) {
-			dispatch(Action.fetchInputLocation(location))
-		},
-		getCurrentCity(city) {
-			dispatch(Action.getCurrentCity(city))
 		}
 	}
 }
