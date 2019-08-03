@@ -1,6 +1,10 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
+import { Action } from 'redux-store/actions';
+
 import VideoPlayer from '../VideoPlayer';
 import Geocoder from '../Geocoder';
+
 
 import s from './AddForm.scss';
 
@@ -22,7 +26,9 @@ class AddForm extends Component {
 			updateBusiness,
 			business,
 			addToBusinesses,
-			addBusinessesToExperience } = this.props
+			addBusinessesToExperience,
+			content,
+			updateNewVlog } = this.props
 
 		let {
 			location 
@@ -31,14 +37,14 @@ class AddForm extends Component {
 		return (
 			<div className={s('add_video_form', 'progress_stage')}>
 				<div className={s('player_container')}>
-					{ experience.video ? 
+					{ content.new_vlog.video ? 
 						(<VideoPlayer 
 						add_content= { true }
 						map = { map }
-						video_url = {(experience.video) ? experience.video : 'null'} 
+						video_url = {(content.new_vlog.video) ? content.new_vlog.video : 'null'} 
 						updateVideoTime= { updateVideoTime }/>):(<div></div>)
 					}
-					<div className={s('url_results', (experience.video ? '' : 'active'))}>
+					<div className={s('url_results', (content.new_vlog.video ? '' : 'active'))}>
 						<input className={s('url_input')} 
 							type="text" 
 							placeholder='Video URL' 
@@ -47,21 +53,23 @@ class AddForm extends Component {
 							}}
 							onKeyDown = { e => {
 								if (e.key === 'Enter') {
-									updateExperience({ 'video': e.target.value })
+									// updateExperience({ 'video': e.target.value })
+									updateNewVlog({ 'video': e.target.value }, content.new_vlog)
 								}
 							}}
 						/>
 					</div>
 
 				</div>
-				{experience.video ? (
+				{ content.new_vlog.video ? (
 				<div className={s('video_content_container')}>
 					<div className={s('location_geocode', 'text_field')}>
 						<Geocoder 
 							map= { map }
 							progress_stage = { progress_stage }
 							updateBusiness = { updateBusiness } 
-							business = { business }/>
+							business = { business }
+							updateExperience = { updateExperience } />
 					</div>
 					Current Time:
 					<input type="text" value= { video_time } disabled/>
@@ -104,4 +112,22 @@ class AddForm extends Component {
 	}
 }
 
-export default AddForm;
+const mapStateToProps = state => {
+	console.log(state);
+	return {
+		content 		: state.content,
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		updateNewVlog(biz, update) {
+			dispatch(Action.updateNewVlog(biz, update))
+		}
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(AddForm);

@@ -73,10 +73,7 @@ class MapComponent extends Component {
 const mapStateToProps = state => {
 	console.log(state);
 	return {
-		player			: state.video.player,
-		input_location	: state.input_location,
-		current_city 	: state.current_city,
-		playing			: state.video.playing
+		map 			: state.map.set_map
 	}
 }
 

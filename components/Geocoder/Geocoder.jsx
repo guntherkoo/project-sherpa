@@ -8,12 +8,13 @@ import s from './Geocoder.scss';
 class Geocoder extends Component {
 	
 	state = {
-		input_field: ''
+		input_field: '',
+		progress_stage: 1
 	}
 
 	
 
-	yieldedCities=({content, map, getCurrentCity, updateNewBusiness }) => {
+	yieldedCities=({ content, map, getCurrentCity, updateNewVlog, updateExperience }) => {
 		let { input_location } = content;
 		if(input_location) {
 			let cities = input_location.features.map((feature, key) => {
@@ -28,7 +29,8 @@ class Geocoder extends Component {
 								center: center
 							})
 							getCurrentCity(feature);
-							updateNewBusiness(init_experience, null)
+							updateNewVlog(init_experience, null)
+							updateExperience();
 						}}>{ feature.place_name }</a>
 				)
 			}) 
@@ -36,11 +38,12 @@ class Geocoder extends Component {
 		}
 	}
 
-	yieldedBusinesses = ({ input_business, map,  updateBusiness, business }) => {
-		if(input_business && business) {
+	yieldedBusinesses = ({ content, map,  updateBusiness }) => {
+		let { input_business, new_vlog } = content;
+		if(input_business && new_vlog) {
 			let businesses = input_business.features.map((feature, key) => {
 				let { center, bbox, place_name  } = feature;
-				let { id } = business
+				let { id } = new_vlog
 				let business_experience = { "name": place_name, "coordinates": center, "id": id+1 }
 				
 				return(
@@ -106,7 +109,7 @@ class Geocoder extends Component {
 						placeholder='Insert business:'
 						onChange = { e => {
 							if(e.target.value) {
-								fetchBusinessLocation(e.target.value, current_city.bbox);
+								fetchBusinessLocation(e.target.value, content.current_city.bbox);
 							}
 							
 						}}/>
@@ -144,8 +147,8 @@ const mapDispatchToProps = dispatch => {
 		getCurrentCity(city) {
 			dispatch(Action.getCurrentCity(city))
 		},
-		updateNewBusiness(biz, update) {
-			dispatch(Action.updateNewBusiness(biz, update))
+		updateNewVlog(biz, update) {
+			dispatch(Action.updateNewVlog(biz, update))
 		}
 	}
 }

@@ -45,18 +45,10 @@ class Add extends Component {
 		location_active: false
 	}
 
-	updateVlog(vlog) {
-		if(this.state.vlog === null) {
-			this.setState({ 
-				vlog: vlog,
-				progress_stage: 2
-			})
-		} else {
-			this.setState(() => {
-	 			let newExperience = Object.assign(this.state.vlog, vlog);
-	 			return newExperience
-			})
-		}
+	updateVlog() {
+		this.setState({ 
+			progress_stage: 2
+		})
 	}
 	updateBusiness(business) {
 		if(this.state.business === null) {
@@ -97,7 +89,7 @@ class Add extends Component {
 	render() {
 		let { map, location_active, content } = this.props;
 		let { progress_stage, vlog, video_time, timestamp, business, businesses } = this.state;
-		console.log(this.props)
+		console.log(this.state);
 		return (
 			<section>
 				<Head title={"Add Experience"}></Head>

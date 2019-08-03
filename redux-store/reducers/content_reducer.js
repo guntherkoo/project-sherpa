@@ -35,10 +35,10 @@ export default (state = {}, action) => {
 				...state,
 				input_business: action.payload
 			}
-		case Type.UPDATE_NEW_BUSINESS:
+		case Type.UPDATE_NEW_VLOG:
 			return {
 				...state,
-				new_business: action.payload
+				new_vlog: action.payload
 			}
 		default:
 			return state
