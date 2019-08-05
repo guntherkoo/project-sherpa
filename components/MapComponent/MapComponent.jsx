@@ -21,7 +21,7 @@ class MapComponent extends Component {
 			input_location,
 			getCurrentCity,
 			current_city,
-			player, 
+			video, 
 			playVideo,
 			vlogs, 
 			map,
@@ -57,7 +57,7 @@ class MapComponent extends Component {
 						progress_stage = { progress_stage } />
 				
 					<Markers 
-						video_player = { player }
+						video_player = { video }
 						playVideo = { playVideo }
 						vlogs = { vlogs } 
 						map = { map }
@@ -73,7 +73,8 @@ class MapComponent extends Component {
 const mapStateToProps = state => {
 	console.log(state);
 	return {
-		map 			: state.map.set_map
+		map 			: state.map.set_map,
+		video 			: state.video.player
 	}
 }
 
