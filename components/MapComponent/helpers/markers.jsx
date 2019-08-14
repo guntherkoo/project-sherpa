@@ -22,7 +22,8 @@ function Markers(props) {
 									video_player.seekTo(location.time_start);
 									map.flyTo({
 										center: location.coordinates,
-										zoom: 15
+										zoom: 15,
+										offset: [100, 0]
 									});	
 								}}
 								onMouseEnter={() =>{

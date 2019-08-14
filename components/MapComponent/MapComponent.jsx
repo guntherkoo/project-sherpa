@@ -14,6 +14,11 @@ import { Action } from 'redux-store/actions';
 
 class MapComponent extends Component {
 
+	state = {
+		map_center: [-71.2278118412173, 46.80942018867191]
+	}
+	
+
 	render() {
 
 		let { 
@@ -36,14 +41,15 @@ class MapComponent extends Component {
 			bounds, 
 			zoom, 
 			style } = mapDefault
+		let { map_center } = this.state
 
 		return(
 			<Map
 				className = {s('MapComponent')}
 				style={ style }
-				center = { center } 
 				maxBounds = { bounds }
 				zoom = { zoom }
+				center = { map_center }
 				onStyleLoad= { map => {
 				  	setMapToProps(map);
 			  	}}
@@ -74,7 +80,8 @@ const mapStateToProps = state => {
 	console.log(state);
 	return {
 		map 			: state.map.set_map,
-		video 			: state.video.player
+		video 			: state.video.player,
+		center 			: state.vlogs[0].coordinates
 	}
 }
 

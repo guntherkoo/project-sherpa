@@ -15,6 +15,7 @@ const MapComponent = dynamic(() =>
 	}
 )
 import Video from '../components/VideoPlayer';
+import VlogContainer from '../components/VlogContainer';
 import locations from '../components/dummy_data/locations.json';
 
 import s from '../styles/_index.scss';
@@ -44,17 +45,12 @@ class Index extends Component {
 				<Head title= {'Eva In The City - Hoxton Hotel'} />
 				<MapComponent 
 					vlogs = { vlogs } 
-					map = { map } 
-					center = { vlogs.coordinates }/>
+					map = { map } />
 			
-				<div className={s('player-wrapper')}>
-					<Video 
-						map = { map } 
-						video_url = { vlogs.video }
-						add_content= { add_content }
-						vlogs= { vlogs }/>	
-				</div>
-				
+				<VlogContainer
+					vlogs= { vlogs } 
+					add_content = { add_content }
+					/>
 			</section>
 		)
 	}

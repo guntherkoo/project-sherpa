@@ -1,0 +1,27 @@
+.vlog_container {
+	position: absolute;
+	left: 1%;
+	top: 1%;
+	height: 98%;
+	width: 30%;
+	background: rgba(255,255,255, 0.8);
+	min-width: 300px;
+	max-width: 380px;
+	&-video {
+		position: relative;
+		width: 110%;
+		height: 0;
+		padding-bottom: 56%;
+	}
+
+	&-locations {
+		width: 100%;
+		overflow-y: scroll;
+	    height: 75%;
+
+		.location_details {
+			padding: 15px;
+			cursor: pointer;
+		}
+	}
+}

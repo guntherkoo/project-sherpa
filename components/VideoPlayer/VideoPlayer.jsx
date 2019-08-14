@@ -38,7 +38,7 @@ class VideoPlayer extends Component {
 			vlogs,
 			pin_id
 		} = this.props;
-
+		console.log(this.props.vlogs)
 
 		if(!map) return <div></div>
 		return(
