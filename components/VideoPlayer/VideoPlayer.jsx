@@ -16,7 +16,8 @@ class VideoPlayer extends Component {
 			console.log(pin_id, location.id, "after")
 			map.flyTo({
 				center: location.coordinates,
-				zoom: 15
+				zoom: 15,
+				offset: [100, 0]
 			});
 		}
 	}

@@ -11,13 +11,13 @@ import s from './AddForm.scss';
 class AddForm extends Component {
 
 	state = {
-		video_time: 0,
-		location: null
+		video_time: 0
 	}
 
 
 	render() {
-		let { map, 
+		let { 
+			map, 
 			updateExperience, 
 			progress_stage, 
 			experience,
@@ -28,12 +28,11 @@ class AddForm extends Component {
 			addToBusinesses,
 			addBusinessesToExperience,
 			content,
-			updateNewVlog } = this.props
+			updateNewVlog,
+			new_vlog
+		} = this.props
 
-		let {
-			location 
-		} =  this.state
-		if(progress_stage !=2) return <div></div>
+		if(!new_vlog) return <div></div>
 		return (
 			<div className={s('add_video_form', 'progress_stage')}>
 				<div className={s('player_container')}>
@@ -41,19 +40,15 @@ class AddForm extends Component {
 						(<VideoPlayer 
 						add_content= { true }
 						map = { map }
-						video_url = {(content.new_vlog.video) ? content.new_vlog.video : 'null'} 
+						video_url = { (content.new_vlog.video) ? content.new_vlog.video : 'null'} 
 						updateVideoTime= { updateVideoTime }/>):(<div></div>)
 					}
 					<div className={s('url_results', (content.new_vlog.video ? '' : 'active'))}>
 						<input className={s('url_input')} 
 							type="text" 
 							placeholder='Video URL' 
-							onChange = { e => {
-								
-							}}
 							onKeyDown = { e => {
 								if (e.key === 'Enter') {
-									// updateExperience({ 'video': e.target.value })
 									updateNewVlog({ 'video': e.target.value }, content.new_vlog)
 								}
 							}}
@@ -69,7 +64,7 @@ class AddForm extends Component {
 							progress_stage = { progress_stage }
 							updateBusiness = { updateBusiness } 
 							business = { business }
-							updateExperience = { updateExperience } />
+							/>
 					</div>
 					Current Time:
 					<input type="text" value= { video_time } disabled/>
@@ -80,7 +75,6 @@ class AddForm extends Component {
 								className={s('time_stamp')} 
 								onClick={() =>{
 									updateBusiness({'time_start': video_time})
-									console.log(location)
 								}}>Start Loc</a>
 						</div>
 						<div>
@@ -96,13 +90,13 @@ class AddForm extends Component {
 						className={s('submit_location')}
 						onClick= {() => {
 							addToBusinesses();
-							console.log(business)
+							// console.log(business)
 						}}>Submit Location</a>
 					<a 
 						className={s('submit_video')}
 						onClick = {() => {
 							addBusinessesToExperience()
-							console.log(experience);
+							// console.log(experience);
 						}}>Submit Video</a>
 				</div>
 				): (<div></div>)}				
@@ -113,9 +107,10 @@ class AddForm extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state);
+	// console.log(state);
 	return {
 		content 		: state.content,
+		new_vlog		: state.content.new_vlog
 	}
 }
 

@@ -36,32 +36,31 @@ class Add extends Component {
 			time_end 	: ''
 		},
 		businesses: [],
-		progress_stage: 1,
+		// progress_stage: 1,
 		video_time: 0,
 	}
 
 	static defaultProps = {
-		content: false,
-		location_active: false
+		content: false
 	}
 
-	updateVlog() {
-		this.setState({ 
-			progress_stage: 2
-		})
-	}
-	updateBusiness(business) {
-		if(this.state.business === null) {
-			this.setState({ 
-				business: business
-			})
-		} else {
-			this.setState(() => {
-	 			let newExperience = Object.assign(this.state.business, business);
-	 			return newExperience
-			})
-		}
-	}
+	// updateVlog() {
+	// 	this.setState({ 
+	// 		progress_stage: 2
+	// 	})
+	// }
+	// updateBusiness(business) {
+	// 	if(this.state.business === null) {
+	// 		this.setState({ 
+	// 			business: business
+	// 		})
+	// 	} else {
+	// 		this.setState(() => {
+	//  			let newExperience = Object.assign(this.state.business, business);
+	//  			return newExperience
+	// 		})
+	// 	}
+	// }
 
 	updateVideoTime(sec) {
 		this.setState({
@@ -87,26 +86,19 @@ class Add extends Component {
 	}
 
 	render() {
-		let { map, location_active, content } = this.props;
-		let { progress_stage, vlog, video_time, timestamp, business, businesses } = this.state;
-		console.log(this.state);
+		let { map, content } = this.props;
+		let { vlog, video_time, timestamp, business, businesses } = this.state;
 		return (
 			<section>
 				<Head title={"Add Experience"}></Head>
 				<MapComponent 
-					updateExperience = { this.updateVlog.bind(this) }
-					progress_stage= { progress_stage } 
 					business = { business }
 					/>
 				<AddForm 
-					map = { map }
-					location_active = { location_active }
-					updateExperience = { this.updateVlog.bind(this) }
-					progress_stage= { progress_stage } 
+					map = { map } 
 					experience = { vlog } 
 					updateVideoTime = { this.updateVideoTime.bind(this) }
 					video_time = { video_time }
-					updateBusiness = { this.updateBusiness.bind(this) }
 					business = { business }
 					addToBusinesses = { this.addToBusinesses.bind(this) }
 					addBusinessesToExperience = { this.addBusinessesToExperience.bind(this) }

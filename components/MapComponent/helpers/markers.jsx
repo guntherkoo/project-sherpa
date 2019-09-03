@@ -45,7 +45,6 @@ function Markers(props) {
 		)
 	} 
 	if(business) {
-		console.log("PINS HERE")
 		return(
 			<div>
 				<Layer

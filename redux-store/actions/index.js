@@ -9,7 +9,6 @@ const Type = {
 	VIDEO_CONTROLS : 'VIDEO_CONTROLS',
 	VIDEO_PLAY: 'VIDEO_PLAY',
 	// Content Actions
-	CONTENT: 'CONTENT',
 	FETCH_INPUT_LOCATION: 'FETCH_INPUT_LOCATION',
 	FETCH_INPUT_LOCATION_SUCCESS: 'FETCH_INPUT_LOCATION_SUCCESS',
 	CURRENT_CITY: 'CURRENT_CITY',
@@ -45,12 +44,7 @@ const Action = {
 		}
 	},
 	// Content Actions
-	setContent: (content) => {
-		return { 
-			type: Type.CONTENT,
-			payload: content
-		}
-	},
+
 	fetchInputLocation: (location) => {
 		const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?types=place,neighborhood,region,locality&access_token=${process.env.MAPBOX_KEY}`
 
@@ -71,12 +65,6 @@ const Action = {
 		return {
 			type: Type.CURRENT_CITY,
 			payload: city
-		}
-	},
-	createExperience: (experience) => {
-		return {
-			type: CREATE_EXPERIENCE,
-			payload: experience
 		}
 	},
 	fetchBusinessLocation: (business, bbox) => {

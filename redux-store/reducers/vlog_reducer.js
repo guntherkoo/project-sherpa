@@ -6,7 +6,9 @@ export default () => {
 			"uid" : 1,
 			"city": "Quebec City",
 			"video": "https://www.youtube.com/watch?v=sBLvzupw6BI",
+			"profile_img": "https://i.ibb.co/bmPz3mS/vagabrothers.jpg",
 			"coordinates": [-71.2278118412173,46.80942018867191],
+
 			"locations": [
 				{
 					"id": 1,
@@ -135,6 +137,7 @@ export default () => {
 			"city": "Greenpoint, Brooklyn, New York, New York 11222, United States",
 			"coordinates": [-73.951,40.7237],
 			"video": "https://www.youtube.com/watch?v=eIaLvFW4jnE",
+			"profile_img": "https://i.ibb.co/cC9TK6M/stroller-in-the-city.jpg",
 			"locations": [
 			    {
 					"id": 1,
@@ -194,6 +197,7 @@ export default () => {
 			"city": "New York, New York, United States",
 			"coordinates": [-73.9808,40.7648],
 			"video": "https://www.youtube.com/watch?v=RfBrM_tc4Ec",
+			"profile_img": "https://i.ibb.co/87vfrFv/eva-in-the-city.jpg",
 			"locations": [
 			{
 				"id": 1,

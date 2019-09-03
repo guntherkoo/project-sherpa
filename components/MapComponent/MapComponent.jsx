@@ -77,7 +77,7 @@ class MapComponent extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state);
+
 	return {
 		map 			: state.map.set_map,
 		video 			: state.video.player,

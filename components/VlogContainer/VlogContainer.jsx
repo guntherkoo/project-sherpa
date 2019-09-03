@@ -33,6 +33,7 @@ class VlogContainer extends Component {
 						vlogs = { vlogs }/>
 				</div>
 				<div className={s('vlog_container-vlogger')}>
+					<img src={vlogs.profile_img} />
 					<h1>{vlogs.name}</h1>
 				</div>
 				<div className={s('vlog_container-locations')}>
@@ -44,13 +45,18 @@ class VlogContainer extends Component {
 								onClick={ (e)=>{
 									playVideo()
 									video.seekTo(location.time_start);
-									map.flyTo({ center: location.coordinates,zoom: 15 });
+									map.flyTo({ 
+										center: location.coordinates,
+										zoom: 15,
+										offset: [100, 0]
+									});
 								}}>
 								<h3>{location.name}</h3>
 							</div>
 						)
 					})}
 				</div>
+				
 			</div>
 
 		)

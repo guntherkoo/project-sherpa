@@ -9,11 +9,6 @@ const handleFetchInputLocationSuccess = (state, action) => {
 
 export default (state = {}, action) => {
 	switch (action.type) {
-		case Type.CONTENT:
-			return {
-				...state,
-				content: action.payload
-			}
 		case Type.FETCH_INPUT_LOCATION_SUCCESS:
 			return {
 				...state,
@@ -24,12 +19,6 @@ export default (state = {}, action) => {
 				...state,
 				current_city: action.payload
 			}
-		case Type.CREATE_EXPERIENCE:
-			return {
-				...state,
-				experience: action.payload
-			}
-
 		case Type.FETCH_BUSINESS_LOCATION_SUCCESS:
 			return {
 				...state,
