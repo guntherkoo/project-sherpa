@@ -35,14 +35,20 @@ class Geocoder extends Component {
 		}
 	}
 
-	yieldedBusinesses = ({ content, map, updateNewVlog }) => {
+	yieldedBusinesses = ({ content, map, updateNewVlog, addBusinesses, video_time }) => {
 		let { input_business, new_vlog } = content;
 		console.log(input_business, new_vlog);
 		if(input_business && new_vlog) {
 			let businesses = input_business.features.map((feature, key) => {
 				let { center, place_name, text  } = feature;
 				let { locations } = new_vlog
-				let business = { "name": text, "coordinates": center, "id": (locations ? locations.length + 1 : 1) }
+				let business = { 
+					"name": text, 
+					"coordinates": center, 
+					"id": (locations ? locations.length + 1 : 1) ,
+					"time_start": video_time,
+					"time_end": null
+				}
 				
 				return(
 					<a key= {key}
@@ -53,8 +59,8 @@ class Geocoder extends Component {
 								center: center,
 								zoom: 15
 							});
-							this.addBusinessToExperience(new_vlog, business, updateNewVlog);
-
+							// this.addBusinessToExperience(new_vlog, business, updateNewVlog);
+							addBusinesses(business);
 						}}>{ feature.text }</a>
 				)
 			}) 
@@ -63,16 +69,23 @@ class Geocoder extends Component {
 		
 	}
 
-	addBusinessToExperience(new_vlog, business, updateNewVlog) {
-		let { locations } = new_vlog
-		if(!locations) {
-			updateNewVlog({ 'locations': [ business ] }, new_vlog)
-		} else {
-			let new_locations = locations.push(business)
-			console.log(locations);
-			updateNewVlog(locations, new_locations)
-		}
-	}
+	// addBusinessToExperience(new_vlog, business, updateNewVlog) {
+	// 	let { locations } = new_vlog
+	// 	if(!locations) {
+	// 		updateNewVlog({ 'locations': [ business ] }, new_vlog)
+	// 	} else {
+	// 		let new_location = locations.map((loc, i)=>{
+	// 			return loc
+	// 		});
+
+
+	// 		let new_location = [business ,...locations]
+	// 		locations.push(business)
+	// 		let locations = [business].concat(locations)
+	// 		console.log(locations, "hey over here")
+	// 		updateNewVlog({ 'locations': new_location }, new_vlog)
+	// 	}
+	// }
 
 	render() {
 		let { 
@@ -81,7 +94,8 @@ class Geocoder extends Component {
 			input_location,  
 			new_vlog, 
 			content, 
-			fetchBusinessLocation } = this.props;
+			fetchBusinessLocation,
+			addBusinesses } = this.props;
 		let {
 			input_field } = this.state;
 
@@ -138,7 +152,8 @@ const mapStateToProps = state => {
 	return {
 		content 		: state.content,
 		map 			: state.map,
-		new_vlog 		: state.content.new_vlog
+		new_vlog 		: state.content.new_vlog,
+		video_time 		: state.video.video_time
 	}
 }
 
@@ -155,6 +170,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		updateNewVlog(biz, update) {
 			dispatch(Action.updateNewVlog(biz, update))
+		},
+		addBusinesses(biz) {
+			dispatch(Action.addBusinesses(biz))	
 		}
 	}
 }

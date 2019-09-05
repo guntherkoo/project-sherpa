@@ -12,6 +12,11 @@ export default (state = {}, action) => {
 				...state,
 				playing: true
 			}
+		case Type.VIDEO_TIME:
+			return {
+				...state,
+				video_time: action.payload
+			}
 		default:
 			return state
 	}

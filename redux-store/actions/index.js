@@ -8,12 +8,15 @@ const Type = {
 	// Video Actions
 	VIDEO_CONTROLS : 'VIDEO_CONTROLS',
 	VIDEO_PLAY: 'VIDEO_PLAY',
+	VIDEO_TIME: 'VIDEO_TIME',
 	// Content Actions
 	FETCH_INPUT_LOCATION: 'FETCH_INPUT_LOCATION',
 	FETCH_INPUT_LOCATION_SUCCESS: 'FETCH_INPUT_LOCATION_SUCCESS',
 	CURRENT_CITY: 'CURRENT_CITY',
 	FETCH_BUSINESS_LOCATION_SUCCESS: 'FETCH_BUSINESS_LOCATION_SUCCESS',
-	UPDATE_NEW_VLOG: 'UPDATE_NEW_VLOG'
+	UPDATE_NEW_VLOG: 'UPDATE_NEW_VLOG',
+	ADD_BUSINESS: 'ADD_BUSINESS',
+	UPDATE_NEW_BUSINESS: 'UPDATE_NEW_BUSINESS'
 };
 
 const Action = {
@@ -41,6 +44,12 @@ const Action = {
 	playVideo: () => {
 		return {
 			type: Type.VIDEO_PLAY
+		}
+	},
+	videoTime: (time) => {
+		return {
+			type: Type.VIDEO_TIME,
+			payload: time
 		}
 	},
 	// Content Actions
@@ -87,6 +96,19 @@ const Action = {
 		return {
 			type: Type.UPDATE_NEW_VLOG,
 			payload: newVlog
+		}
+	},
+	addBusinesses: (biz) => {
+		return {
+			type: Type.ADD_BUSINESS,
+			payload: biz
+		}
+	},
+	updateNewBusiness: (update, arr_pos) => {
+		return {
+			type: Type.UPDATE_NEW_BUSINESS,
+			payload: update,
+			position: arr_pos
 		}
 	}
 

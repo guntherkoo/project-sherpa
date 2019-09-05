@@ -37,7 +37,8 @@ class VideoPlayer extends Component {
 			add_content,
 			updateVideoTime,
 			vlogs,
-			pin_id
+			pin_id,
+			videoTime
 		} = this.props;
 		console.log(this.props.vlogs)
 
@@ -70,7 +71,7 @@ class VideoPlayer extends Component {
 
 					if(add_content) {
 						// Insert actions for adding content here 
-						updateVideoTime(round_sec);
+						videoTime(round_sec);
 					}
 				}}
 
@@ -98,6 +99,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		playVideo() {
 			dispatch(Action.playVideo())
+		},
+		videoTime(time) {
+			dispatch(Action.videoTime(time))
 		}
 	}
 }
