@@ -15,7 +15,7 @@ import { Action } from 'redux-store/actions';
 class MapComponent extends Component {
 
 	state = {
-		map_center: [-71.2278118412173, 46.80942018867191]
+		map_center: [-73.9808,40.7648]
 	}
 	
 
@@ -35,7 +35,9 @@ class MapComponent extends Component {
 			business,
 			playing,
 			setActivePin,
-			center } = this.props
+			center,
+			param,
+			setCenterMap } = this.props
 
 		let { 
 			bounds, 
@@ -60,7 +62,8 @@ class MapComponent extends Component {
 						current_city = { current_city }
 						vlogs = { vlogs } 
 						updateExperience = { updateExperience }
-						progress_stage = { progress_stage } />
+						progress_stage = { progress_stage } 
+						param = { param }/>
 				
 					<Markers 
 						video_player = { video }
@@ -69,7 +72,8 @@ class MapComponent extends Component {
 						map = { map }
 						business = { business }
 						playing = { playing }
-						setActivePin= { setActivePin }/>
+						setActivePin= { setActivePin }
+						setCenterMap = { setCenterMap }/>
 
 			</Map>
 		)
@@ -80,8 +84,7 @@ const mapStateToProps = state => {
 
 	return {
 		map 			: state.map.set_map,
-		video 			: state.video.player,
-		center 			: state.vlogs[0].coordinates
+		video 			: state.video.player
 	}
 }
 
@@ -95,6 +98,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		playVideo() {
 			dispatch(Action.playVideo());	
+		},
+		setCenterMap(center) {
+			dispatch(Action.setCenterMap(center))
 		}
 	}
 }

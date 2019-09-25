@@ -79,14 +79,7 @@ class AddForm extends Component {
 								}}>Stop Loc</a>
 						</div>
 					</div>
-					<a 
-						className={s('submit_location')}
-						onClick= {() => {
-						}}>Submit Location</a>
-					<a 
-						className={s('submit_video')}
-						onClick = {() => {
-						}}>Submit Video</a>
+					
 				</div>
 				): (<div></div>)}				
 			</div>

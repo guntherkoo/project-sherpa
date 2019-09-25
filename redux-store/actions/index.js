@@ -5,6 +5,7 @@ const Type = {
 	// Map Actions
 	SET_MAP: 'SET_MAP',
 	SET_ACTIVE_PIN: 'SET_ACTIVE_PIN',
+	SET_CENTER_MAP: 'SET_CENTER_MAP',
 	// Video Actions
 	VIDEO_CONTROLS : 'VIDEO_CONTROLS',
 	VIDEO_PLAY: 'VIDEO_PLAY',
@@ -32,6 +33,12 @@ const Action = {
 		return {
 			type: Type.SET_ACTIVE_PIN,
 			payload: pin
+		}
+	},
+	setCenterMap: (center)=> {
+		return {
+			type: Type.SET_CENTER_MAP,
+			payload: center
 		}
 	},
 	// Video Actions

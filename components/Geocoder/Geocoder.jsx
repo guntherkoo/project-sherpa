@@ -7,6 +7,7 @@ import s from './Geocoder.scss';
 
 class Geocoder extends Component {
 	
+	
 	state = {
 		input_field: ''
 	}
@@ -35,17 +36,18 @@ class Geocoder extends Component {
 		}
 	}
 
-	yieldedBusinesses = ({ content, map, updateNewVlog, addBusinesses, video_time }) => {
+	yieldedBusinesses = ({ content, map, updateNewVlog, addBusinesses, video_time, businesses }) => {
 		let { input_business, new_vlog } = content;
-		console.log(input_business, new_vlog);
+		// console.log(input_business, new_vlog);
 		if(input_business && new_vlog) {
-			let businesses = input_business.features.map((feature, key) => {
+			let businesses_yielded = input_business.features.map((feature, key) => {
 				let { center, place_name, text  } = feature;
-				let { locations } = new_vlog
+				// let { locations } = new_vlog
+				console.log(new_vlog)
 				let business = { 
 					"name": text, 
 					"coordinates": center, 
-					"id": (locations ? locations.length + 1 : 1) ,
+					"id": (businesses ? businesses.length + 1 : 1) ,
 					"time_start": video_time,
 					"time_end": null
 				}
@@ -64,28 +66,11 @@ class Geocoder extends Component {
 						}}>{ feature.text }</a>
 				)
 			}) 
-			return businesses
+			return businesses_yielded
 		}
 		
 	}
 
-	// addBusinessToExperience(new_vlog, business, updateNewVlog) {
-	// 	let { locations } = new_vlog
-	// 	if(!locations) {
-	// 		updateNewVlog({ 'locations': [ business ] }, new_vlog)
-	// 	} else {
-	// 		let new_location = locations.map((loc, i)=>{
-	// 			return loc
-	// 		});
-
-
-	// 		let new_location = [business ,...locations]
-	// 		locations.push(business)
-	// 		let locations = [business].concat(locations)
-	// 		console.log(locations, "hey over here")
-	// 		updateNewVlog({ 'locations': new_location }, new_vlog)
-	// 	}
-	// }
 
 	render() {
 		let { 
@@ -95,11 +80,13 @@ class Geocoder extends Component {
 			new_vlog, 
 			content, 
 			fetchBusinessLocation,
-			addBusinesses } = this.props;
+			addBusinesses,
+			param } = this.props;
 		let {
 			input_field } = this.state;
 
-		if(!new_vlog ) {
+
+		if(!new_vlog && param === "/add") {
 			return (
 				<div className={s('search_results')}>
 					<input className={s('add_input')} 
@@ -148,12 +135,13 @@ class Geocoder extends Component {
 
 
 const mapStateToProps = state => {
-	// console.log(state)
+	console.log(state)
 	return {
 		content 		: state.content,
 		map 			: state.map,
 		new_vlog 		: state.content.new_vlog,
-		video_time 		: state.video.video_time
+		video_time 		: state.video.video_time,
+		businesses 		: state.content.businesses
 	}
 }
 

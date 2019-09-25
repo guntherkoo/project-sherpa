@@ -460,6 +460,177 @@ export default () => {
 				"time_end": 1433
 			}
 		  ]
+		},
+
+		{
+			"id": 4,
+			"name" : "Bon Appétit",
+			"video": "https://www.youtube.com/watch?v=Yp5nAolthCk",
+			"city": "New York, New York, United States",
+			"profile_img": "https://i.ibb.co/my9Vk7k/bon-appetit.jpg",
+			"coordinates": [
+			    -73.9808,
+			    40.7648
+			  ],
+			"locations": [
+			  {
+			    "name": "Keens Steakhouse",
+			    "coordinates": [
+			      -73.986535,
+			      40.7508525
+			    ],
+			    "id": 1,
+			    "time_start": 5,
+			    "time_end": 21
+			  },
+			  {
+			    "name": "Arcade Bakery",
+			    "coordinates": [
+			      -74.006605,
+			      40.717072
+			    ],
+			    "id": 2,
+			    "time_start": 21,
+			    "time_end": 35
+			  },
+			  {
+			    "name": "Russ & Daughters",
+			    "coordinates": [
+			      -73.98826,
+			      40.7226845
+			    ],
+			    "id": 3,
+			    "time_start": 35,
+			    "time_end": 46
+			  },
+			  {
+			    "name": "Wildair",
+			    "coordinates": [
+			      -73.989237,
+			      40.720001
+			    ],
+			    "id": 4,
+			    "time_start": 46,
+			    "time_end": 66
+			  },
+			  {
+			    "name": "El Rey Coffee Bar & Luncheonette",
+			    "coordinates": [
+			      -73.988179,
+			      40.721365
+			    ],
+			    "id": 5,
+			    "time_start": 66,
+			    "time_end": 69
+			  }
+			]
+		},
+		{
+		  "id" : 5,
+		  "name": "Insider Food",
+		  "video": "https://www.youtube.com/watch?v=B8YGMGaOUAM",
+		  "profile_img": "https://i.ibb.co/wYKsM1N/food-insider.jpg",
+		  "city": "New York, New York, United States",
+		  "coordinates": [
+		    -73.9808,
+		    40.7648
+		  ],
+		  "locations": [
+			  {
+			    "name": "J.G. Melon",
+			    "coordinates": [
+			      -73.959305,
+			      40.771025
+			    ],
+			    "id": 1,
+			    "time_start": 80,
+			    "time_end": 217
+			  },
+			  {
+			    "name": "Emily",
+			    "coordinates": [
+			      -73.966551,
+			      40.68342
+			    ],
+			    "id": 2,
+			    "time_start": 218,
+			    "time_end": 395
+			  },
+			  {
+			    "name": "Peter Luger Steak House",
+			    "coordinates": [
+			      -73.9624455,
+			      40.709929
+			    ],
+			    "id": 3,
+			    "time_start": 396,
+			    "time_end": 552
+			  },
+			  {
+			    "name": "The Happiest Hour",
+			    "coordinates": [
+			      -73.99971,
+			      40.734747
+			    ],
+			    "id": 4,
+			    "time_start": 552,
+			    "time_end": 553
+			  }
+			]
+		},
+		{
+		  "id": 6,
+		  "name": "Here Be Barr",
+		  "video": "https://www.youtube.com/watch?v=y8hXqoK8LuI",
+		  "city": "New York, New York, United States",
+		  "profile_img": "https://i.ibb.co/VS1wq6H/barr.jpg",
+		  "coordinates": [
+		    -73.9808,
+		    40.7648
+		  ],
+		  "locations":[
+			  {
+			    "name": "Katz's Delicatessen",
+			    "coordinates": [
+			      -73.9873255,
+			      40.722215
+			    ],
+			    "id": 1,
+			    "time_start": 1,
+			    "time_end": 195
+			  },
+			  {
+			    "name": "Harry & Ida's Meat and Supply Co.",
+			    "coordinates": [
+			      -73.981451,
+			      40.728945
+			    ],
+			    "id": 2,
+			    "time_start": 196,
+			    "time_end": 329
+			  },
+			  {
+			    "name": "Sarge's Delicatessen & Diner",
+			    "coordinates": [
+			      -73.977058,
+			      40.747264
+			    ],
+			    "id": 3,
+			    "time_start": 330,
+			    "time_end": 509
+			  },
+			  {
+			    "name": "Fillmore & 5th",
+			    "coordinates": [
+			      -73.997565,
+			      40.720693
+			    ],
+			    "id": 5,
+			    "time_start": 510,
+			    "time_end": 511
+			  }
+			]
 		}
+
 	]
 }

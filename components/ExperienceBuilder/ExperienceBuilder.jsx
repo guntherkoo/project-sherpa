@@ -6,7 +6,7 @@ import { Action } from 'redux-store/actions';
 
 import s from './ExperienceBuilder.scss';
 
-class VlogContainer extends Component {
+class ExperienceBuilder extends Component {
 
 	render() {
 
@@ -16,21 +16,23 @@ class VlogContainer extends Component {
 			businesses,
 			add_content,
 			playVideo,
-			video
+			video,
+			new_vlog
 		} = this.props;
-		if(!businesses) return <div></div>
+
+		console.log(this.props)
+
+		if(!businesses || !new_vlog) return <div></div>
 		return(
 			<div className = {s('experience_builder')}>
 				
 				<div className={s('experience_builder-experiences')}>
 					{ businesses &&
-						businesses.map((loc, i)=>{
-						return (
-							<div className="experience_builder-experience" key={i}>
-								{loc.name}
-							</div>
-						)
-					}) }
+						<pre>
+							{JSON.stringify(new_vlog, null, 2)}
+							{ JSON.stringify(businesses, null, 2) }
+						</pre>
+					}
 				</div>
 
 				
@@ -39,14 +41,21 @@ class VlogContainer extends Component {
 		)
 	}
 }
-
+// businesses.map((loc, i)=>{
+// 							return (
+// 								<div className="experience_builder-experience" key={i}>
+// 									{loc.name}
+// 								</div>
+// 							)
+// 						}) 
 
 const mapStateToProps = state => {
 	console.log(state);
 	return {
 		businesses: state.content.businesses,
 		map: state.map.set_map,
-		video: state.video.player
+		video: state.video.player,
+		new_vlog : state.content.new_vlog
 	}
 }
 
@@ -57,4 +66,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(VlogContainer);
+)(ExperienceBuilder);

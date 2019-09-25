@@ -9,7 +9,7 @@ import locations from '../dummy_data/locations.json';
 
 class VideoPlayer extends Component {
 
-	activePin( location, { map, setActivePin, pin_id, playVideo }) {
+	activePin( location, { map, setActivePin, pin_id, playVideo, setCenterMap }) {
 		console.log(pin_id, location.id, "before")
 		if(pin_id !== location.id) {
 			setActivePin(location.id);
@@ -19,6 +19,7 @@ class VideoPlayer extends Component {
 				zoom: 15,
 				offset: [100, 0]
 			});
+			setCenterMap(location.coordinates);
 		}
 	}
 
@@ -102,6 +103,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		videoTime(time) {
 			dispatch(Action.videoTime(time))
+		},
+		setCenterMap(center) {
+			dispatch(Action.setCenterMap(center))
 		}
 	}
 }

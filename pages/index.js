@@ -24,8 +24,8 @@ import s from '../styles/_index.scss';
 class Index extends Component {
 	static getInitialProps ({ reduxStore, req }) {
 		const isServer = !!req
-
-		return {}
+		return {
+		}
 	}
 
 	static defaultProps = {
@@ -38,14 +38,16 @@ class Index extends Component {
 			map, 
 			content, 
 			vlogs,
-			add_content } = this.props;
+			add_content,
+			center } = this.props;
 
 		return (
 			<section>
-				<Head title= {'Eva In The City - Hoxton Hotel'} />
+				<Head title= {vlogs.name} />
 				<MapComponent 
 					vlogs = { vlogs } 
-					map = { map } />
+					map = { map }
+					center = { center } />
 			
 				<VlogContainer
 					vlogs= { vlogs } 
@@ -57,9 +59,11 @@ class Index extends Component {
 }
 
 const mapStateToProps = state => {
+	console.log(state)
 	return {
 		map: state.map.set_map,
-		vlogs: state.vlogs[2]
+		vlogs: state.vlogs[5],
+		center: state.vlogs[5].coordinates
 	}
 }
 

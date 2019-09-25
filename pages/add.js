@@ -23,29 +23,28 @@ const MapComponent = dynamic( () =>
 class Add extends Component {
 	static getInitialProps ({ reduxStore, req }) {
 		const isServer = !!req
-
-		return {}
+		console.log(req.url, "hey")
+		return {
+			param: req.url
+		}
 	}
 
 	state = {
 		vlog: null,
-		
 	}
 
-	static defaultProps = {
-		content: false
-	}
 
 	render() {
-		let { map, content, video_time } = this.props;
+		let { map, content, video_time, param } = this.props;
 		let { vlog, timestamp, business, businesses } = this.state;
 		return (
 			<section>
 				<Head title={"Add Experience"}></Head>
-				<MapComponent />
+				<MapComponent 
+					param = { param }/>
 				<AddForm 
 					map = { map } 
-					experience = { vlog } 
+					experience = { vlog }
 					/>
 				<ExperienceBuilder />
 			</section>
@@ -58,7 +57,7 @@ const mapStateToProps = state => {
 		map: state.map,
 		content: state.content,
 		video: state.video,
-		video_time: state.video.video_time
+		video_time: state.video.video_time,
 	}
 }
 

@@ -13,6 +13,11 @@ export default (state = {}, action) => {
 				...state,
 				pin_id : action.payload,
 			}
+		case Type.SET_CENTER_MAP:
+			return {
+				...state,
+				center: action.payload
+			}
 		default:
 			return state
 	}

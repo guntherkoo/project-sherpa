@@ -1,7 +1,7 @@
 import { Marker, Layer, Feature } from "react-mapbox-gl";
 
 function Markers(props) {
-	let { vlogs, video_player, playVideo, map, business, playing, setActivePin } = props
+	let { vlogs, video_player, playVideo, map, business, playing, setActivePin, setCenterMap } = props
 	if(vlogs) {
 		return(
 			<div>
@@ -18,6 +18,7 @@ function Markers(props) {
 									'icon-allow-overlap': true,
 								}}
 								onClick = {(e) =>{
+									setCenterMap(location.coordinates);
 									playVideo()
 									video_player.seekTo(location.time_start);
 									map.flyTo({
@@ -25,6 +26,7 @@ function Markers(props) {
 										zoom: 15,
 										offset: [100, 0]
 									});	
+
 								}}
 								onMouseEnter={() =>{
 									map.getCanvas().style.cursor = 'pointer';
