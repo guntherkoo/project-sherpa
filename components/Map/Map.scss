@@ -1,0 +1,63 @@
+.Map {
+	height: 100vh;
+	width: 100vw;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+
+
+.price {
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 0 3px;
+	border: 1px solid grey;
+	cursor: pointer;
+	z-index: 1;
+
+	&.tan {
+		background-color: #bc9055;
+		color: white;
+	}
+	&.lightgreen {
+		background-color: #3cb371;
+		color: white;
+	}
+	&.green {
+		background-color: #2e8b57;
+		color: white;
+	}
+	&.lightred{
+		background-color: #ff4c4c;
+		color: white;
+	}
+	&.red {
+		background-color: #cc0000;
+		color: white;
+	}
+
+}
+
+.popup {
+	background-color: white;
+	padding: 10px;
+	display: none;
+	z-index: 999 !important;
+	flex-direction: column;
+	
+	h2 {
+		font-size: 15px !important;
+		font-weight: 900 !important;
+	}
+	p {
+		font-size: 12px !important;
+		font-style: italic !important;
+	}
+
+	&.active {
+		display: flex;
+	}
+}
+
+

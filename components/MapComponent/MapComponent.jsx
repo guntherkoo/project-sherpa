@@ -15,7 +15,7 @@ import { Action } from 'redux-store/actions';
 class MapComponent extends Component {
 
 	state = {
-		map_center: [-73.9808,40.7648]
+		map_center: [-71.2278118412173,46.80942018867191]
 	}
 	
 

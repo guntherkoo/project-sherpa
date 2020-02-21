@@ -1,6 +1,7 @@
 // Normalize Reset
 @import "./node_modules/normalize-scss/sass/normalize";
 
+@import 'mixins.scss';
 @import 'easing.scss';
 @import 'colors.scss';
 @import 'base.scss';

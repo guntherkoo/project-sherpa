@@ -48,11 +48,6 @@ class Index extends Component {
 					vlogs = { vlogs } 
 					map = { map }
 					center = { center } />
-			
-				<VlogContainer
-					vlogs= { vlogs } 
-					add_content = { add_content }
-					/>
 			</section>
 		)
 	}
@@ -62,8 +57,8 @@ const mapStateToProps = state => {
 	console.log(state)
 	return {
 		map: state.map.set_map,
-		vlogs: state.vlogs[5],
-		center: state.vlogs[5].coordinates
+		vlogs: state.vlogs[0],
+		center: state.vlogs[0].coordinates
 	}
 }
 
