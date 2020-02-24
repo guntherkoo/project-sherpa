@@ -13,23 +13,32 @@ const Map = dynamic( () =>
 	}
 )
 
-class AddLocations extends Component {
-	static async getInitialProps ({query}) {
+
+const AddLocations = ({ query }) => {
+	return(
+		<div>
+			<Map urlQuery = { query }/>
+			<LocationBuilder />
+		</div>
 		
-		return { query }
-	}
-
-
-	render() {
-		console.log(this.props)
-		return(
-			<div>
-				<Map />
-				<LocationBuilder />
-			</div>
-			
-		)
-	}
+	)
 }
+
+AddLocations.getInitialProps = async ({ query }) => {
+	return { query }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default withRouter(AddLocations);

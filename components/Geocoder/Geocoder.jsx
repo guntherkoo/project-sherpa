@@ -38,12 +38,10 @@ class Geocoder extends Component {
 
 	yieldedBusinesses = ({ content, map, updateNewVlog, addBusinesses, video_time, businesses }) => {
 		let { input_business, new_vlog } = content;
-		// console.log(input_business, new_vlog);
 		if(input_business && new_vlog) {
 			let businesses_yielded = input_business.features.map((feature, key) => {
 				let { center, place_name, text  } = feature;
 				// let { locations } = new_vlog
-				console.log(new_vlog)
 				let business = { 
 					"name": text, 
 					"coordinates": center, 
@@ -135,7 +133,6 @@ class Geocoder extends Component {
 
 
 const mapStateToProps = state => {
-	console.log(state)
 	return {
 		content 		: state.content,
 		map 			: state.map,

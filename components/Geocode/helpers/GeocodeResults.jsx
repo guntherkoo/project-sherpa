@@ -5,7 +5,6 @@ import Link from 'next/link'
 import s from '../Geocode.scss';
 
 const GeocodeResults = ({ results, map, handleSubmit, updateLocation, input }) => {
-	console.log(results, input)
 	return(
 	<div className= {s('results_container')}>
 		{ (results && input ? 

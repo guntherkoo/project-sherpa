@@ -21,7 +21,6 @@ const Map = dynamic( () =>
 class Businesses extends Component {
 	static getInitialProps ({ reduxStore, req }) {
 		const isServer = !!req
-		console.log(req.url, "hey")
 		return {
 			param: req.url
 		}

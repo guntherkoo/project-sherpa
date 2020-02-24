@@ -20,7 +20,6 @@ const GeocodeAction = {
 
 
 	fetchBusinessLocation: (business, bbox) => {
-		console.log(business, bbox)
 		const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${business}.json?types=poi&bbox=${bbox[0]},${bbox[1]},${bbox[2]},${bbox[3]}&access_token=${process.env.MAPBOX_KEY}`
 		return dispatch => {
 				fetch(endpoint)

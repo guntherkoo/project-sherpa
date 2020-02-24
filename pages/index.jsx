@@ -54,7 +54,6 @@ class Index extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state)
 	return {
 		map: state.map.set_map,
 		vlogs: state.vlogs[0],

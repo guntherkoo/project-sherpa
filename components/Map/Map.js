@@ -14,10 +14,7 @@ import { MapAction } from '../../redux-store/map/map.actions';
 
 
 class Map extends Component {
-	static async getInitialProps (context) {
-		
-		return { context }
-	}
+
 
 	static defaultProps = {
 		hover_marker: null,
@@ -25,23 +22,16 @@ class Map extends Component {
 		zoom : [12.126913726486569]
 	}
 	render() {
+		let { setMapToProps, businesses, hoverPin, hover_marker, map_center, zoom, urlQuery } = this.props
 
+		let queryCoords = [parseFloat(urlQuery.lng), parseFloat(urlQuery.lat)]
 
-		let { 
-			setMapToProps,
-			businesses,
-			hoverPin,
-			hover_marker,
-			map_center,
-			zoom
-		 } = this.props
-		 console.log(this.props.query)
 		return(
 			<MapContainer
 				className = {s('Map')}
 				style = {'mapbox://styles/bfmcgo2/cje1yog8zc5xi2rq99geum951'}
 				zoom = { zoom }
-				center = { map_center }
+				center = { (isNaN(queryCoords[0])||isNaN(queryCoords[1]) ? map_center : queryCoords ) }
 				onClick = {()=> {
 					hoverPin(null);
 				}}

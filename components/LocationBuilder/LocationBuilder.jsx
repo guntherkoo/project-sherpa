@@ -6,12 +6,12 @@ import s from './LocationBuilder.scss';
 import Geocode from '../Geocode';
 
 import { GeocodeAction } from '../../redux-store/geocoder/geocoder.actions';
+import { addLocation, firestore } from '../../lib/firebase';
 
 
 class LocationBuilder extends Component {
 	initialState = { 
 		location_builder: {
-			createdAt: null,
 			area_name: null,
 			business_name: null,
 			coordinates : [],
@@ -23,6 +23,14 @@ class LocationBuilder extends Component {
 	}
 	state = this.initialState;
 	
+
+	componentDidMount() {
+		const collectionRef = firestore.collection('collections');
+		collectionRef.onSnapshot(async snapshot => {
+			console.log(snapshot)
+		})
+	}
+
 	updateLocation = ( newState ) => {
 		this.setState(prevState => ({
 			location_builder: {...prevState.location_builder, ...newState}
@@ -53,7 +61,6 @@ class LocationBuilder extends Component {
 		let { map, location, business, fetchInputLocation, fetchBusinessLocation } = this.props;
 		let { area_name, business_name, bbox } = this.state.location_builder;
 
-		console.log(this.state)
 		return (
 			<div className={s('LocationBuilder')}>
 				
@@ -95,7 +102,10 @@ class LocationBuilder extends Component {
 								}}>
 								&#10005;
 							</div>
-						</div>)}	
+						</div>)}
+
+				<a className="submit"
+					onClick={()=> addLocation(this.state.location_builder)}>Submit pls</a>	
 			</div>
 		)
 	}
@@ -103,7 +113,6 @@ class LocationBuilder extends Component {
 }  
 
 const mapStateToProps = state => {
-	console.log(state)
 	return {
 		location: state.geocoder.input_location,
 		business: state.geocoder.input_business,

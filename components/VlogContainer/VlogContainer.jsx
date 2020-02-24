@@ -22,7 +22,6 @@ class VlogContainer extends Component {
 			playVideo,
 			video
 		} = this.props;
-		console.log(this.props.vlogs)
 		return(
 			<div className = {s('vlog_container')}>
 				<div className={s('vlog_container-video')}>
@@ -65,7 +64,6 @@ class VlogContainer extends Component {
 
 
 const mapStateToProps = state => {
-	console.log(state);
 	return {
 		map: state.map.set_map,
 		video: state.video.player

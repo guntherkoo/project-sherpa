@@ -89,7 +89,6 @@ class AddForm extends Component {
 }
 
 const mapStateToProps = state => {
-	// console.log(state);
 	return {
 		content 		: state.content,
 		new_vlog		: state.content.new_vlog,

@@ -10,10 +10,8 @@ import locations from '../dummy_data/locations.json';
 class VideoPlayer extends Component {
 
 	activePin( location, { map, setActivePin, pin_id, playVideo, setCenterMap }) {
-		console.log(pin_id, location.id, "before")
 		if(pin_id !== location.id) {
 			setActivePin(location.id);
-			console.log(pin_id, location.id, "after")
 			map.flyTo({
 				center: location.coordinates,
 				zoom: 15,
@@ -41,7 +39,6 @@ class VideoPlayer extends Component {
 			pin_id,
 			videoTime
 		} = this.props;
-		console.log(this.props.vlogs)
 
 		if(!map) return <div></div>
 		return(
@@ -60,7 +57,6 @@ class VideoPlayer extends Component {
 				}}
 				onProgress = { (e) => {
 					let round_sec = Math.round(e.playedSeconds);
-					console.log(playing)
 					if(!add_content)
 						// This is for pages with established content
 						vlogs.locations.map(location => {
@@ -83,7 +79,6 @@ class VideoPlayer extends Component {
 
 
 const mapStateToProps = state => {
-	console.log(state);
 	return {
 		playing: state.video.playing,
 		pin_id: state.map.pin_id

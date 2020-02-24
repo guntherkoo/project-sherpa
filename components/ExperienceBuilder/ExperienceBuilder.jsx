@@ -20,7 +20,6 @@ class ExperienceBuilder extends Component {
 			new_vlog
 		} = this.props;
 
-		console.log(this.props)
 
 		if(!businesses || !new_vlog) return <div></div>
 		return(
@@ -50,7 +49,6 @@ class ExperienceBuilder extends Component {
 // 						}) 
 
 const mapStateToProps = state => {
-	console.log(state);
 	return {
 		businesses: state.content.businesses,
 		map: state.map.set_map,
