@@ -15,19 +15,25 @@ class LocationBuilder extends Component {
 			area_name: null,
 			business_name: null,
 			coordinates : [],
-			bbox: []
+			bbox: [],
+			price: null,
+			additional_info: null
 		},
 		input1: '',
-		input2: ''
+		input2: '',
+		input3: '',
+		input4: ''
 
 	}
 	state = this.initialState;
 	
 
 	componentDidMount() {
-		const collectionRef = firestore.collection('collections');
+		const collectionRef = firestore.collection('locations');
 		collectionRef.onSnapshot(async snapshot => {
-			console.log(snapshot)
+			const mapLocation = snapshot.docChanges().map(loc => {
+				// console.log(loc.doc.data())
+			})
 		})
 	}
 
@@ -39,10 +45,7 @@ class LocationBuilder extends Component {
 
 	clearState = () => {
 		this.updateLocation(this.initialState.location_builder)
-		this.setState({
-			input1:null,
-			input2:null
-		})
+		this.setState(this.initialState)
 	}
 	
 	updateInput1 = (inp) => {
@@ -54,6 +57,16 @@ class LocationBuilder extends Component {
 	updateInput2 = (inp) => {
 		this.setState({
 			input2: inp
+		})
+	}
+	updateInput3 = (inp) => {
+		this.setState({
+			input3: inp
+		})
+	}
+	updateInput4 = (inp) => {
+		this.setState({
+			input4: inp
 		})
 	}
 
@@ -103,9 +116,31 @@ class LocationBuilder extends Component {
 								&#10005;
 							</div>
 						</div>)}
+				<input className={s('input')} 
+					type='number' 
+					placeholder='Price' 
+					value = {this.state.input3}
+					onChange = { e => {	
+						let input_value = e.target.value;
+						this.updateInput3(input_value)
+						this.updateLocation({ price: input_value });
+					}}/>
+				<textarea 
+					placeholder="Additional Info"
+					type = 'text'
+					value = { this.state.input4 }
+					onChange = { e => {	
+						let input_value = e.target.value;
+						this.updateInput4(input_value)
+						this.updateLocation({ additional_info: input_value });
+					}}></textarea>
 
 				<a className="submit"
-					onClick={()=> addLocation(this.state.location_builder)}>Submit pls</a>	
+					onClick={()=> {
+						addLocation(this.state.location_builder)
+						this.clearState();
+						alert('Location Submitted')
+					}}>Submit</a>	
 			</div>
 		)
 	}

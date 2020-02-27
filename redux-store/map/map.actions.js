@@ -1,29 +1,29 @@
-import Type from './map.types';
+import MapType from './map.types';
 
 const MapAction = {
 	// Map Actions
 		// adds map functionality across components
 	setMapToProps: (map) => {
 		return {
-			type: Type.SET_MAP,
+			type: MapType.SET_MAP,
 			payload: map
 		}
 	},
 	setActivePin : (pin) => {
 		return {
-			type: Type.SET_ACTIVE_PIN,
+			type: MapType.SET_ACTIVE_PIN,
 			payload: pin
 		}
 	},
 	setCenterMap: (center)=> {
 		return {
-			type: Type.SET_CENTER_MAP,
+			type: MapType.SET_CENTER_MAP,
 			payload: center
 		}
 	},
 	hoverPin: (pin) => {
 		return {
-			type: Type.HOVER_PIN,
+			type: MapType.HOVER_PIN,
 			payload: pin
 		}
 	}

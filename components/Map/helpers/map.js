@@ -1,7 +1,7 @@
 import ReactMapboxGl from "react-mapbox-gl";
 
-const MapContaine = ReactMapboxGl({
+const MapContainer = ReactMapboxGl({
   accessToken: process.env.MAPBOX_KEY
 });
 
-export default MapContaine;
+export default MapContainer;

@@ -40,13 +40,6 @@ class ExperienceBuilder extends Component {
 		)
 	}
 }
-// businesses.map((loc, i)=>{
-// 							return (
-// 								<div className="experience_builder-experience" key={i}>
-// 									{loc.name}
-// 								</div>
-// 							)
-// 						}) 
 
 const mapStateToProps = state => {
 	return {

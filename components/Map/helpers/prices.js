@@ -1,6 +1,12 @@
 import { Marker, Layer, Feature,Popup } from "react-mapbox-gl";
 import s from '../Map.scss';
 
+// <Prices 
+//   businesses={ businesses }
+//   hoverPin= { hoverPin }
+//   hover_marker = { hover_marker }/>
+
+
 const Prices = (props) => {
   let { businesses, hoverPin, hover_marker } = props;
   if(businesses) {

@@ -7,8 +7,8 @@ import GeocodeResults from './helpers/GeocodeResults';
 import { GeocodeAction } from '../../redux-store/geocoder/geocoder.actions';
 
 
-const handleSubmit = ({text, center, bbox}, map) => {
-	map.jumpTo({center});
+const handleSubmit = ({ text, center, place_type }, map) => {
+	map.jumpTo({center, zoom: (place_type[0] === "poi" ? 15: 12)});
 	Router.push({ pathname:'/addlocations', query: {name: text, lng: center[0], lat: center[1]}})
 }
 
@@ -42,6 +42,7 @@ const Geocode = ({message, fetchLocation, fetchBusiness, location, map, business
 		{( location || business ? 
 			<GeocodeResults 
 				results={ (location ? location.features : business.features) } 
+				result_type = { (location ? "location" : "business") }
 				map = { map } 
 				handleSubmit ={handleSubmit}
 				updateLocation= { updateLocation }

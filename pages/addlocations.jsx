@@ -1,10 +1,13 @@
 import { Component } from 'react';
 import dynamic from 'next/dynamic';
 import { withRouter } from 'next/router';
+import { addLocation, firestore } from '../lib/firebase';
+
 import GlobalStyles from 'styles/styles.scss';
 
 import Geocode from '../components/Geocode';
 import LocationBuilder from '../components/LocationBuilder';
+
 const Map = dynamic( () =>
 	import('../components/Map'),
 	{
@@ -13,11 +16,12 @@ const Map = dynamic( () =>
 	}
 )
 
-
-const AddLocations = ({ query }) => {
+const AddLocations = ({ query, santa_fe }) => {
+	// console.log(query)
+	let queryCoords = [parseFloat(query.lng), parseFloat(query.lat)]
 	return(
 		<div>
-			<Map urlQuery = { query }/>
+			<Map queryCoords = { queryCoords } locationPins = { santa_fe }/>
 			<LocationBuilder />
 		</div>
 		
@@ -25,20 +29,20 @@ const AddLocations = ({ query }) => {
 }
 
 AddLocations.getInitialProps = async ({ query }) => {
-	return { query }
+	const collectionRef = await firestore.collection('locations').get();
+	const getLocations = collectionRef.docs.map(d => {
+
+		return {
+			id: d.id,
+			data: d.data()
+		}
+	});
+	console.log(getLocations)
+	const pooter = "hey";
+	return { 
+		santa_fe : getLocations,
+		query 
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export default withRouter(AddLocations);
