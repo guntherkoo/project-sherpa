@@ -12,7 +12,7 @@ const handleSubmit = ({ text, center, place_type }, map) => {
 	Router.push({ pathname:'/addlocations', query: {name: text, lng: center[0], lat: center[1]}})
 }
 
-const Geocode = ({message, fetchLocation, fetchBusiness, location, map, business, disabled, updateLocation, bbox, updateInput, input}) => (
+const Geocode = ({ message, fetchLocation, fetchBusiness, location, map, business, disabled, updateLocation, bbox, updateInput, input }) => (
 	<div className={s('Geocode')}>
 		<input className={s('input')} 
 			type='text' 

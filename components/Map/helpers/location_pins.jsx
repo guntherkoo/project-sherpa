@@ -1,9 +1,6 @@
 import { Marker, Layer, Feature } from "react-mapbox-gl";
 
 
-const mouseEnter = (e) => {
-  console.log('entered')
-}
 
 const LocationPins = ({queryCoords, locationPins, hoverPin }) => {
     return(

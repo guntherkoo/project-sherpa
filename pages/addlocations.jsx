@@ -18,10 +18,10 @@ const Map = dynamic( () =>
 
 const AddLocations = ({ query, santa_fe }) => {
 	// console.log(query)
-	let queryCoords = [parseFloat(query.lng), parseFloat(query.lat)]
+	let queryPin = [parseFloat(query.lng), parseFloat(query.lat)]
 	return(
 		<div>
-			<Map queryCoords = { queryCoords } locationPins = { santa_fe }/>
+			<Map queryPin = { queryPin } locationPins = { santa_fe }/>
 			<LocationBuilder />
 		</div>
 		
@@ -37,8 +37,7 @@ AddLocations.getInitialProps = async ({ query }) => {
 			data: d.data()
 		}
 	});
-	console.log(getLocations)
-	const pooter = "hey";
+
 	return { 
 		santa_fe : getLocations,
 		query 

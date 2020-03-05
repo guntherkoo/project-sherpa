@@ -3,13 +3,12 @@ import Type from './geocoder.types';
 const GeocodeAction = {
 
 	fetchInputLocation: (location) => {
-		const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?types=place,neighborhood,locality&access_token=${process.env.MAPBOX_KEY}`
+		const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?types=place,neighborhood,locality,region&access_token=${process.env.MAPBOX_KEY}`
 		return dispatch => {
 				fetch(endpoint)
 					.then(res => res.json())
 					.then(json => dispatch(GeocodeAction.fetchInputLocationSuccess(json)))
-		}
-		
+		}	
 	},
 	fetchInputLocationSuccess: (res) => {
 		return {

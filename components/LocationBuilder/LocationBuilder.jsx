@@ -26,16 +26,6 @@ class LocationBuilder extends Component {
 
 	}
 	state = this.initialState;
-	
-
-	componentDidMount() {
-		const collectionRef = firestore.collection('locations');
-		collectionRef.onSnapshot(async snapshot => {
-			const mapLocation = snapshot.docChanges().map(loc => {
-				// console.log(loc.doc.data())
-			})
-		})
-	}
 
 	updateLocation = ( newState ) => {
 		this.setState(prevState => ({

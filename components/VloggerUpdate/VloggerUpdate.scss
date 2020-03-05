@@ -1,0 +1,52 @@
+.vlogger-update {
+	width: 70%;
+	height: 100%;
+	display: flex;
+	position: fixed;
+	right: 0;
+	padding: 100px;
+	align-items: center;
+	justify-content: center;
+	background-color: #ebf8ff;
+
+	&-info {
+		background: white;
+		padding: 50px 80px;
+		border-radius: 5px;
+	}
+	&-delete {
+		position: absolute;
+		right: 20px;
+		top: 20px;
+		background: #fc8277;
+		// #ff3328;
+		color: white;
+		border-radius: 5px;
+		padding: 15px 10px;
+		cursor: pointer;
+		font-size: 14px;
+		font-weight: 800;
+		font-family: 'Helvetica';
+		transition: .3s;
+
+		&:hover {
+			background: #ff3328;
+		}
+	}
+
+	.input {
+		width: 100%;
+		// text-align: center;
+		font-family: 'Helvetica';
+		font-size: 18px;
+		border: none;
+		z-index: 2;
+		border-radius: 5px;
+		padding: 10px;
+		-webkit-box-shadow: 0px 7px 19px -4px rgba(179,179,179,1);
+		-moz-box-shadow: 0px 7px 19px -4px rgba(179,179,179,1);
+		box-shadow: 0px 7px 19px -4px rgba(179,179,179,1);
+		margin: 20px 0;
+	}
+
+}

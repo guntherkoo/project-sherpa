@@ -1,17 +1,16 @@
 import { Marker, Layer, Feature } from "react-mapbox-gl";
 
-const QueryMarker = ({queryCoords, hoverPin}) => {
-  console.log(queryCoords)
+const QueryMarker = ({queryPin, hoverPin}) => {
     return(
       <Layer
       	type="symbol"
-        id = "queryCoords"
+        id = "queryPin"
       	layout={{ 
       		"icon-image": "red-pin",
       		"icon-size" : 1.3
       	}} >
           <Feature 
-            coordinates = {queryCoords} /> 	
+            coordinates = {queryPin} /> 	
 
       </Layer>
     )
