@@ -16,32 +16,38 @@ const Map = dynamic( () =>
 	}
 )
 
-const AddLocations = ({ query, santa_fe }) => {
-	// console.log(query)
-	let queryPin = [parseFloat(query.lng), parseFloat(query.lat)]
-	return(
-		<div>
-			<Map queryPin = { queryPin } locationPins = { santa_fe }/>
-			<LocationBuilder />
-		</div>
-		
-	)
-}
 
-AddLocations.getInitialProps = async ({ query }) => {
-	const collectionRef = await firestore.collection('locations').get();
-	const getLocations = collectionRef.docs.map(d => {
 
-		return {
-			id: d.id,
-			data: d.data()
+class AddLocations extends Component {
+	static getInitialProps = async ({ query }) => {
+		const collectionRef = await firestore.collection('locations').get();
+		const getLocations = collectionRef.docs.map(d => {
+
+			return {
+				id: d.id,
+				data: d.data()
+			}
+		});
+
+		return { 
+			santa_fe : getLocations,
+			query 
 		}
-	});
-
-	return { 
-		santa_fe : getLocations,
-		query 
 	}
+
+	render() {
+		let { query, santa_fe } = this.props
+		let queryPin = [parseFloat(query.lng), parseFloat(query.lat)]
+		return(
+			<div>
+				<Map queryPin = { queryPin } locationPins = { santa_fe }/>
+				<LocationBuilder />
+			</div>
+			
+		)
+	}
+	
 }
+
 
 export default withRouter(AddLocations);

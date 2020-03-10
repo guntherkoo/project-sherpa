@@ -1,8 +1,17 @@
 import Type from './geocoder.types';
+import { updateGeocoder } from './geocoder.utils'
 
 const INIT_STATE = {
 	input_location: null,
-	input_business: null
+	input_business: null,
+	geolocation: {
+		location: {
+			area_name: ''
+		},
+		business: {
+			business_name: ''
+		}
+	}
 }
 
 const geocoderReducer = (state = INIT_STATE, action) => {
@@ -16,6 +25,11 @@ const geocoderReducer = (state = INIT_STATE, action) => {
 			return {
 				...state,
 				input_business: action.payload
+			}
+		case Type.UPDATE_GEOLOCATION:
+			return{
+				...state,
+				geolocation: updateGeocoder(state.geolocation, action.payload)
 			}
 		default:
 			return state

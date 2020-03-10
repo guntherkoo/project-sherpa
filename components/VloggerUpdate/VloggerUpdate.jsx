@@ -46,10 +46,6 @@ class VloggerUpdate extends Component {
 							let input_value = e.target.value;
 							updateVlogger(id, { profile_img: e.target.value })
 						}}/>
-					<a className={s("submit")}
-						onClick={()=> {
-							console.log(name, additional_info, profile_img);
-						}}>submit</a>
 				</div>
 			</div>
 		)

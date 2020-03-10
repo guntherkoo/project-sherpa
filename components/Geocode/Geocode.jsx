@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Router from 'next/router'
+import { connect } from 'react-redux';
 
 import s from './Geocode.scss';
 import GeocodeResults from './helpers/GeocodeResults';
@@ -7,12 +7,7 @@ import GeocodeResults from './helpers/GeocodeResults';
 import { GeocodeAction } from '../../redux-store/geocoder/geocoder.actions';
 
 
-const handleSubmit = ({ text, center, place_type }, map) => {
-	map.jumpTo({center, zoom: (place_type[0] === "poi" ? 15: 12)});
-	Router.push({ pathname:'/addlocations', query: {name: text, lng: center[0], lat: center[1]}})
-}
-
-const Geocode = ({ message, fetchLocation, fetchBusiness, location, map, business, disabled, updateLocation, bbox, updateInput, input }) => (
+const Geocode = ({ message, fetchLocation, fetchBusiness, location_input, map, business_input, disabled, updateGeolocation, updateLocation, business, location, bbox, updateInput, input, handleSubmit }) => (
 	<div className={s('Geocode')}>
 		<input className={s('input')} 
 			type='text' 
@@ -27,30 +22,33 @@ const Geocode = ({ message, fetchLocation, fetchBusiness, location, map, busines
 			onKeyPress = {(e) => {
 				if(!map) return; 
 		        if(e.key === 'Enter') {	
-		        	if(location) {
-		        		let { text, center, bbox } = location.features[0];
-		        		handleSubmit(location.features[0], map)
-		        		updateLocation({area_name: text, bbox})
+		        	if(location_input) {
+		        		let { text, center, bbox } = location_input.features[0];
+		        		handleSubmit(location_input.features[0], map)
+		        		updateGeolocation({location: { area_name: text, bbox }})
 		        	} 
-		        	if(business) {
-		        		let { text, center } = business.features[0];
-		        		handleSubmit(business.features[0], map)
-		        		updateLocation({business_name: text, coordinates: center})
+		        	if(business_input) {
+		        		let { text, center } = business_input.features[0];
+		        		handleSubmit(business_input.features[0], map)
+		        		updateGeolocation({business: { business_name: text, coordinates: center }})
 		        	}
 		        }
 		    }}/>
-		{( location || business ? 
+		{( location_input || business_input ? 
 			<GeocodeResults 
-				results={ (location ? location.features : business.features) } 
-				result_type = { (location ? "location" : "business") }
+				results={ (location_input ? location_input.features : business_input.features) } 
+				result_type = { (location_input ? "location" : "business") }
 				map = { map } 
 				handleSubmit ={handleSubmit}
 				updateLocation= { updateLocation }
+				updateGeolocation = { updateGeolocation }
 				input = {input}/> : <div></div>)}		
 	</div>
 )
 
+const mapDispatchToProps = dispatch => ({
+	updateGeolocation: (loc) => dispatch(GeocodeAction.updateGeolocation(loc))
+})
 
 
-
-export default Geocode;
+export default connect(null, mapDispatchToProps)(Geocode);

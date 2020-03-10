@@ -20,6 +20,7 @@ const GeocodeAction = {
 
 	fetchBusinessLocation: (business, bbox) => {
 		const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${business}.json?types=poi&bbox=${bbox[0]},${bbox[1]},${bbox[2]},${bbox[3]}&access_token=${process.env.MAPBOX_KEY}`
+		console.log(endpoint);
 		return dispatch => {
 				fetch(endpoint)
 					.then(res => res.json())
@@ -31,6 +32,12 @@ const GeocodeAction = {
 			type: Type.FETCH_BUSINESS_LOCATION_SUCCESS,
 			payload: res
 		}	
+	},
+	updateGeolocation: (res) => {
+		return {
+			type: Type.UPDATE_GEOLOCATION,
+			payload: res
+		}
 	}
 	
 

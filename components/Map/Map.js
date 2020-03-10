@@ -20,20 +20,19 @@ class Map extends Component {
 
 	static defaultProps = {
 		hover_marker: null,
-		map_center: [-71.2278118412173,46.80942018867191],
-		zoom : [12.126913726486569]
+		map_center: [-105.94090711200639, 35.68578099322262],
+		zoom : [11.126913726486569]
 	}
 
 	render() {
-		let { setMapToProps, businesses, hoverPin, hover_marker, map_center, zoom, queryPin, map, locationPins } = this.props
-		
+		let { setMapToProps, hoverPin, hover_marker, map_center, zoom, queryPin, map, locationPins } = this.props
 		return(
 			<MapContainer
 				className = {s('Map')}
 				style = {'mapbox://styles/bfmcgo2/cje1yog8zc5xi2rq99geum951'}
 				zoom = { zoom }
-				center = { (isNaN(queryPin[0])||isNaN(queryPin[1]) ? map_center : queryPin ) }
-				onClick = {(e, f, g) => {console.log(e, f, g)}}
+				center = { (!queryPin || isNaN(queryPin[0])||isNaN(queryPin[1]) ? map_center : queryPin ) }
+				// onClick = {(e, f, g) => {console.log(e, f, g)}}
 				onStyleLoad= { map => {
 				  	setMapToProps(map);
 			  	}}>
@@ -55,7 +54,7 @@ class Map extends Component {
 			  	{
 			  		hover_marker ? (
 			  			<LocationPopup 
-			  				hover_marker= {hover_marker}/>
+			  				hover_marker= { hover_marker }/>
 			  		) : (<div></div>)
 			  	}
 
@@ -66,9 +65,8 @@ class Map extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state)
+	// console.log(state)
 	return {
-		businesses: state.businesses,
 		hover_marker: state.map.hover_id,
 		map: state.map.set_map
 	}

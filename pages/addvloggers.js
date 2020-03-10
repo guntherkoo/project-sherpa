@@ -70,7 +70,8 @@ class AddVloggers extends Component {
 	}
 
 	render() {
-		let { vloggers, active_vlogger, fetchVlogger } = this.props
+		let { vloggers, active_vlogger, fetchVlogger, query } = this.props
+		console.log(query)
 		return(
 			<div>
 				<VloggerBuilder 

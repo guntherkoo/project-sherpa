@@ -11,6 +11,7 @@
     },
     "dependencies": {
         "@mapbox/mapbox-gl-geocoder": "^4.4.1",
+        "@turf/turf": "^5.1.6",
         "@zeit/next-bundle-analyzer": "^0.1.2",
         "@zeit/next-css": "^1.0.1",
         "acorn": "^6.1.1",
