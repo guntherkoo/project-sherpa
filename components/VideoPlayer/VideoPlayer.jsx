@@ -28,48 +28,47 @@ class VideoPlayer extends Component {
 
 	render() {
 
-		let { 
+		let {
+			// mapstatetoprops
 			map,
 			playing, 
+			pin_id,
+			// mapdispatchtoprops
 			setVideoControls, 
+			videoTime,
+			// passed down props
 			video_url,
 			add_content,
-			updateVideoTime,
 			vlogs,
-			pin_id,
-			videoTime
 		} = this.props;
-
-		if(!map) return <div></div>
 		return(
-
-
 			<ReactPlayer 
 				url={ video_url } 
 				ref = {p => {this.p = p}}
 				playing = { playing }
 				width='100%' 
-				height='100%'
+				height='0'
 				controls= { true }
 				onReady = { () => {
+					console.log(this.p)
 					// Adds video control throughout components
 					setVideoControls(this.p);
 				}}
 				onProgress = { (e) => {
 					let round_sec = Math.round(e.playedSeconds);
-					if(!add_content)
-						// This is for pages with established content
-						vlogs.locations.map(location => {
-							if(round_sec >= location.time_start && round_sec < location.time_end) {
-								// The pin in the center of the map is the active location
-									this.activePin( location, this.props)
-							}	
-					})
+					// if(!add_content)
+					// 	// This is for pages with established content
+					// 	vlogs.locations.map(location => {
+					// 		if(round_sec >= location.time_start && round_sec < location.time_end) {
+					// 			// The pin in the center of the map is the active location
+					// 				this.activePin( location, this.props)
+					// 		}	
+					// })
 
-					if(add_content) {
+					// if(add_content) {
 						// Insert actions for adding content here 
 						videoTime(round_sec);
-					}
+					// }
 				}}
 
 				className={s('video-player')}/>
@@ -79,9 +78,12 @@ class VideoPlayer extends Component {
 
 
 const mapStateToProps = state => {
+	console.log(state);
 	return {
 		playing: state.video.playing,
-		pin_id: state.map.pin_id
+		video_url: state.video.video_data.url,
+		pin_id: state.map.pin_id,
+		map: state.map.set_map
 	}
 }
 

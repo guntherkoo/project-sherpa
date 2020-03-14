@@ -25,7 +25,7 @@ class Map extends Component {
 	}
 
 	render() {
-		let { setMapToProps, hoverPin, hover_marker, map_center, zoom, queryPin, map, locationPins } = this.props
+		let { setMapToProps, hoverPin, pinClick, hover_marker, map_center, zoom, queryPin, map, locationPins } = this.props
 		return(
 			<MapContainer
 				className = {s('Map')}
@@ -41,7 +41,8 @@ class Map extends Component {
 			  		locationPins ? (
 				  		<LocationPins 
 				  			locationPins = { locationPins }
-				  			hoverPin = { hoverPin } />
+				  			hoverPin = { hoverPin } 
+				  			pinClick = { pinClick }/>
 					  	) : (<div></div>)
 			  	}
 			  	{ 
@@ -65,7 +66,7 @@ class Map extends Component {
 }
 
 const mapStateToProps = state => {
-	// console.log(state)
+	console.log(state)
 	return {
 		hover_marker: state.map.hover_id,
 		map: state.map.set_map

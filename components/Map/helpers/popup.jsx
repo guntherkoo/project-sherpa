@@ -4,7 +4,7 @@ import s from '../Map.scss';
 
 
 const LocationPopup = ({ hover_marker }) => {
-  let { coordinates, business_name, price} = hover_marker.data
+  let { coordinates, business_name, price} = hover_marker.data.business
     return(
       <Popup
       	coordinates= {coordinates}

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import dynamic from 'next/dynamic';
-import { withRouter } from 'next/router';
+import Router, { withRouter } from 'next/router';
 import { addLocation, firestore } from '../lib/firebase';
 
 import GlobalStyles from 'styles/styles.scss';
@@ -35,19 +35,92 @@ class AddLocations extends Component {
 		}
 	}
 
+
+	initialState = { 
+		location_builder: {
+			area_name: null,
+			business_name: null,
+			coordinates : [],
+			bbox: [],
+			price: null,
+			additional_info: null
+		},
+		input1: '',
+		input2: '',
+		input3: '',
+		input4: ''
+
+	}
+	state = this.initialState;
+
+	updateLocation = ( newState ) => {
+		this.setState(prevState => ({
+			location_builder: {...prevState.location_builder, ...newState}
+		}))
+	}
+
+	clearState = () => {
+		this.updateLocation(this.initialState.location_builder)
+		this.setState(this.initialState)
+	}
+	
+	updateInput1 = (inp) => {
+		this.setState({
+			input1: inp
+		})
+		
+	}
+	updateInput2 = (inp) => {
+		this.setState({
+			input2: inp
+		})
+	}
+	updateInput3 = (inp) => {
+		this.setState({
+			input3: inp
+		})
+	}
+	updateInput4 = (inp) => {
+		this.setState({
+			input4: inp
+		})
+	}
+
+	handleSubmit = ({ text, center, place_type }, map) => {
+		map.jumpTo({center, zoom: (place_type[0] === "poi" ? 15: 12)});
+		Router.push({ pathname:'/addlocations', query: {name: text, lng: center[0], lat: center[1]}})
+	}
+
+
 	render() {
 		let { query, santa_fe } = this.props
 		let queryPin = [parseFloat(query.lng), parseFloat(query.lat)]
+		console.log(santa_fe);
+		let find_SF = santa_fe.filter(sf => sf.data.location.area_name === "Santa Fe" )
 		return(
 			<div>
-				<Map queryPin = { queryPin } locationPins = { santa_fe }/>
-				<LocationBuilder />
+				<Map queryPin = { queryPin } locationPins = { find_SF }/>
+				<LocationBuilder 
+					locations = { find_SF }
+					updateInput1 = { this.updateInput1 }
+					updateInput2 = { this.updateInput2 }
+					updateInput3 = { this.updateInput3 }
+					updateInput4 = { this.updateInput4 }
+					clearState = { this.clearState }
+					updateLocation = { this.updateLocation }
+					handleSubmit = { this.handleSubmit } 
+					location_builder = { this.state.location_builder } 
+					input1 = { this.state.input1 }
+					input2 = { this.state.input2 }
+					input3 = { this.state.input3 }
+					input4 = { this.state.input4 }/>
 			</div>
 			
 		)
 	}
 	
 }
+
 
 
 export default withRouter(AddLocations);

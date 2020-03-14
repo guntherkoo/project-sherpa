@@ -10,152 +10,96 @@ import { GeocodeAction } from '../../redux-store/geocoder/geocoder.actions';
 import { addLocation, firestore } from '../../lib/firebase';
 
 
-class LocationBuilder extends Component {
-	initialState = { 
-		location_builder: {
-			area_name: null,
-			business_name: null,
-			coordinates : [],
-			bbox: [],
-			price: null,
-			additional_info: null
-		},
-		input1: '',
-		input2: '',
-		input3: '',
-		input4: ''
+const LocationBuilder = ({ location_input, business_input, fetchInputLocation, fetchBusinessLocation, geolocation, updateGeolocation, map, updateLocation, updateInput1, updateInput2, updateInput3, updateInput4, handleSubmit, clearState, location_builder, locations, input1, input2, input3, input4 }) => {
+	let { business_name } = location_builder;
+	let { business, location } = geolocation
+	return (
+		<div className={s('LocationBuilder')}>
+			
+			{( !location.area_name ? 
+				<Geocode message= {"State, City, Country"} 
+					disabled={ false } 
+					fetchLocation = { fetchInputLocation } 
+					updateLocation = { updateLocation }
+					location_input = { location_input }
+					map = { map }
+					input = { input1 }  
+					updateInput = { updateInput1 }
+					location = { geolocation.location }
+					business = { geolocation.business } 
+					handleSubmit = { handleSubmit }/> : 
+					<div className={s("entered-name")}>
+						<h2>{location.area_name}</h2>
+						<div className={s("x-out")}
+							onClick={()=> {
+								clearState()
+								updateGeolocation({location:'', business:''})
+							}}>
+							&#10005;
+						</div>
+					</div>)}	
+			
+			{( !business.business_name ? 
+				<Geocode message= {"Business, POI, etc"} 
+					disabled={ ( location.area_name ? false : true) }
+					fetchBusiness = { fetchBusinessLocation } 
+					updateLocation = { updateLocation }
+					business_input = { business_input }
+					bbox = { location.bbox }
+					map = { map }
+					input = { input2 } 
+					updateInput = { updateInput2 } 
+					handleSubmit = { handleSubmit } /> : 
+					<div className={s("entered-name")}>
+						<h2>{business.business_name}</h2>
+						<div className={s("x-out")}
+							onClick={()=>{
+								updateGeolocation({business:''})
+							}}>
+							&#10005;
+						</div>
+					</div>)}
+			<input className={s('input')} 
+				type='number' 
+				placeholder='Price' 
+				value = {input3}
+				onChange = { e => {	
+					let input_value = e.target.value;
+					updateInput3(input_value)
+					let new_biz = { ...business };
+					new_biz.price = parseInt(input_value);
+					updateGeolocation({ business: new_biz})
+				}}/>
+			<textarea 
+				placeholder="Additional Info"
+				type = 'text'
+				value = { input4 }
+				onChange = { e => {	
+					let input_value = e.target.value;
+					updateInput4(input_value)
+					let new_biz = { ...business };
+					new_biz.additional_info = input_value;
+					updateGeolocation({ business: new_biz });
+				}}></textarea>
 
-	}
-	state = this.initialState;
-
-	updateLocation = ( newState ) => {
-		this.setState(prevState => ({
-			location_builder: {...prevState.location_builder, ...newState}
-		}))
-	}
-
-	clearState = () => {
-		this.updateLocation(this.initialState.location_builder)
-		this.setState(this.initialState)
-	}
-	
-	updateInput1 = (inp) => {
-		this.setState({
-			input1: inp
-		})
-		
-	}
-	updateInput2 = (inp) => {
-		this.setState({
-			input2: inp
-		})
-	}
-	updateInput3 = (inp) => {
-		this.setState({
-			input3: inp
-		})
-	}
-	updateInput4 = (inp) => {
-		this.setState({
-			input4: inp
-		})
-	}
-
-	handleSubmit = ({ text, center, place_type }, map) => {
-		map.jumpTo({center, zoom: (place_type[0] === "poi" ? 15: 12)});
-		Router.push({ pathname:'/addlocations', query: {name: text, lng: center[0], lat: center[1]}})
-	}
-
-	render() {
-		let { map, 
-			location_input, 
-			business_input, 
-			fetchInputLocation, 
-			fetchBusinessLocation, 
-			geolocation, 
-			updateGeolocation } = this.props;
-		let { business_name } = this.state.location_builder;
-		let { business, location } = geolocation
-
-		return (
-			<div className={s('LocationBuilder')}>
-				
-				{( !location.area_name ? 
-					<Geocode message= {"State, City, Country"} 
-						disabled={ false } 
-						fetchLocation = { fetchInputLocation } 
-						updateLocation = { this.updateLocation }
-						location_input = { location_input }
-						map = { map }
-						input = { this.state.input1 }  
-						updateInput = { this.updateInput1 }
-						location = { geolocation.location }
-						business = { geolocation.business } 
-						handleSubmit = { this.handleSubmit }/> : 
-						<div className={s("entered-name")}>
-							<h2>{location.area_name}</h2>
-							<div className={s("x-out")}
-								onClick={()=> {
-									this.clearState()
-									updateGeolocation({location:'', business:''})
-								}}>
-								&#10005;
-							</div>
-						</div>)}	
-				
-				{( !business.business_name ? 
-					<Geocode message= {"Business, POI, etc"} 
-						disabled={ ( location.area_name ? false : true) }
-						fetchBusiness = { fetchBusinessLocation } 
-						updateLocation = { this.updateLocation }
-						business_input = { business_input }
-						bbox = { location.bbox }
-						map = { map }
-						input = { this.state.input2 } 
-						updateInput = { this.updateInput2 } 
-						handleSubmit = { this.handleSubmit } /> : 
-						<div className={s("entered-name")}>
-							<h2>{business.business_name}</h2>
-							<div className={s("x-out")}
-								onClick={()=>{
-									updateGeolocation({business:''})
-								}}>
-								&#10005;
-							</div>
-						</div>)}
-				<input className={s('input')} 
-					type='number' 
-					placeholder='Price' 
-					value = {this.state.input3}
-					onChange = { e => {	
-						let input_value = e.target.value;
-						this.updateInput3(input_value)
-						let new_biz = { ...business };
-						new_biz.price = parseInt(input_value);
-						updateGeolocation({ business: new_biz})
-					}}/>
-				<textarea 
-					placeholder="Additional Info"
-					type = 'text'
-					value = { business.additional_info }
-					onChange = { e => {	
-						let input_value = e.target.value;
-						let new_biz = { ...business };
-						new_biz.additional_info = input_value;
-						updateGeolocation({ business: new_biz });
-					}}></textarea>
-
-				<a className="submit"
-					onClick={()=> {
-						addLocation(geolocation)
-						this.clearState();
+			<a className="submit"
+				onClick={()=> {
+					let find_location = locations.find(sf => sf.data.business.business_name === business.business_name);
+					if(!find_location) {
+						addLocation(geolocation);
+						clearState();
+						updateGeolocation({location:'', business:''});
 						alert('Location Submitted')
-					}}>Submit</a>	
-			</div>
-		)
-	}
-	
-}  
+					} else {
+						clearState();
+						updateGeolocation({location:'', business:''});
+						alert('Location Already Exists!')
+					}
+					
+				}}>Submit</a>	
+		</div>
+	)
+}
 
 const mapStateToProps = state => {
 	return {

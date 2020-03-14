@@ -39,10 +39,10 @@ const Geocode = ({ message, fetchLocation, fetchBusiness, location_input, map, b
 				results={ (location_input ? location_input.features : business_input.features) } 
 				result_type = { (location_input ? "location" : "business") }
 				map = { map } 
-				handleSubmit ={handleSubmit}
+				handleSubmit ={ handleSubmit }
 				updateLocation= { updateLocation }
 				updateGeolocation = { updateGeolocation }
-				input = {input}/> : <div></div>)}		
+				input = { input }/> : <div></div>)}		
 	</div>
 )
 

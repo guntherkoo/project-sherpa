@@ -12,20 +12,12 @@ import VideoBuilder from '../components/VideoBuilder';
 const Map = dynamic( () => import('../components/Map'),{ loading: () => <div></div>, ssr:false})
 import { GeocodeAction } from '../redux-store/geocoder/geocoder.actions';
 import { LocationsAction } from '../redux-store/locations/locations.actions';
+import { VideoAction } from '../redux-store/video/video.actions';
 
 
 class AddVideos extends Component {
 	static getInitialProps = async ({ query }) => {
-		const collectionRef = await firestore.collection('locations').get();
-		const getLocations = collectionRef.docs.map(d => {
-			return {
-				id: d.id,
-				data: d.data()
-			}
-		});
-
 		return { 
-			santa_fe : getLocations,
 			query 
 		}
 	}
@@ -74,7 +66,14 @@ class AddVideos extends Component {
 		this.setState({ video_update: this.initialState })
 	}
 
+	pinClick = (pin) => {
+		let currentPins = [...this.props.video_data.locations]
+		let updatePins = [ ...currentPins ,{ id: pin.id, timestamp: this.props.video_time }]
+		this.props.setVideoData({locations: updatePins});
+	}
+
 	handleSubmit = ({ text, center, place_type }, map) => {
+		// setVideoData({location: input_value});
 		map.jumpTo({center, zoom: (place_type[0] === "poi" ? 15: 12)});
 		Router.push({ pathname:'/addvideos', query: {name: text, lng: center[0], lat: center[1]}})
 	}
@@ -96,12 +95,14 @@ class AddVideos extends Component {
 	}
 
 	render() {
-		let { locations, map, business_input, fetchBusinessLocation, query } = this.props
+		let { locations, map, geolocation, business_input, fetchBusinessLocation, query, setVideoData, video_data, updateGeolocation } = this.props
 		let { input } = this.state;
-
+		console.log(this.props.video_time)
 		return(
 			<div>
-				<Map locationPins = { locations }/>
+				<Map 
+					locationPins = { locations }
+					pinClick = { this.pinClick }/>
 				<VideoBuilder 
 					map = { map }
 					updateVideo = { this.updateVideo }
@@ -111,6 +112,10 @@ class AddVideos extends Component {
 					updateInput = { this.updateInput }
 					handleSubmit = { this.handleSubmit }
 					input = { input }
+					setVideoData = { setVideoData }
+					video_data = { video_data }
+					geolocation = { geolocation }
+					updateGeolocation = { updateGeolocation }
 					/>
 			</div>
 		)
@@ -119,10 +124,14 @@ class AddVideos extends Component {
 
 
 const mapStateToProps = state => {
+	console.log(state.video);
 	return {
 		locations : state.locations.locations,
 		map: state.map.set_map,
-		business_input: state.geocoder.input_business
+		business_input: state.geocoder.input_business,
+		video_data: state.video.video_data,
+		video_time: state.video.video_time,
+		geolocation: state.geocoder.geolocation
 	}
 }
 
@@ -131,7 +140,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
 	fetchLocations: (loc) => dispatch(LocationsAction.fetchLocations(loc)),
 	fetchInputLocation: (location, bbox) => dispatch(GeocodeAction.fetchInputLocation(location)),
-	fetchBusinessLocation: (location, bbox) => dispatch(GeocodeAction.fetchBusinessLocation(location, bbox))
+	fetchBusinessLocation: (location, bbox) => dispatch(GeocodeAction.fetchBusinessLocation(location, bbox)),
+	setVideoData: (info) => dispatch(VideoAction.setVideoData(info)),
+	updateGeolocation: (loc) => dispatch(GeocodeAction.updateGeolocation(loc)),
+	addVideoPinClick: (pin) => dispatch(VideoAction.addVideoPinClick(pin))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddVideos));
