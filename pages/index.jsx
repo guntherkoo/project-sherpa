@@ -3,33 +3,62 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Action } from 'redux-store/actions';
+import { firestore, updateVloggerInfo } from '../lib/firebase';
+
+import { VloggersAction } from '../redux-store/vloggers/vloggers.actions';
+
 
 import GlobalStyles from 'styles/styles.scss';
 import Head from './_head';
 
-const MapComponent = dynamic(() =>
-	import('../components/MapComponent'),
+import Vloggers from '../components/Vloggers';
+import Vlogger from '../components/Vlogger';
+const Map = dynamic(() =>
+	import('../components/Map'),
 	{
 		loading: () => <div></div>,
 		ssr:false
 	}
 )
-import Video from '../components/VideoPlayer';
-import VlogContainer from '../components/VlogContainer';
-import locations from '../components/dummy_data/locations.json';
 
-import s from '../styles/_index.scss';
 
 
 class Index extends Component {
-	static getInitialProps ({ reduxStore, req }) {
+	static getInitialProps = async({ reduxStore, req, query }) => {
 		const isServer = !!req
+		const collectionRef = await firestore.collection('videos').get();
+
+		const getVlogs = collectionRef.docs.map(d => {
+			return {
+				id: d.id,
+				data: d.data()
+			}
+		});
 		return {
+			query,
+			getVlogs
 		}
 	}
 
+
+	componentDidMount() {
+		const snapshotRef = 
+		firestore.collection('vloggers').orderBy("createdAt", "desc").onSnapshot((snapshot) => {
+			let vloggersSnapshot = snapshot.docs.map(doc => {
+				return {
+					id: doc.id,
+					data: doc.data()
+				}	
+			})
+			this.props.fetchLiveVloggers(vloggersSnapshot)
+
+		  }, (error) => {
+		    console.log(error)
+		  });
+	}
+
 	static defaultProps = {
-		add_content: false
+
 	}
 
 
@@ -37,32 +66,40 @@ class Index extends Component {
 		let { 
 			map, 
 			content, 
-			vlogs,
-			add_content,
-			center } = this.props;
-
+			center,
+			vloggers,
+			query,
+			getVlogs } = this.props;
+			console.log(this.props);
 		return (
 			<section>
-				<Head title= {vlogs.name} />
-				<MapComponent 
-					vlogs = { vlogs } 
-					map = { map }
-					center = { center } />
+				<Map />
+				{!query.vlogger ? 
+					<Vloggers 
+						vloggers={ vloggers }
+						vlogs = { getVlogs }/> :
+					<Vlogger />
+				}
+				
+				
 			</section>
 		)
 	}
 }
 
 const mapStateToProps = state => {
+	console.log(state);
 	return {
-		map: state.map.set_map,
-		vlogs: state.vlogs[0],
-		center: state.vlogs[0].coordinates
+		vloggers: state.vloggers.vloggers
 	}
 }
 
+const mapDispatchToProps = dispatch => ({
+	fetchLiveVloggers: (vloggers) => dispatch(VloggersAction.fetchLiveVloggers(vloggers)),
+	fetchVlogger: (vlogger) => dispatch(VloggersAction.fetchVlogger(vlogger))
+})
 
 export default connect(
 	mapStateToProps,
-	null
+	mapDispatchToProps
 )(Index);

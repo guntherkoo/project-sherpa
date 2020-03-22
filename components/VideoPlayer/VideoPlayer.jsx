@@ -2,7 +2,9 @@ import { Component } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Action } from 'redux-store/actions';
+
+import { VideoAction } from 'redux-store/video/video.actions';
+import { MapAction } from 'redux-store/video/video.actions';
 
 import s from './VideoPlayer.scss';
 import locations from '../dummy_data/locations.json';
@@ -90,19 +92,19 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		setVideoControls(player) {
-			dispatch(Action.setVideoControls(player))
+			dispatch(VideoAction.setVideoControls(player))
 		},
 		setActivePin(pin) {
-			dispatch(Action.setActivePin(pin))
-		},
-		playVideo() {
-			dispatch(Action.playVideo())
-		},
-		videoTime(time) {
-			dispatch(Action.videoTime(time))
+			dispatch(MapAction.setActivePin(pin))
 		},
 		setCenterMap(center) {
-			dispatch(Action.setCenterMap(center))
+			dispatch(MapAction.setCenterMap(center))
+		},
+		playVideo() {
+			dispatch(VideoAction.playVideo())
+		},
+		videoTime(time) {
+			dispatch(VideoAction.videoTime(time))
 		}
 	}
 }

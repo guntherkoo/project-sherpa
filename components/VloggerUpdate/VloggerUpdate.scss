@@ -2,12 +2,32 @@
 	width: 70%;
 	height: 100%;
 	display: flex;
+	flex-direction: column;
 	position: fixed;
 	right: 0;
 	padding: 100px;
 	align-items: center;
 	justify-content: center;
 	background-color: #ebf8ff;
+
+	.current_video {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		margin: 20px 0;
+
+		h2 {
+			font-size: 20px;
+		    margin: auto;
+		    font-family: 'Helvetica';
+		}
+
+		.x-out {
+			font-size: 14px;
+			cursor: pointer;
+		}
+	}
 
 	&-info {
 		background: white;
@@ -47,6 +67,31 @@
 		-moz-box-shadow: 0px 7px 19px -4px rgba(179,179,179,1);
 		box-shadow: 0px 7px 19px -4px rgba(179,179,179,1);
 		margin: 20px 0;
+	}
+
+	.AddVideos {
+		margin-top: 20px;
+		width: 100%;
+
+		&_video {
+			background: white;
+			border-bottom: 1px solid #ebf8ff;
+			padding: 10px 0;
+			text-align: center;
+			cursor: pointer;
+			transition: .3s;
+
+			&:hover {
+				background: #E5E4E5;
+			}
+
+			&:first-child {
+				border-radius: 5px 5px 0px 0px;
+			}
+			&:last-child {
+				border-radius: 0px 0px 5px 5px;
+			}
+		}
 	}
 
 }

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import dynamic from 'next/dynamic';
 import Router, { withRouter } from 'next/router';
 import { addLocation, firestore } from '../lib/firebase';
+import { connect } from 'react-redux';
 
 import GlobalStyles from 'styles/styles.scss';
 
@@ -92,14 +93,21 @@ class AddLocations extends Component {
 	}
 
 
+	pinClick = (pin) => {
+		console.log(pin)
+	}
+
 	render() {
-		let { query, santa_fe } = this.props
+		let { query, santa_fe, hover_marker } = this.props
 		let queryPin = [parseFloat(query.lng), parseFloat(query.lat)]
 		console.log(santa_fe);
 		let find_SF = santa_fe.filter(sf => sf.data.location.area_name === "Santa Fe" )
 		return(
 			<div>
-				<Map queryPin = { queryPin } locationPins = { find_SF }/>
+				<Map queryPin = { queryPin } 
+					locationPins = { find_SF }
+					pinClick = {this.pinClick} 
+					hover_marker = { hover_marker }/>
 				<LocationBuilder 
 					locations = { find_SF }
 					updateInput1 = { this.updateInput1 }
@@ -121,6 +129,11 @@ class AddLocations extends Component {
 	
 }
 
+const mapStateToProps = state => {
+	return {
+		hover_marker: state.map.hover_id
+	}
+}
 
 
-export default withRouter(AddLocations);
+export default withRouter(connect( mapStateToProps )(AddLocations));

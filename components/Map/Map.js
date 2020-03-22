@@ -66,9 +66,7 @@ class Map extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state)
 	return {
-		hover_marker: state.map.hover_id,
 		map: state.map.set_map
 	}
 }

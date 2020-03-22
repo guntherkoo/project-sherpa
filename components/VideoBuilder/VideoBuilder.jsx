@@ -9,10 +9,10 @@ import VideoPlayer from '../VideoPlayer';
 import LocationTimestamps from './helpers/location_timestamps';
 
 import { GeocodeAction } from '../../redux-store/geocoder/geocoder.actions';
-import { addLocation, firestore } from '../../lib/firebase';
+import { addVideo, firestore } from '../../lib/firebase';
 
 
-const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fetchBusinessLocation, locationPins, updateInput, handleSubmit, input, setVideoData, video_data }) => {
+const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fetchBusinessLocation, locationPins, updateInput, handleSubmit, input, setVideoData, video_data,  }) => {
 	if(!locationPins) return false
 	let loc_coords = locationPins.map(coord => coord.data.business.coordinates);
 	let line = turf.lineString(loc_coords);
@@ -73,8 +73,12 @@ const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fet
 			{(video_data.locations ? 
 				<LocationTimestamps 
 					video_data = { video_data }
-					locationPins = { locationPins }/>:
+					locationPins = { locationPins } />:
 				<div></div>)}
+			<a onClick={()=>{
+				addVideo(video_data);
+				setVideoData("")
+			}}>Submit</a>
 		</div>
 	)
 }	

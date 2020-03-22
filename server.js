@@ -4,7 +4,9 @@ const compression = require('compression');
 
 const app = nextjs({ dev: process.env.NODE_ENV !== 'production' });
 const routes = require('./routes');
-const handler = routes.getRequestHandler(app);
+const handler = routes.getRequestHandler(app, ({req, res, route, query}) => {
+  app.render(req, res, route.page, query)
+})
 
 
 global.fetch = require('isomorphic-unfetch');
@@ -18,6 +20,10 @@ app
 		server.get('/favicon.ico', (req, res, next) => (
 			res.status(200).sendFile('favicon.ico', {root: __dirname + '/static/'})
 		));
+
+		// server.get('/vlogger/:vlogger', (req, res, next) => (
+		// 	app.render(req, res, '/', {vlogger: req.params.vlogger})
+		// ));
 
 	    //server start with next routing
 	    server.use(handler).listen(8888, (err) => {

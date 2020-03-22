@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Link from 'next/link'
-
 import s from '../Geocode.scss';
 
 const GeocodeResults = ({ results, map, handleSubmit, updateGeolocation, input, result_type }) => {

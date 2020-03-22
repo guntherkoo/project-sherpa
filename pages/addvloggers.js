@@ -13,8 +13,18 @@ import { VloggersAction } from '../redux-store/vloggers/vloggers.actions';
 
 
 class AddVloggers extends Component {
-	getInitialProps = async ({ query }) => {
+	static getInitialProps = async ({ query }) => {
+		const collectionRef = await firestore.collection('videos').get();
+		const getVideos= collectionRef.docs.map(d => {
+
+			return {
+				id: d.id,
+				data: d.data()
+			}
+		});
+
 		return { 
+			current_videos : getVideos,
 			query 
 		}
 	}
@@ -54,24 +64,24 @@ class AddVloggers extends Component {
 	}
 
 	componentDidMount() {
-		const snapshotRef = 
-			firestore.collection('vloggers').orderBy("createdAt", "desc").onSnapshot((snapshot) => {
-				let vloggersSnapshot = snapshot.docs.map(doc => {
-					return {
-						id: doc.id,
-						data: doc.data()
-					}	
-				})
-				this.props.fetchLiveVloggers(vloggersSnapshot)
+		const snapshotRef = firestore.collection('vloggers').orderBy("createdAt", "desc").onSnapshot((snapshot) => {
+			let vloggersSnapshot = snapshot.docs.map(doc => {
+				return {
+					id: doc.id,
+					data: doc.data()
+				}	
+			})
+			this.props.fetchLiveVloggers(vloggersSnapshot)
 
-			  }, (error) => {
-			    console.log(error)
-			  });
+		  }, (error) => {
+		    console.log(error)
+		  });
+
+
 	}
 
 	render() {
-		let { vloggers, active_vlogger, fetchVlogger, query } = this.props
-		console.log(query)
+		let { vloggers, active_vlogger, fetchVlogger, query, current_videos } = this.props
 		return(
 			<div>
 				<VloggerBuilder 
@@ -84,7 +94,8 @@ class AddVloggers extends Component {
 					active_vlogger = { active_vlogger }
 					fetchVlogger = { fetchVlogger }
 					updateVlogger = { this.updateVlogger } 
-					vlogger_update = { this.state.vlogger_update } />
+					vlogger_update = { this.state.vlogger_update } 
+					current_videos = { current_videos } />
 			</div>
 		)
 	}

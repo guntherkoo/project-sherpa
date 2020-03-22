@@ -7,7 +7,8 @@ const INIT_STATE = {
 		url : '',
 		locations: [],
 		video_time: 0
-	}
+	},
+	playing: false
 }
 
 const VideoReducer = (state = INIT_STATE, action) => {
