@@ -95,7 +95,8 @@ class AddVloggers extends Component {
 					fetchVlogger = { fetchVlogger }
 					updateVlogger = { this.updateVlogger } 
 					vlogger_update = { this.state.vlogger_update } 
-					current_videos = { current_videos } />
+					current_videos = { current_videos } 
+					vloggers = { vloggers }/>
 			</div>
 		)
 	}

@@ -10,9 +10,13 @@ import { VloggersAction } from '../redux-store/vloggers/vloggers.actions';
 
 import GlobalStyles from 'styles/styles.scss';
 import Head from './_head';
+import s from '../styles/_index.scss';
 
+import MapWrapper from '../components/MapWrapper';
+import SidebarWrapper from '../components/SidebarWrapper';
 import Vloggers from '../components/Vloggers';
 import Vlogger from '../components/Vlogger';
+import VideoPlayer from '../components/VideoPlayer';
 const Map = dynamic(() =>
 	import('../components/Map'),
 	{
@@ -73,13 +77,23 @@ class Index extends Component {
 			console.log(this.props);
 		return (
 			<section>
-				<Map />
-				{!query.vlogger ? 
-					<Vloggers 
-						vloggers={ vloggers }
-						vlogs = { getVlogs }/> :
-					<Vlogger />
-				}
+				<MapWrapper>
+					<Map />
+				</MapWrapper>
+				
+				<SidebarWrapper>
+					<VideoPlayer map = { map } />
+					<div className={s("sidebar-row")}>
+						{!query.vlogger ? 
+							<Vloggers 
+								vloggers={ vloggers }
+								vlogs = { getVlogs }/> :
+							<Vlogger />
+						}
+					</div>
+					
+				</SidebarWrapper>
+				
 				
 				
 			</section>

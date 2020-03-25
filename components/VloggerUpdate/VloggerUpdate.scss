@@ -10,6 +10,11 @@
 	justify-content: center;
 	background-color: #ebf8ff;
 
+	.current_videos {
+		height: 150px;
+		overflow-y: scroll;
+	}
+
 	.current_video {
 		display: flex;
 		flex-direction: row;

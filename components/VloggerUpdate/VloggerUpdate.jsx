@@ -26,8 +26,20 @@ class VloggerUpdate extends Component {
 
 		if(!this.props.active_vlogger) return <div className={s('vlogger-update')}>Choose a Vlogger to edit</div>;
 
-		let { fetchVlogger, updateVlogger, active_vlogger, current_videos } = this.props;
+		let { fetchVlogger, updateVlogger, active_vlogger, current_videos, vloggers } = this.props;
 		let { additional_info, name, profile_img, vlogs, id } = this.props.vlogger_update;
+		let vlogger_vid = vloggers.map(vlogger => {
+			return vlogger.data.vlogs.map(vlog => vlog);
+		})
+		var merged = [].concat.apply([], vlogger_vid);
+			
+		const unclaimed_vlogs = current_videos.filter(({ id: id1 }) => {
+			return !merged.some(({ v_id: id2 }) => {
+				return id2 === id1
+			})	
+		});
+		console.log(unclaimed_vlogs)
+
 		return(
 			<div className={s('vlogger-update')}>
 				<div className={s("vlogger-update-delete")}
@@ -87,7 +99,8 @@ class VloggerUpdate extends Component {
 					current_videos = { current_videos }
 					updateVideos = { this.updateVideos }
 					id = { id }
-					active_user_vlogs = { vlogs } />
+					active_user_vlogs = { vlogs } 
+					unclaimed_vlogs = { unclaimed_vlogs }/>
 			</div>
 		)
 	}

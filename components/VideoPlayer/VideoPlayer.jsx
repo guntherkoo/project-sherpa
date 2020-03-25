@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { VideoAction } from 'redux-store/video/video.actions';
-import { MapAction } from 'redux-store/video/video.actions';
+import { MapAction } from 'redux-store/map/map.actions';
 
 import s from './VideoPlayer.scss';
 import locations from '../dummy_data/locations.json';

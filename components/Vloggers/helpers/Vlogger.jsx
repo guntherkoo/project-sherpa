@@ -14,8 +14,13 @@ const Vlogger = ({ vlogger, vlogs }) => {
 						})
 					});
 					console.log(results);
-				})}>{vlogger.id}</a>
+				})}>
+					<div className={s("profile-pic")}
+						style={{ backgroundImage: `url(${vlogger.data.profile_img})`}}></div>
+					<h1>{vlogger.data.name}</h1>
+					</a>
 	        </Link>
+
 		</div>
 	)
 }

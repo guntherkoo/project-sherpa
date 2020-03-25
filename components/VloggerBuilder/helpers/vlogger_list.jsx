@@ -18,10 +18,18 @@ const VloggerList = ({ vloggers, fetchVlogger, updateVlogger }) => {
 							let { id, data } = vlogger;
 							fetchVlogger(vlogger) 
 							updateVlogger(id, {id, ...data})
+							console.log(vlogger)
 						}}>
-						<span className={s("initials")}>
-							{ vlogger.data.name.match(/\b(\w)/g).join('').toUpperCase().substr(0, 2) }
-						</span>
+						{(vlogger.data.profile_img ? 
+							<div className={s("initials")} style={{	
+								backgroundImage: `url(${vlogger.data.profile_img})`,
+								backgroundSize: 'contain'
+							}}></div>: 
+							<span className={s("initials")}>
+								{ vlogger.data.name.match(/\b(\w)/g).join('').toUpperCase().substr(0, 2) }
+							</span>
+							)}
+						
 						<div className={s("vlogger-item-details")}>
 							<h2 className={s("name")}>
 								{ vlogger.data.name }
