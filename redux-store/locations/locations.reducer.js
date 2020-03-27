@@ -11,6 +11,11 @@ const locationsReducer = (state = INIT_STATE, action) => {
 				...state,
 				locations: action.payload
 			}
+		case Type.VLOG_LOCATIONS:
+			return {
+				...state,
+				vlog_locations: action.payload
+			}
 		default:
 			return state
 	}

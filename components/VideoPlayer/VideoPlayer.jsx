@@ -83,7 +83,7 @@ const mapStateToProps = state => {
 	console.log(state);
 	return {
 		playing: state.video.playing,
-		video_url: state.video.video_data.url,
+		video_url: state.video.video_url,
 		pin_id: state.map.pin_id,
 		map: state.map.set_map
 	}

@@ -8,7 +8,8 @@ const INIT_STATE = {
 		locations: [],
 		video_time: 0
 	},
-	playing: false
+	playing: false,
+	video_url: ''
 }
 
 const VideoReducer = (state = INIT_STATE, action) => {
@@ -32,6 +33,11 @@ const VideoReducer = (state = INIT_STATE, action) => {
 			return {
 				...state,
 				video_data: updateVideo(state.video_data, action.payload)
+			}
+		case VideoType.VIDEO_URL:
+			return {
+				...state,
+				video_url: action.payload
 			}
 		case VideoType.ADD_VIDEO_PIN_CLICK:
 			return {

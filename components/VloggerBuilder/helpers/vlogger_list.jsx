@@ -1,5 +1,4 @@
 import s from '../VloggerBuilder.scss';
-import { firestore } from '../../../lib/firebase';
 import Router from 'next/router'
 
 

@@ -8,11 +8,11 @@ import Geocode from '../Geocode';
 import VideoPlayer from '../VideoPlayer';
 import LocationTimestamps from './helpers/location_timestamps';
 
-import { GeocodeAction } from '../../redux-store/geocoder/geocoder.actions';
+import { VideoAction } from '../../redux-store/video/video.actions';
 import { addVideo, firestore } from '../../lib/firebase';
 
 
-const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fetchBusinessLocation, locationPins, updateInput, handleSubmit, input, setVideoData, video_data,  }) => {
+const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fetchBusinessLocation, locationPins, updateInput, handleSubmit, input, setVideoData, video_data, setVideoUrl  }) => {
 	if(!locationPins) return false
 	let loc_coords = locationPins.map(coord => coord.data.business.coordinates);
 	let line = turf.lineString(loc_coords);
@@ -32,9 +32,10 @@ const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fet
 					        if(e.key === 'Enter') {	 
 								let input_value = e.target.value;
 					        	setVideoData({url: input_value});
+					        	setVideoUrl(input_value);
 					        }
 					    }}/> : <h1>{video_data.url}</h1>)}
-				
+			
 
 
 			</div>
@@ -82,6 +83,8 @@ const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fet
 		</div>
 	)
 }	
-  
+const mapDispatchToProps = dispatch => ({
+	setVideoUrl:(url) => dispatch(VideoAction.setVideoUrl(url))
+})
 
-export default VideoBuilder;
+export default connect(null, mapDispatchToProps)(VideoBuilder);

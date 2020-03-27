@@ -95,7 +95,7 @@ class AddVideos extends Component {
 	}
 
 	render() {
-		let { locations, map, geolocation, business_input, fetchBusinessLocation, query, setVideoData, video_data, video_player, updateGeolocation, hover_marker } = this.props
+		let { locations, map, geolocation, business_input, fetchBusinessLocation, query, setVideoData, video_data, video_player, updateGeolocation, hover_marker, setVideoUrl } = this.props
 		let { input } = this.state;
 		return(
 			<div>
@@ -113,6 +113,7 @@ class AddVideos extends Component {
 					handleSubmit = { this.handleSubmit }
 					input = { input }
 					setVideoData = { setVideoData }
+					setVideoUrl = { setVideoUrl }
 					video_data = { video_data }
 					video_player = { video_player }
 					geolocation = { geolocation }
@@ -125,7 +126,7 @@ class AddVideos extends Component {
 
 
 const mapStateToProps = state => {
-	// console.log(state.video);
+	console.log(state.video);
 	return {
 		locations : state.locations.locations,
 		map: state.map.set_map,
@@ -144,6 +145,7 @@ const mapDispatchToProps = dispatch => ({
 	fetchInputLocation: (location, bbox) => dispatch(GeocodeAction.fetchInputLocation(location)),
 	fetchBusinessLocation: (location, bbox) => dispatch(GeocodeAction.fetchBusinessLocation(location, bbox)),
 	setVideoData: (info) => dispatch(VideoAction.setVideoData(info)),
+	setVideoUrl:(url) => dispatch(VideoAction.setVideoUrl(url)),
 	updateGeolocation: (loc) => dispatch(GeocodeAction.updateGeolocation(loc)),
 	addVideoPinClick: (pin) => dispatch(VideoAction.addVideoPinClick(pin))
 })

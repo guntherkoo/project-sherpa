@@ -25,6 +25,12 @@ const VideoAction = {
 			payload: data
 		}
 	},
+	setVideoUrl: (url) => {
+		return {
+			type: VideoType.VIDEO_URL,
+			payload: url
+		}
+	},
 	addVideoPinClick: (pin) => {
 		return {
 			type: VideoType.ADD_VIDEO_PIN_CLICK,
