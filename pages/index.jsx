@@ -102,7 +102,6 @@ class Index extends Component {
 			query,
 			getVlogs,
 			vlog_locations } = this.props;
-			console.log(vlog_locations)
 		return (
 			<section>
 				<MapWrapper>

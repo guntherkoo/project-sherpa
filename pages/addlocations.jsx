@@ -31,7 +31,7 @@ class AddLocations extends Component {
 		});
 
 		return { 
-			santa_fe : getLocations,
+			locations : getLocations,
 			query 
 		}
 	}
@@ -98,10 +98,10 @@ class AddLocations extends Component {
 	}
 
 	render() {
-		let { query, santa_fe, hover_marker } = this.props
+		let { query, locations, hover_marker } = this.props
 		let queryPin = [parseFloat(query.lng), parseFloat(query.lat)]
-		console.log(santa_fe);
-		let find_SF = santa_fe.filter(sf => sf.data.location.area_name === "Santa Fe" )
+		console.log(locations);
+		let find_SF = locations.filter(sf => sf.data.location.area_name === "Santa Fe" )
 		return(
 			<div>
 				<Map queryPin = { queryPin } 

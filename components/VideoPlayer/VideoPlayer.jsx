@@ -11,15 +11,14 @@ import locations from '../dummy_data/locations.json';
 
 class VideoPlayer extends Component {
 
-	activePin( location, { map, setActivePin, pin_id, playVideo, setCenterMap }) {
-		if(pin_id !== location.id) {
-			setActivePin(location.id);
-			map.flyTo({
-				center: location.coordinates,
-				zoom: 15,
-				offset: [100, 0]
+	activePin( location) {
+		if(this.props.pin_id !== location.id) {
+			this.props.setActivePin(location.id);
+			this.props.map.flyTo({
+				center: location.data.business.coordinates,
+				zoom: 15
 			});
-			setCenterMap(location.coordinates);
+			this.props.setCenterMap(location.data.business.coordinates);
 		}
 	}
 
@@ -35,6 +34,7 @@ class VideoPlayer extends Component {
 			map,
 			playing, 
 			pin_id,
+			vlog_locations,
 			// mapdispatchtoprops
 			setVideoControls, 
 			videoTime,
@@ -52,25 +52,27 @@ class VideoPlayer extends Component {
 				height='0'
 				controls= { true }
 				onReady = { () => {
-					console.log(this.p)
 					// Adds video control throughout components
 					setVideoControls(this.p);
 				}}
-				onProgress = { (e) => {
-					let round_sec = Math.round(e.playedSeconds);
-					// if(!add_content)
-					// 	// This is for pages with established content
-					// 	vlogs.locations.map(location => {
-					// 		if(round_sec >= location.time_start && round_sec < location.time_end) {
-					// 			// The pin in the center of the map is the active location
-					// 				this.activePin( location, this.props)
-					// 		}	
-					// })
+				onProgress = { (e, f) => {
 
-					// if(add_content) {
-						// Insert actions for adding content here 
-						videoTime(round_sec);
-					// }
+					let round_sec = Math.round(e.playedSeconds);
+					if(vlog_locations) {
+						let timestamps = vlog_locations.map(l => l.timestamp);
+						vlog_locations.map((location, i) => {
+							let video_duration = this.p.getDuration();
+							let followup_time = (timestamps[i +1] ? timestamps[i+1] : video_duration)
+							console.log(followup_time);
+							if(round_sec >= location.timestamp && round_sec < followup_time) {
+								console.log(location)
+									// The pin in the center of the map is the active location
+									this.activePin( location)
+								}
+						})
+
+					}
+					videoTime(round_sec);
 				}}
 
 				className={s('video-player')}/>
@@ -80,8 +82,9 @@ class VideoPlayer extends Component {
 
 
 const mapStateToProps = state => {
-	console.log(state);
+	console.log(state)
 	return {
+		vlog_locations: state.locations.vlog_locations,
 		playing: state.video.playing,
 		video_url: state.video.video_url,
 		pin_id: state.map.pin_id,

@@ -5,11 +5,15 @@ import { VideoAction } from 'redux-store/video/video.actions';
 import s from '../TimestampLocations.scss';
 import { Link } from '../../../routes.js'
 
-const Location = ({ vlog_location, video_player, playVideo }) => {
+const Location = ({ vlog_location, video_player, playVideo, map }) => {
 	return(
 		<div className={s("Location")}>
 			<a onClick={(()=>{
-				console.log(vlog_location);
+				console.log(map)
+				map.flyTo({
+					center: vlog_location.data.business.coordinates,
+					zoom: 15,
+				});	
 				video_player.seekTo(vlog_location.timestamp);
 				playVideo();
 			})}>
@@ -25,8 +29,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => {
-	console.log(state);
 	return {
+		map : state.map.set_map,
 		video_player: state.video.player
 	}
 }
