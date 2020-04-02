@@ -9,17 +9,26 @@ import VideoPlayer from '../VideoPlayer';
 import LocationTimestamps from './helpers/location_timestamps';
 
 import { VideoAction } from '../../redux-store/video/video.actions';
+import { GeocodeAction } from '../../redux-store/geocoder/geocoder.actions';
 import { addVideo, firestore } from '../../lib/firebase';
 
 
-const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fetchBusinessLocation, locationPins, updateInput, handleSubmit, input, setVideoData, video_data, setVideoUrl  }) => {
+const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fetchBusinessLocation, locationPins, updateInput, handleSubmit, input, setVideoData, video_data, setVideoUrl, add_video_location, fetchInputLocation, input_location }) => {
 	if(!locationPins) return false
+	let filterLocation = locationPins.filter(sf => {
+		let area_name = sf.data.location.area_name.split(' ').join('_').toLowerCase();
+		console.log(area_name);
+		return area_name === add_video_location 
+	})
+	if(!input_location) fetchInputLocation(add_video_location);
+	
+	console.log(add_video_location);
 	let loc_coords = locationPins.map(coord => coord.data.business.coordinates);
 	let line = turf.lineString(loc_coords);
 	let bbox = turf.bbox(line);
 
 	let { business } = geolocation;
-
+	console.log((input_location ? input_location : null))
 	return (
 		<div className={s('VideoBuilder')}>
 			<VideoPlayer />
@@ -35,9 +44,6 @@ const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fet
 					        	setVideoUrl(input_value);
 					        }
 					    }}/> : <h1>{video_data.url}</h1>)}
-			
-
-
 			</div>
 			<div className={s('input-container')}>
 				{(!video_data.title ? 
@@ -57,7 +63,7 @@ const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fet
 					fetchBusiness = { fetchBusinessLocation } 
 					business_input = { business_input }
 					map = { map } 
-					bbox = { bbox }
+					bbox = { (input_location ? input_location.features[0].bbox : bbox) }
 					updateInput = { updateInput }
 					handleSubmit = { handleSubmit }
 					input = { input }
@@ -83,8 +89,16 @@ const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fet
 		</div>
 	)
 }	
+
+const mapStateToProps = state => {
+	return {
+		input_location: state.geocoder.input_location
+	}
+}
+
 const mapDispatchToProps = dispatch => ({
-	setVideoUrl:(url) => dispatch(VideoAction.setVideoUrl(url))
+	setVideoUrl:(url) => dispatch(VideoAction.setVideoUrl(url)),
+	fetchInputLocation:(loc) => dispatch(GeocodeAction.fetchInputLocation(loc)),
 })
 
-export default connect(null, mapDispatchToProps)(VideoBuilder);
+export default connect(mapStateToProps, mapDispatchToProps)(VideoBuilder);

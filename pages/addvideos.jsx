@@ -95,14 +95,16 @@ class AddVideos extends Component {
 	}
 
 	render() {
-		let { locations, map, geolocation, business_input, fetchBusinessLocation, query, setVideoData, video_data, video_player, updateGeolocation, hover_marker, setVideoUrl } = this.props
+		let { locations, map, geolocation, business_input, fetchBusinessLocation, query, setVideoData, video_data, video_player, updateGeolocation, hover_marker, setVideoUrl, input_location } = this.props
 		let { input } = this.state;
+		console.log(this.props)
 		return(
 			<div>
 				<Map 
 					locationPins = { locations }
 					pinClick = { this.pinClick }
-					hover_marker= { hover_marker }/>
+					hover_marker= { hover_marker }
+					map_center = {(input_location ? input_location.features[0].center : [-73.9808, 40.7648])}/>
 				<VideoBuilder 
 					map = { map }
 					updateVideo = { this.updateVideo }
@@ -118,6 +120,7 @@ class AddVideos extends Component {
 					video_player = { video_player }
 					geolocation = { geolocation }
 					updateGeolocation = { updateGeolocation }
+					add_video_location = { query.location }
 					/>
 			</div>
 		)
@@ -126,7 +129,6 @@ class AddVideos extends Component {
 
 
 const mapStateToProps = state => {
-	console.log(state.video);
 	return {
 		locations : state.locations.locations,
 		map: state.map.set_map,
@@ -134,6 +136,7 @@ const mapStateToProps = state => {
 		video_data: state.video.video_data,
 		video_time: state.video.video_time,
 		geolocation: state.geocoder.geolocation,
+		input_location: state.geocoder.input_location,
 		hover_marker: state.map.hover_id
 	}
 }

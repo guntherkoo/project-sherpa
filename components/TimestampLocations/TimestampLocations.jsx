@@ -24,12 +24,14 @@ class TimestampLocations extends Component {
 
 	render() {
 		let { vlog_locations, all_locations, allVlogs, current_vlog, setVideoUrl, vloggers, vlogLocations } = this.props
-
 		let active_vlog = allVlogs.find((vlog)=> vlog.id === current_vlog);
 		let filterLocations = (all_locations ? this.getPins(all_locations, active_vlog.data.locations): null);
-		if(filterLocations && !vlog_locations) vlogLocations(filterLocations);
+		// console.log(filterLocations, 'sheeet',vlog_locations)
+
+		if(!vlog_locations || filterLocations[0].id !== vlog_locations[0].id) vlogLocations(filterLocations);
 		setVideoUrl(active_vlog.data.url);	
-		if(!vlog_locations) return <div></div>;
+		console.log(vlog_locations);		
+		if(!vlog_locations) return <div></div>
 		return(
 			<div className={s('TimestampLocations')}>
 				{ vlog_locations.map((location) => {
