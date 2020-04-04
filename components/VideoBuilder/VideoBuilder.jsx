@@ -28,7 +28,6 @@ const VideoBuilder = ({ map, business_input, geolocation, updateGeolocation, fet
 	let bbox = turf.bbox(line);
 
 	let { business } = geolocation;
-	console.log((input_location ? input_location : null))
 	return (
 		<div className={s('VideoBuilder')}>
 			<VideoPlayer />
