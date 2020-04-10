@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import { VideoAction } from 'redux-store/video/video.actions';
 
 import s from '../TimestampLocations.scss';
-import { Link } from '../../../routes.js'
 
-const Location = ({ vlog_location, video_player, playVideo, map }) => {
+const Location = ({ vlog_location, video_player, playVideo, map, pin_id }) => {
 	return(
-		<div className={s("Location")}>
+		<div className={s("Location", (pin_id === vlog_location.id ? 'active' : ''))}>
 			<a onClick={(()=>{
-				console.log(map)
 				map.flyTo({
 					center: vlog_location.data.business.coordinates,
 					zoom: 15,
@@ -31,7 +29,8 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => {
 	return {
 		map : state.map.set_map,
-		video_player: state.video.player
+		video_player: state.video.player,
+		pin_id : state.map.pin_id
 	}
 }
 

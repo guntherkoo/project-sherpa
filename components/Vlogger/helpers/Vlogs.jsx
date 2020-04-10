@@ -7,14 +7,13 @@ import { LocationsAction } from 'redux-store/locations/locations.actions';
 
 
 
-const Vlogs = ({ vlog, vlogger, setVideoUrl, all_locations, vlogLocations }) => {
+const Vlogs = ({ vlog, vlogger, setVideoUrl, all_locations, vlogLocations, city }) => {
 	if(!all_locations) return false;
 	let { title, url, locations } = vlog.data
 	console.log(locations);
 	return(
 		<div className={s('Vlogs')}>
-			
-			<Link href={{ pathname: '/', query: { vlogger: vlogger, vlog: vlog.id } }}>
+			<Link href={{ pathname: '/', query: { city: city, vlogger: vlogger, vlog: vlog.id } }}>
 				<a>
 					<div className={s("profile-pic")}
 						style={{ backgroundImage: `url(https://via.placeholder.com/80)`}}></div>

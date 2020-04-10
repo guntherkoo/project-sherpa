@@ -20,8 +20,8 @@ class Map extends Component {
 
 	static defaultProps = {
 		hover_marker: null,
-		map_center: [-105.94090711200639, 35.68578099322262],
-		zoom : [11.126913726486569]
+		map_center: [-98.09868819768053, 39.270188746881786],
+		zoom : [3]
 	}
 
 	render() {

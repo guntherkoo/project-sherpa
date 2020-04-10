@@ -36,6 +36,18 @@ const VideoAction = {
 			type: VideoType.ADD_VIDEO_PIN_CLICK,
 			payload: pin
 		}
+	},
+	liveAllVideos: (videos) => {
+		return {
+			type: VideoType.LIVE_ALL_VIDEOS,
+			payload: videos
+		}
+	},
+	editTargetVideo: (video) => {
+		return {
+			type: VideoType.EDIT_TARGET_VIDEO,
+			payload: video
+		}
 	}
 
 }

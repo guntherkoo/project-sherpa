@@ -5,6 +5,7 @@ import geocoderReducer from '../geocoder/geocoder.reducer';
 import vloggersReducer from '../vloggers/vloggers.reducer';
 import locationsReducer from '../locations/locations.reducer';
 import videoReducer from '../video/video.reducer';
+import citiesReducer from '../cities/cities.reducer';
 
 
 // REDUCERS
@@ -14,7 +15,8 @@ const allReducers = combineReducers({
 	video: videoReducer,
 	geocoder: geocoderReducer,
 	vloggers: vloggersReducer,
-	locations: locationsReducer
+	locations: locationsReducer,
+	cities: citiesReducer
 })
 
 export default allReducers;

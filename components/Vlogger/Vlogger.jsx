@@ -2,11 +2,9 @@ import s from './Vlogger.scss';
 import Vlogs from './helpers/Vlogs';
 
 
-const Vlogger = ({ vloggers, id, allVlogs }) => {
+const Vlogger = ({ vloggers, id, allVlogs, city }) => {
 	if(!vloggers) return <div></div>;
-
 	let current_vlogger = vloggers.find((vlog)=> vlog.id === id)
-	console.log(current_vlogger);
 	let { vlogs } = current_vlogger.data
 	const current_vlog = allVlogs.filter(({ id: id1 }) => {
 		return vlogs.some(({ v_id: id2 }) => {
@@ -25,7 +23,8 @@ const Vlogger = ({ vloggers, id, allVlogs }) => {
 					<Vlogs 
 						key = {vlog.id}
 						vlog={vlog}
-						vlogger={ id }/>
+						vlogger={ id }
+						city= { city }/>
 				)
 			})}
 		</div>

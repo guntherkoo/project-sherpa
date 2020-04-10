@@ -56,11 +56,11 @@ class VideoPlayer extends Component {
 					setVideoControls(this.p);
 				}}
 				onProgress = { (e, f) => {
-
+					console.log(this.props.vlog_locations)
 					let round_sec = Math.round(e.playedSeconds);
-					if(vlog_locations) {
-						let timestamps = vlog_locations.map(l => l.timestamp);
-						vlog_locations.map((location, i) => {
+					if(this.props.vlog_locations) {
+						let timestamps = this.props.vlog_locations.map(l => l.timestamp);
+						this.props.vlog_locations.map((location, i) => {
 							let video_duration = this.p.getDuration();
 							let followup_time = (timestamps[i +1] ? timestamps[i+1] : video_duration)
 							console.log(followup_time);

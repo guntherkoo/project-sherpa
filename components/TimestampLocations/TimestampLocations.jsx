@@ -22,15 +22,21 @@ class TimestampLocations extends Component {
 		return merged	
 	}
 
+	componentWillReceiveProps(nextProps) {
+		console.log(nextProps);
+	}
+
 	render() {
 		let { vlog_locations, all_locations, allVlogs, current_vlog, setVideoUrl, vloggers, vlogLocations } = this.props
+		
 		let active_vlog = allVlogs.find((vlog)=> vlog.id === current_vlog);
-		let filterLocations = (all_locations ? this.getPins(all_locations, active_vlog.data.locations): null);
-		// console.log(filterLocations, 'sheeet',vlog_locations)
-
-		if(!vlog_locations || filterLocations[0].id !== vlog_locations[0].id) vlogLocations(filterLocations);
 		setVideoUrl(active_vlog.data.url);	
-		console.log(vlog_locations);		
+		let filterLocations = (all_locations ? this.getPins(all_locations, active_vlog.data.locations): null);
+
+		if(!vlog_locations || filterLocations[0].id !== vlog_locations[0].id) {
+			console.log("done!")
+			vlogLocations(filterLocations);
+		}
 		if(!vlog_locations) return <div></div>
 		return(
 			<div className={s('TimestampLocations')}>

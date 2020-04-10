@@ -8,7 +8,8 @@ import { firestore, updateVloggerInfo } from '../lib/firebase';
 import { VloggersAction } from '../redux-store/vloggers/vloggers.actions';
 import { VideoAction } from '../redux-store/video/video.actions';
 import { LocationsAction } from '../redux-store/locations/locations.actions';
-
+import { CitiesAction } from '../redux-store/cities/cities.actions';
+import { GeocodeAction } from 'redux-store/geocoder/geocoder.actions';
 
 import GlobalStyles from 'styles/styles.scss';
 import Head from './_head';
@@ -20,6 +21,7 @@ import Vloggers from '../components/Vloggers';
 import Vlogger from '../components/Vlogger';
 import TimestampLocations from '../components/TimestampLocations';
 import VideoPlayer from '../components/VideoPlayer';
+import Cities from '../components/Cities';
 const Map = dynamic(() =>
 	import('../components/Map'),
 	{
@@ -76,15 +78,23 @@ class Index extends Component {
 			  }, (error) => {
 			    console.log(error)
 			  });
+		
 	}
 
-	static defaultProps = {
+	componentWillReceiveProps(nextProps) {
+		if(!nextProps.map) return;
 
+		if(!this.props.geocoder_location && nextProps.query.city) this.props.fetchInputLocation(this.props.query.city)
+
+		if(nextProps.geocoder_location !== this.props.geocoder_location) {
+			nextProps.map.flyTo({center: nextProps.geocoder_location.features[0].center, zoom : [12]})
+		}
+		
 	}
+
 
 	pinClick = (pin) => {
-		console.log(pin);
-		// let {video_player, playVideo, map} = this.prop;
+
 		this.props.video_player.seekTo(pin.timestamp);
 		this.props.playVideo();
 		this.props.map.flyTo({
@@ -101,7 +111,11 @@ class Index extends Component {
 			vloggers,
 			query,
 			getVlogs,
-			vlog_locations } = this.props;
+			vlog_locations,
+			fetchCities,
+			cities } = this.props;
+
+
 		return (
 			<section>
 				<MapWrapper>
@@ -116,18 +130,28 @@ class Index extends Component {
 					 	map = { map } 
 					 	video_url = {""} />
 					 : <div></div>}
+
+					
 					
 					<div className={s("sidebar-row")}>
-						{!query.vlogger ? 
+						{!query.city ? 
+							<Cities 
+								fetchCities = { fetchCities }
+								cities = { cities }/> :
+								<div></div>}
+						{!query.vlogger && query.city ? 
 							<Vloggers 
 								vloggers={ vloggers }
-								vlogs = { getVlogs }/> :
+								vlogs = { getVlogs }
+								city = { query.city }
+								allVlogs= { getVlogs }/> :
 							<div></div>
 						}
 						{ query.vlogger && !query.vlog ? 
 							<Vlogger id = { query.vlogger }
 								vloggers= { vloggers }
-								allVlogs = { getVlogs }/>:
+								allVlogs = { getVlogs }
+								city = { query.city }/>:
 							<div></div>
 						}
 						{ query.vlogger && query.vlog ? 
@@ -154,7 +178,9 @@ const mapStateToProps = state => {
 		vloggers: state.vloggers.vloggers,
 		vlog_locations: state.locations.vlog_locations,
 		video_player: state.video.player,
-		map : state.map.set_map
+		map : state.map.set_map,
+		cities: state.cities.cities,
+		geocoder_location: state.geocoder.input_location
 	}
 }
 
@@ -162,7 +188,9 @@ const mapDispatchToProps = dispatch => ({
 	fetchLiveVloggers: (vloggers) => dispatch(VloggersAction.fetchLiveVloggers(vloggers)),
 	fetchVlogger: (vlogger) => dispatch(VloggersAction.fetchVlogger(vlogger)),
 	fetchLocations: (loc) => dispatch(LocationsAction.fetchLocations(loc)),
-	playVideo: () => dispatch(VideoAction.playVideo())
+	playVideo: () => dispatch(VideoAction.playVideo()),
+	fetchCities: (city) => dispatch(CitiesAction.fetchCities(city)),
+	fetchInputLocation: (url) => dispatch(GeocodeAction.fetchInputLocation(url))
 })
 
 export default connect(

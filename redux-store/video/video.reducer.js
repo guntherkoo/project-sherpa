@@ -44,6 +44,16 @@ const VideoReducer = (state = INIT_STATE, action) => {
 				...state,
 				video_data: addPin(state.video_data.locations, action.payload)
 			}
+		case VideoType.LIVE_ALL_VIDEOS:
+			return {
+				...state,
+				all_videos: action.payload
+			}
+		case VideoType.EDIT_TARGET_VIDEO:
+			return {
+				...state,
+				target_video: action.payload
+			}
 		default:
 			return state
 	}

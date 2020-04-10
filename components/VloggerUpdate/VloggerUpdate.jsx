@@ -18,7 +18,7 @@ class VloggerUpdate extends Component {
 	
 	updateVideos =(video, id)=> {
 		let currentVideos = [...this.props.vlogger_update.vlogs]
-		let updateVideo = [ ...currentVideos, { v_id: video.id }]
+		let updateVideo = [ ...currentVideos, { v_id: video.id, city: video.data.city }]
 		this.props.updateVlogger(id, { vlogs: updateVideo })
 	}
 

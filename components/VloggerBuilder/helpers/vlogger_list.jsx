@@ -2,9 +2,6 @@ import s from '../VloggerBuilder.scss';
 import Router from 'next/router'
 
 
-
-
-// const snapshotRef = await firestore.collection('vloggers');
 const VloggerList = ({ vloggers, fetchVlogger, updateVlogger }) => {
 	if(!vloggers) return <div></div>
 	return(
