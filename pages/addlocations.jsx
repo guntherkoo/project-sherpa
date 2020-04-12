@@ -89,7 +89,7 @@ class AddLocations extends Component {
 
 	handleSubmit = ({ text, center, place_type }, map) => {
 		map.jumpTo({center, zoom: (place_type[0] === "poi" ? 15: 12)});
-		Router.push({ pathname:`/addlocations/${this.props.query.location}`, query: {name: text, lng: center[0], lat: center[1]}})
+		Router.push({ pathname:`/addlocations`, query: {name: text, lng: center[0], lat: center[1]}})
 	}
 
 

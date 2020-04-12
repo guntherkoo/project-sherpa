@@ -75,7 +75,7 @@ class AddVideos extends Component {
 	handleSubmit = ({ text, center, place_type }, map) => {
 		// setVideoData({location: input_value});
 		map.jumpTo({center, zoom: (place_type[0] === "poi" ? 15: 12)});
-		Router.push({ pathname:'/addvideos/', query: {name: text, lng: center[0], lat: center[1]}})
+		Router.push({ pathname:`/addvideos`, query: {location: this.props.query.location, name: text, lng: center[0], lat: center[1]}})
 	}
 
 	componentDidMount() {
