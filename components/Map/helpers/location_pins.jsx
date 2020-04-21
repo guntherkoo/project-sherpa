@@ -25,6 +25,7 @@ const LocationPins = ({queryCoords, locationPins, hoverPin, pinClick }) => {
                   }}
                   onMouseEnter={(e)=> {
                     if(e) hoverPin(pin)
+                      console.log(pin)
                   } }
                   onMouseLeave={(e) => {
                     if(e) hoverPin(null)

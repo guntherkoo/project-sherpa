@@ -12,8 +12,8 @@ import locations from '../dummy_data/locations.json';
 class VideoPlayer extends Component {
 
 	activePin( location) {
-		if(this.props.pin_id !== location.id) {
-			this.props.setActivePin(location.id);
+		if(this.props.pin_id.id !== location.id) {
+			this.props.setActivePin(location);
 			this.props.map.flyTo({
 				center: location.data.business.coordinates,
 				zoom: 15
