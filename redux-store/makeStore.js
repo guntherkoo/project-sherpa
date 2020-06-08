@@ -19,15 +19,13 @@ export default function initializeStore(initial_state = {}) {
 	const createStoreWithMiddleware = composeWithDevTools(applyMiddleware(...middlewares))(createStore);
 
 	initial_state = {
-		tap: false,
-		count: 0
+		// progress: 0,
+		// location: {
+		// 	id:0
+		// },
+		// playing: false,
+		// content: null
 	}
-
-	// return createStore(
-	// 	reducer,
-	// 	initial_state,
-	// 	composeWithDevTools(applyMiddleware(apiMiddleware))
-	// )
 
 	const store = createStoreWithMiddleware(reducer, initial_state);
 

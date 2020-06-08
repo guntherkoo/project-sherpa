@@ -1,0 +1,51 @@
+.vlog_container {
+	position: absolute;
+	left: 3%;
+    top: 45%;
+    transform: translateY(-50%);
+	max-height: 79%;
+	width: 30%;
+	background: rgba(245,245,245, 0.8);
+	min-width: 300px;
+	max-width: 380px;
+	border-radius: 5px;
+
+	&-video {
+		position: relative;
+		width: 100%;
+		height: 0;
+		padding-bottom: 56%;
+	}
+
+	&-vlogger {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		padding: 10px 0;
+
+		img {
+			width: 20%;
+			border-radius: 50%;
+			margin: 0 20px;
+		}
+	}
+
+	&-locations {
+		width: 100%;
+		overflow-y: scroll;
+	    max-height: 40vh;
+	    border-radius: 0px 0px 5px 5px;
+
+		.location_details {
+			position: relative;
+			padding: 15px;
+			cursor: pointer;
+			background: #fff;
+			border-top: solid 2px #f5f5f5;
+
+			&:first-of-type {
+				border-top: none;
+			}
+		}
+	}
+}

@@ -1,0 +1,33 @@
+.Cities {
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
+
+
+	.City {
+		// display: flex;
+		// flex-direction: column;
+		// flex-basis: 100%;
+	    border-bottom: 1px #E5E4E5 solid;
+	    transition: .3s;
+
+	    &:hover {
+	    	background-color: #E5E4E5;
+	    }
+
+		a {
+			display: flex;
+			flex-direction: row;
+			padding: 50px 20px;
+			cursor: pointer;
+		}
+		h1 {
+			align-self: center;
+			    justify-self: center;
+			    text-align: center;
+			    margin: 0 auto;
+		}
+	}
+}

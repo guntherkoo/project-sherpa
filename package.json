@@ -6,9 +6,12 @@
     "scripts": {
         "dev": "node server.js",
         "build": "next build",
-        "now-build": "next build"
+        "now-build": "next build",
+        "lint": "xo"
     },
     "dependencies": {
+        "@mapbox/mapbox-gl-geocoder": "^4.4.1",
+        "@turf/turf": "^5.1.6",
         "@zeit/next-bundle-analyzer": "^0.1.2",
         "@zeit/next-css": "^1.0.1",
         "acorn": "^6.1.1",
@@ -17,15 +20,22 @@
         "classnames": "^2.2.6",
         "classnames-loader": "^2.1.0",
         "compression": "^1.7.4",
+        "core-js": "^2.6.10",
         "cross-fetch": "^3.0.3",
+        "dotenv": "^8.0.0",
+        "dotenv-webpack": "^1.7.0",
         "express": "^4.16.4",
+        "firebase": "^7.6.2",
         "isomorphic-unfetch": "^3.0.0",
-        "next": "^8.0.0",
+        "mapbox-gl": "^1.8.1",
+        "next": "^9.3.4-canary.4",
         "next-compose": "0.0.2",
         "next-routes": "^1.4.2",
         "normalize-scss": "^7.0.1",
         "react": "^16.7.0",
         "react-dom": "^16.7.0",
+        "react-mapbox-gl": "^4.8.2",
+        "react-player": "^1.11.1",
         "react-redux": "^7.0.3",
         "redux": "^4.0.1",
         "redux-api-middleware": "^3.0.1",
@@ -38,7 +48,97 @@
         "babel-loader": "^8.0.4",
         "babel-plugin-inline-react-svg": "^1.0.1",
         "babel-plugin-module-resolver": "^3.1.1",
+        "eslint-config-xo-nextjs": "1.4.0",
+        "eslint-config-xo-react": "0.19.0",
+        "eslint-plugin-react": "7.12.4",
+        "eslint-plugin-react-hooks": "1.5.1",
         "lodash-webpack-plugin": "^0.11.5",
-        "node-sass": "^4.12.0"
+        "node-sass": "^4.12.0",
+        "xo": "0.24.0",
+        "xo-loader": "0.8.0"
+    },
+    "eslintConfig": {
+        "extends": [
+            "xo",
+            "xo-nextjs"
+        ]
+    },
+    "xo": {
+        "extends": "xo-nextjs",
+        "parser": "babel-eslint",
+        "env": {
+            "node": true,
+            "es6": true,
+            "browser": true
+        },
+        "globals": [
+            "window",
+            "document"
+        ],
+        "ignores": [
+            "static/scripts/**",
+            "client/**",
+            "**/rcom-common-ui/**",
+            ".storybook/**"
+        ],
+        "filename": "",
+        "rules": {
+            "properties": "never",
+            "ignoreDestructuring": true,
+            "camelcase": 0,
+            "comma-dangle": 0,
+            "no-multiple-empty-lines": 0,
+            "no-multi-str": 0,
+            "object-curly-spacing": 0,
+            "no-warning-comments": 0,
+            "capitalized-comments": 0,
+            "spaced-comment": 0,
+            "quote-props": 0,
+            "unicorn/regex-shorthand": 0,
+            "padded-blocks": 0,
+            "padding-line-between-statements": 0,
+            "valid-jsdoc": 0,
+            "max-params": 0,
+            "new-cap": 0,
+            "radix": 0,
+            "no-prototype-builtins": 0,
+            "no-return-assign": 0,
+            "no-unused-vars": 1,
+            "no-trailing-spaces": 0,
+            "no-negated-condition": 0,
+            "no-mixed-operators": 0,
+            "lines-between-class-members": 0,
+            "unicorn/explicit-length-check": 0,
+            "unicorn/no-console-spaces": 0,
+            "unicorn/prefer-add-event-listener": 0,
+            "unicorn/no-process-exit": 1,
+            "unicorn/import-index": 0,
+            "prefer-destructuring": 0,
+            "guard-for-in": 0,
+            "space-unary-ops": 0,
+            "space-infix-ops": 0,
+            "unicorn/filename-case": 0,
+            "import/order": 0,
+            "import/no-unassigned-import": 0,
+            "import/no-unresolved": 0,
+            "import/no-extraneous-dependencies": 0,
+            "import/extensions": 0,
+            "jsx-quotes": [
+                2,
+                "prefer-single"
+            ],
+            "react/no-danger": 0,
+            "react/no-array-index-key": 0,
+            "react/jsx-no-target-blank": 0,
+            "react/jsx-tag-spacing": 0,
+            "react/jsx-no-bind": 0,
+            "react/self-closing-comp": 1,
+            "react/react-in-jsx-scope": 0,
+            "react/require-default-props": 0,
+            "react/no-unused-prop-types": 1,
+            "react/no-access-state-in-setstate": 0,
+            "react/jsx-fragments": 0,
+            "react/jsx-sort-props": 0
+        }
     }
 }

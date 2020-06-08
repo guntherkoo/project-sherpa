@@ -1,0 +1,7 @@
+.progress_stage {
+	display: none;
+
+	&.active {
+		display: block;
+	}
+}

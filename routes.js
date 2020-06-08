@@ -1,7 +1,11 @@
 const routes = require('next-routes')()
-	.add('App', '/', 'Index')
-	// .add('about', '/about', 'about')
-	//.add('/:noname/:lang(en|es)/:wow+', 'complex')
-	//.add({name: 'beta', pattern: '/v3', page: 'v3'})
+	.add('App', '/', 'index')
+	.add({name: 'city', pattern:'/p/:city', page: 'index'})
+	.add({name: 'vlogger', pattern:'/p/:city/:vlogger', page: 'index'})
+	.add({name: 'vlog', pattern:'/p/:city/:vlogger/:vlog', page: 'index'})
+	.add({name: 'addlocations', pattern: '/addlocations', page: 'addlocations'})
+	.add({name: 'addvloggers', pattern: '/addvloggers', page: 'addvloggers'})
+	.add({name: 'addvideos', pattern: '/addvideos', page: 'addvideos'})
+	.add('addvideos/:location', '/addvideos/:location', 'addvideos')
 
 module.exports = routes;

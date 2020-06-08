@@ -1,27 +1,22 @@
 import { Type } from '../actions';
+import { combineReducers } from 'redux';
+import mapReducer from '../map/map.reducer';
+import geocoderReducer from '../geocoder/geocoder.reducer';
+import vloggersReducer from '../vloggers/vloggers.reducer';
+import locationsReducer from '../locations/locations.reducer';
+import videoReducer from '../video/video.reducer';
+import citiesReducer from '../cities/cities.reducer';
+
 
 // REDUCERS
-export default function reducer(state = {}, action) {
-	switch (action.type) {
-		case Type.TOGGLE:
-			return  {
-				...state,
-				tap: !state.tap
-			}
 
-		case Type.INCREMENT:
-			return {
-				...state,
-				count: state.count + 1
-			}
-			
-		case Type.DECREMENT:
-			return {
-				...state,
-				count: state.count - 1
-			}
+const allReducers = combineReducers({
+	map: mapReducer,
+	video: videoReducer,
+	geocoder: geocoderReducer,
+	vloggers: vloggersReducer,
+	locations: locationsReducer,
+	cities: citiesReducer
+})
 
-		default:
-			return state
-	}
-}
+export default allReducers;

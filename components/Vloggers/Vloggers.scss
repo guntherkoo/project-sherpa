@@ -1,0 +1,44 @@
+.Vloggers {
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
+
+
+	.Vlogger {
+		// display: flex;
+		// flex-direction: column;
+		// flex-basis: 100%;
+	    border-bottom: 1px #E5E4E5 solid;
+	    transition: .3s;
+
+	    &:hover {
+	    	background-color: #E5E4E5;
+	    }
+
+		a {
+			display: flex;
+			flex-direction: row;
+			padding: 10px 20px;
+			cursor: pointer;
+		}
+		.profile-pic {
+			background-size: contain;
+			border-radius: 50%;
+			font-size: 14px;
+		    height: 60px;
+		    width: 60px;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    align-self: center;
+		}
+		h1 {
+			align-self: center;
+			    justify-self: center;
+			    text-align: center;
+			    margin: 0 auto;
+		}
+	}
+}

@@ -1,7 +1,11 @@
 const { LoaderOptionsPlugin } = require('webpack');
 const compose = require('next-compose');
 const withSass = require('@zeit/next-sass');
+const withCSS = require('@zeit/next-css');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const { parsed: localEnv } = require('dotenv').config()
+const Dotenv = require('dotenv-webpack');
+const path = require('path');
 
 const sass = {
 	cssModules: true,
@@ -11,17 +15,21 @@ const sass = {
 	},
 };
 
-// const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = Object.assign(
 	compose([
+		[withCSS],
 		[withSass, sass],
 		{
 			webpack: (config, options) => {
 				config.plugins.push(new LodashModuleReplacementPlugin({
 					shorthands: true,
 				}));
-
+				config.plugins.push(new Dotenv({
+					path: path.join(__dirname, '.env'),
+					systemvars: true
+				}));
 				config.module.rules.unshift({
 					test: /\.scss$/,
 					use: ['classnames-loader'],
@@ -42,3 +50,5 @@ module.exports = Object.assign(
 		// },
 	}
 );
+
+
